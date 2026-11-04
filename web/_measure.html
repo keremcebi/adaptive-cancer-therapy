@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EvoDose — in-silico adaptive therapy design</title>
+<link rel="stylesheet" href="styles.css?v=13">
+</head>
+<body>
+<nav class="decknav">
+  <span class="brand">EvoDose</span>
+  <div class="dots" id="dots" role="tablist" aria-label="Slides"></div>
+  <span class="navright">
+    <span class="pag">
+      <button id="prevSl" aria-label="Previous slide">‹</button>
+      <span id="slCount">1 / 1</span>
+      <button id="nextSl" aria-label="Next slide">›</button>
+    </span>
+    <label class="patpick">Patient
+      <select id="patient"></select>
+    </label>
+  </span>
+</nav>
+
+<main>
+  <!-- COVER -->
+  <section class="slide cover">
+    <p class="act">An in-silico story in six acts</p>
+    <h1>Can pausing treatment<br>beat never stopping?</h1>
+    <p class="deck">EvoDose is an AI experiment on prostate-cancer hormone therapy:
+      a two-population tumor model fitted to real-style PSA histories, and a Meta Muse Agent
+      that designs pause/restart dosing rules to outlast the standard schedule.</p>
+    <p class="scrollcue">Scroll to begin ↓</p>
+    <p class="disclaimer"><strong>Research tool only — not medical advice.</strong>
+      Everything here is simulated. Nothing on this page is a treatment recommendation —
+      do not change any therapy because of it.</p>
+  </section>
+
+  <!-- STORY 1 -->
+  <section class="slide story">
+    <p class="act">Act I · The dilemma</p>
+    <h2>Hormone therapy works — until it doesn't.</h2>
+    <p>Continuous hormone therapy suppresses the tumor, but the cancer adapts and
+      resistance grows. Intermittent therapy inserts <em>drug holidays</em> that give
+      patients a break — yet the standard rule for when to pause and restart
+      (stop at 50% below baseline, restart at baseline) is a fixed recipe, the same
+      for every patient.</p>
+    <p class="why"><strong>Why it matters:</strong> pausing at the wrong moment wastes
+      the holiday; pausing at the right one may keep the tumor controlled longer
+      while cutting total drug exposure.</p>
+    <div class="cellstage">
+      <svg id="act1tumor" viewBox="0 0 420 260" role="img" aria-label="Animated tumor: drug kills sensitive green cells while resistant red cells spread"></svg>
+      <p class="cellphase" id="act1phase"></p>
+    </div>
+  </section>
+
+  <!-- SLIDE 1: fit -->
+  <section class="slide">
+    <p class="act">Scene 01 · Evidence</p>
+    <h2>First, can we predict this patient's PSA?</h2>
+    <p class="hint" id="fitHint"></p>
+    <div class="chartwrap"><canvas id="fitChart" width="1200" height="300"></canvas></div>
+    <div class="legend">
+      <span><i class="dot on"></i>reading, on drug</span>
+      <span><i class="dot off"></i>reading, off drug</span>
+      <span><i class="line med"></i>model median</span>
+      <span><i class="band"></i>90% ensemble band</span>
+      <span><i class="line split"></i>fit / held-out split</span>
+    </div>
+    <dl class="stats" id="fitStats"></dl>
+    <p class="hint">We fit on the first 60% of the history and predict the rest —
+      the held-out points right of the dashed line are the honesty test.</p>
+  </section>
+
+  <!-- STORY 2 -->
+  <section class="slide story">
+    <p class="act">Act II · The hidden enemy</p>
+    <h2>Two cell populations, one blood test.</h2>
+    <p>The model tracks drug-sensitive cells (S), which the drug kills, and resistant
+      cells (R), which it can't. They compete for room to grow — and the PSA reading
+      is just their sum, <em>S + R</em>. No blood test can see R directly. The fit
+      uses an ensemble of 200 parameter sets, and the widest uncertainty is exactly
+      where you'd expect: the hidden initial resistant fraction.</p>
+    <p class="why"><strong>Why it matters:</strong> every dosing decision is made
+      half-blind. The model infers the invisible resistant population from the PSA
+      curve plus the on/off schedule — and carries its uncertainty along.</p>
+  </section>
+
+  <!-- SLIDE 2: sim -->
+  <section class="slide">
+    <p class="act">Scene 02 · The race</p>
+    <h2>Three rules, one tumor. Watch the red take over.</h2>
+    <p class="hint">Same fitted tumor under three dosing rules. Green cells are
+      drug-sensitive, red cells are resistant. Play all three forward and see which
+      controls longest.</p>
+    <div class="simcontrols">
+      <button id="playBtn">Pause</button>
+      <button id="restartBtn">Restart</button>
+      <label>Speed
+        <select id="speed">
+          <option value="4">4 wk/s</option>
+          <option value="12" selected>12 wk/s</option>
+          <option value="30">30 wk/s</option>
+        </select>
+      </label>
+      <span id="simError" class="simerror"></span>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <h3>Continuous treatment</h3>
+        <p class="ruletag">drug always ON · the never-stop reference</p>
+        <div class="dish3d" id="simCont" role="img" aria-label="Simulated tumor under continuous treatment"></div>
+        <div class="meters">
+          <span>week <b id="wkCont">0</b></span>
+          <span>weeks controlled <b id="ctlCont">0</b></span>
+          <span id="drugCont" class="pill on">drug ON</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Standard adaptive rule</h3>
+        <p class="ruletag">stop at 50% of baseline · restart at baseline</p>
+        <div class="dish3d" id="simStd" role="img" aria-label="Simulated tumor under the standard rule"></div>
+        <div class="meters">
+          <span>week <b id="wkStd">0</b></span>
+          <span>weeks controlled <b id="ctlStd">0</b></span>
+          <span id="drugStd" class="pill on">drug ON</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Meta Muse Agent rule <span id="agentName" class="agentname"></span></h3>
+        <p class="ruleTag" id="agentTag"></p>
+        <div class="dish3d" id="simAgent" role="img" aria-label="Simulated tumor under the Meta Muse Agent rule"></div>
+        <div class="meters">
+          <span>week <b id="wkAgent">0</b></span>
+          <span>weeks controlled <b id="ctlAgent">0</b></span>
+          <span id="drugAgent" class="pill on">drug ON</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY 3 -->
+  <section class="slide story">
+    <p class="act">Act III · The twist</p>
+    <h2>Why stopping can beat never stopping.</h2>
+    <p>Killing every sensitive cell sounds thorough — but it clears the field for the
+      resistant cells, a phenomenon called <em>competitive release</em>. A well-timed
+      holiday keeps enough sensitive cells alive to crowd out the resistant ones,
+      so the tumor stays controllable for longer.</p>
+    <p class="why"><strong>Why it matters:</strong> this is the whole bet behind
+      adaptive therapy — less drug, longer control — but only if the pauses are timed
+      to the tumor's dynamics, not to a fixed recipe.</p>
+  </section>
+
+  <!-- SLIDE 3: Meta Muse Agent -->
+  <section class="slide">
+    <p class="act">Scene 03 · The Meta Muse Agent</p>
+    <h2>An AI proposes dosing rules. Only improvements survive.</h2>
+    <p class="hint">Up to 10 iterations × 3 candidates per patient. Each rule is scored
+      on 200 simulated tumor variants — median time to progression, worst-decile time
+      to progression (TTP), and % time on drug. Objective:
+      <code>median TTP + 0.5 × worst-decile TTP − 0.2 × % weeks on drug</code>.
+      <button id="replayBtn">Replay log</button></p>
+    <div class="agentgrid">
+      <div>
+        <h3>Best rule (readable code)</h3>
+        <pre id="bestCode"></pre>
+        <h3>What it means</h3>
+        <p id="bestExpl"></p>
+        <h3>This patient: Meta Muse Agent vs baselines</h3>
+        <table id="compareTable"></table>
+      </div>
+      <div>
+        <h3>Live log</h3>
+        <ol id="agentLog" class="log"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY 4 -->
+  <section class="slide story">
+    <p class="act">Act IV · The skeptic</p>
+    <h2>One patient could be luck. What about all of them?</h2>
+    <p>A rule that wins on a single fitted tumor may be overfit to that tumor's quirks.
+      So every candidate is scored across 200 parameter variants per patient — and the
+      objective explicitly rewards the <em>worst decile</em>, not just the median.
+      Then the whole experiment repeats for every patient in the cohort.</p>
+    <p class="why"><strong>Why it matters:</strong> optimizing the worst case is what
+      separates a robust dosing rule from a lucky one. The table on the next slide is
+      the verdict.</p>
+  </section>
+
+  <!-- SLIDE 4: summary -->
+  <section class="slide">
+    <p class="act">Scene 04 · The verdict</p>
+    <h2>Meta Muse Agent rule vs standard rule, every patient.</h2>
+    <p class="hint">Median and worst-decile time to progression (TTP, in weeks) plus drug
+      burden — the share of simulated weeks on treatment — across each patient's
+      200-variant ensemble. TTP is capped at 260 weeks.</p>
+    <table id="summaryTable"></table>
+    <p class="hint" id="overallLine"></p>
+  </section>
+
+  <!-- STORY 5 -->
+  <section class="slide story">
+    <p class="act">Act V · Seeing is believing</p>
+    <h2>Five more ways to look at the same tumor.</h2>
+    <p>Uncertainty as a landscape. Clonal volumes flowing through time. A radar of
+      trade-offs, the Meta Muse Agent's search tree, and core samples of invading resistance.
+      Each view answers a different question about the result you just saw.</p>
+    <p class="why"><strong>Why it matters:</strong> a single number (median TTP) can
+      hide a fragile win. These views show <em>how</em> each rule wins — or fails.</p>
+  </section>
+
+  <!-- SLIDE 5: gallery -->
+  <section class="slide">
+    <p class="act">Scene 05 · Gallery</p>
+    <h2>Five more ways to see it.</h2>
+    <p class="hint">All views follow the selected patient. Drag the 3D terrain to orbit it,
+      scroll to zoom. Green is drug-sensitive, red is resistant throughout.</p>
+    <div class="gallery">
+      <div class="viz wide">
+        <h3>Uncertainty terrain</h3>
+        <p class="ruletag">The 90% ensemble band as a landscape, the median fit as its ridge,
+          real readings as floating points. The held-out region lies right of the split wall.</p>
+        <div id="terrain" class="gl" role="img" aria-label="3D PSA uncertainty terrain"></div>
+      </div>
+      <div class="viz wide">
+        <h3>Clonal rivers</h3>
+        <p class="ruletag">Sensitive (green) and resistant (red) volumes flowing through time
+          under each rule, on a shared scale. Shaded spans are weeks on drug. Corner tags
+          show time to progression (TTP) and % of weeks on drug.</p>
+        <canvas id="river" height="230"></canvas>
+      </div>
+      <div class="viz">
+        <h3>Rule radar</h3>
+        <p class="ruletag">Five-way trade-off per rule, normalized per patient.
+        TTP = time to progression; drug-free % = share of weeks off drug;
+        control per drug = median TTP per point of drug exposure.</p>
+        <canvas id="radar" height="220"></canvas>
+      </div>
+      <div class="viz">
+        <h3>Meta Muse Agent search tree</h3>
+        <p class="ruletag">Proposals in order, grouped by rule family. Gold path = best-so-far
+          lineage. Click any node to read its rule.</p>
+        <svg id="tree" role="img" aria-label="Meta Muse Agent search tree"></svg>
+        <pre id="treeCode">Click a node to read its rule.</pre>
+      </div>
+      <div class="viz spanall">
+        <h3>Core samples</h3>
+        <p class="ruletag">One row of cells per week, top to bottom — watch red resistance
+          invade each rule's tumor. White line marks progression.</p>
+        <canvas id="barcode" height="190"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: 3D -->
+  <section class="slide">
+    <p class="act">Scene 06 · Under the microscope</p>
+    <h2>Twelve ways to watch one tumor.</h2>
+    <p class="hint">The same simulated tumor as the race, rendered twelve different ways.
+      Follows the selected patient and the live sim clock — press play above and watch here.
+      Drag to orbit, scroll to zoom. The last six views look through a microscope.</p>
+    <div class="v3controls">
+      <div id="v3views" class="viewbtns"></div>
+      <label>Rule
+        <select id="v3rule"></select>
+      </label>
+    </div>
+    <div id="stage3d" class="stage3d" role="img" aria-label="3D tumor visualization"></div>
+    <p class="hint" id="v3caption"></p>
+  </section>
+
+  <!-- METHODS / FIN -->
+  <section class="slide story">
+    <p class="act">Coda · How it was made</p>
+    <h2>Methods in brief.</h2>
+    <ul class="methods">
+      <li>Model: weekly Lotka–Volterra competition. Sensitive cells S and resistant cells R;
+        drug kills S only; PSA = S + R. Six fitted parameters per patient.</li>
+      <li>Fit on the first 60% of each patient's PSA history (differential evolution),
+        then 200 Metropolis samples for uncertainty — widest on the hidden initial
+        resistant fraction and the two competition strengths.</li>
+      <li>Validation predicts the held-out 40% with the real on/off schedule; reported
+        as log-RMSE (prediction error on the log scale) and MAE
+        (mean absolute error, in ng/mL) per patient and overall.</li>
+      <li>Baselines: continuous treatment, and stop-at-50% / restart-at-baseline.</li>
+      <li>Meta Muse Agent: Muse Spark via the Meta Model API when <code>META_API_KEY</code> is set,
+        otherwise a built-in evolutionary search over new rule structures
+        (slope triggers, minimum dwell times, hysteresis, holiday schedules).</li>
+      <li>Data shown is a synthetic Bruchovsky-style surrogate (same columns as the trial
+        extract). Drop in the real CSV at <code>data/bruchovsky_psa.csv</code> and re-run
+        <code>python3 src/run_pipeline.py</code> — see README.</li>
+    </ul>
+    <p class="fin">EvoDose · in-silico research prototype · not medical advice.</p>
+  </section>
+</main>
+
+<script src="vendor/three.min.js?v=12"></script>
+<script src="app.js?v=14"></script>
+<script src="viz.js?v=14"></script>
+<script src="viz3d.js?v=24"></script>
+<script>
+// Slide deck: horizontal paging with prev/next, dots, keys, and edge-aware wheel.
+(function () {
+  var main = document.querySelector("main");
+  var slides = Array.prototype.slice.call(main.querySelectorAll(".slide"));
+  var count = document.getElementById("slCount");
+  var dots = document.getElementById("dots");
+  var cur = 0, locked = false;
+
+  slides.forEach(function (s, i) {
+    var b = document.createElement("button");
+    var act = s.querySelector(".act");
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-label", "Slide " + (i + 1) + (act ? ": " + act.textContent : ""));
+    b.addEventListener("click", function () { go(i); });
+    dots.appendChild(b);
+  });
+  var dotBtns = Array.prototype.slice.call(dots.querySelectorAll("button"));
+
+  function render() {
+    count.textContent = (cur + 1) + " / " + slides.length;
+    dotBtns.forEach(function (b, i) { b.classList.toggle("on", i === cur); });
+  }
+  function go(i) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    main.scrollTo({ left: cur * main.clientWidth, behavior: "smooth" });
+    render();
+  }
+  var ticking = false;
+  main.addEventListener("scroll", function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      cur = Math.max(0, Math.min(slides.length - 1,
+        Math.round(main.scrollLeft / main.clientWidth)));
+      render();
+      ticking = false;
+    });
+  }, { passive: true });
+
+  document.getElementById("prevSl").addEventListener("click", function () { go(cur - 1); });
+  document.getElementById("nextSl").addEventListener("click", function () { go(cur + 1); });
+
+  document.addEventListener("keydown", function (e) {
+    var tag = (document.activeElement && document.activeElement.tagName) || "";
+    if (tag === "SELECT" || tag === "INPUT" || tag === "TEXTAREA") return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === "PageDown") go(cur + 1);
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "PageUp") go(cur - 1);
+    else if (e.key === "Home") go(0);
+    else if (e.key === "End") go(slides.length - 1);
+  });
+
+  // Vertical wheel moves between slides only at a slide's vertical edge,
+  // so tall slides still scroll normally. Trackpad horizontal swipes pass through.
+  main.addEventListener("wheel", function (e) {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    var s = slides[cur];
+    var down = e.deltaY > 0;
+    var blocked = down
+      ? s.scrollHeight - s.scrollTop - s.clientHeight <= 4
+      : s.scrollTop <= 4;
+    if (!blocked) return;
+    e.preventDefault();
+    if (locked) return;
+    locked = true;
+    setTimeout(function () { locked = false; }, 700);
+    go(cur + (down ? 1 : -1));
+  }, { passive: false });
+
+  render();
+})();
+
+// Fit every slide to the viewport height: shrink content just enough that no
+// slide ever needs its own vertical scrollbar. Never upscales.
+function fitSlides() {
+  var slides = Array.prototype.slice.call(document.querySelectorAll("main .slide"));
+  if (!slides.length) return;
+  // Note: scrollHeight ignores zoom, so measure once at zoom 1 and set once.
+  // (Iterating would re-shrink every pass and run away to the floor.)
+  slides.forEach(function (s) { s.style.zoom = 1; });
+  void document.body.offsetHeight; // settle layout before measuring
+  slides.forEach(function (s) {
+    var avail = s.clientHeight, need = s.scrollHeight;
+    s.style.zoom = need > avail + 1 ? Math.max(0.3, avail / need) : 1;
+  });
+}
+window.fitSlides = fitSlides;
+window.addEventListener("resize", fitSlides);
+fitSlides();
+</script>
+<script>
+// Act I tumor vignette: drug kills green (sensitive) cells, red (resistant) take over.
+(function () {
+  var svg = document.getElementById("act1tumor");
+  if (!svg) return;
+  var NS = "http://www.w3.org/2000/svg";
+  var CX = 210, CY = 136, R = 96;
+  var dish = document.createElementNS(NS, "circle");
+  dish.setAttribute("cx", CX); dish.setAttribute("cy", CY); dish.setAttribute("r", R);
+  dish.setAttribute("fill", "none"); dish.setAttribute("stroke", "#2c3230");
+  dish.setAttribute("stroke-width", "2");
+  svg.appendChild(dish);
+  var phase = document.getElementById("act1phase");
+  var seed = 7;
+  var rnd = function () { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+  function spawn(type) {
+    var a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * (R - 16);
+    return { x: CX + Math.cos(a) * d, y: CY + Math.sin(a) * d * 0.92,
+      vx: (rnd() - 0.5) * 0.3, vy: (rnd() - 0.5) * 0.3,
+      r: 5 + rnd() * 4, type: type, grow: 1 };
+  }
+  var cells = [];
+  for (var i = 0; i < 38; i++) cells.push(spawn("s"));
+  for (var j = 0; j < 6; j++) cells.push(spawn("r"));
+  var nodes = cells.map(function (c) {
+    var el = document.createElementNS(NS, "circle");
+    el.setAttribute("fill", c.type === "s" ? "#35c163" : "#e05252");
+    el.setAttribute("opacity", "0.9");
+    svg.appendChild(el);
+    return el;
+  });
+  var T_GROW = 3, T_DRUG = 7.5, T_END = 11;
+  var t0 = performance.now(), running = true, lastMsg = "";
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function say(html) {
+    if (html !== lastMsg) { phase.innerHTML = html; lastMsg = html; }
+  }
+  function frame(now) {
+    if (!running) return;
+    requestAnimationFrame(frame);
+    var t = ((now - t0) / 1000) % T_END;
+    var drug = t >= T_GROW && t < T_DRUG;
+    var holiday = t >= T_DRUG;
+    say(!drug && !holiday
+      ? "Tumor growing — sensitive (green) and resistant (red) cells compete"
+      : drug
+      ? '<span class="pill on">DRUG ON</span> sensitive cells die, resistant cells spread'
+      : '<span class="pill off">HOLIDAY</span> sensitive cells regrow and crowd the resistant ones');
+    cells.forEach(function (c, k) {
+      c.vx += (rnd() - 0.5) * 0.06; c.vy += (rnd() - 0.5) * 0.06;
+      c.vx *= 0.98; c.vy *= 0.98;
+      c.x += c.vx; c.y += c.vy;
+      var dx = c.x - CX, dy = (c.y - CY) / 0.92;
+      var dist = Math.sqrt(dx * dx + dy * dy), max = R - 8;
+      if (dist > max) {
+        c.x = CX + dx / dist * max; c.y = CY + dy / dist * max * 0.92;
+        c.vx *= -0.5; c.vy *= -0.5;
+      }
+      var target = c.type === "s" ? (drug ? 0 : holiday ? 0.85 : 1)
+                                  : (drug ? 1.5 : holiday ? 1.25 : 1.1);
+      c.grow += (target - c.grow) * 0.04;
+      var n = nodes[k];
+      n.setAttribute("cx", c.x.toFixed(1)); n.setAttribute("cy", c.y.toFixed(1));
+      n.setAttribute("r", Math.max(0.1, c.r * c.grow).toFixed(1));
+      n.setAttribute("opacity", c.grow < 0.05 ? "0" : "0.9");
+    });
+  }
+  if (reduced) {
+    cells.forEach(function (c, k) {
+      var n = nodes[k];
+      n.setAttribute("cx", c.x); n.setAttribute("cy", c.y); n.setAttribute("r", c.r);
+    });
+    phase.textContent = "Sensitive (green) and resistant (red) cells share the tumor.";
+  } else {
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        var vis = es[0].isIntersecting;
+        if (vis && !running) { running = true; t0 = performance.now(); requestAnimationFrame(frame); }
+        else running = vis;
+      }).observe(svg);
+    }
+    requestAnimationFrame(frame);
+  }
+})();
+</script>
+
+<script>
+window.addEventListener("load", function () {
+  setTimeout(function () {
+    document.querySelectorAll("main .slide").forEach(function (s) { s.style.zoom = 1; });
+    void document.body.offsetHeight;
+    setTimeout(function () {
+      var out = [];
+      document.querySelectorAll("main .slide").forEach(function (s, i) {
+        var act = s.querySelector(".act");
+        out.push("SLIDE " + i + " [" + (act ? act.textContent.trim() : "?") + "] client=" + s.clientHeight + " scroll=" + s.scrollHeight);
+      });
+      var pre = document.createElement("pre");
+      pre.id = "measure";
+      pre.textContent = out.join("\n");
+      document.body.appendChild(pre);
+    }, 600);
+  }, 2500);
+});
+</script>
+</body>
+</html>

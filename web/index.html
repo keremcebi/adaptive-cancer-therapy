@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adaptive Cancer Therapy — stop and start, instead of always on</title>
+<link rel="stylesheet" href="styles.css?v=23">
+</head>
+<body>
+<nav class="decknav">
+  <span class="brand">Adaptive Cancer Therapy</span>
+  <div class="dots" id="dots" role="tablist" aria-label="Slides"></div>
+  <span class="navright">
+    <span class="pag">
+      <button id="prevSl" aria-label="Previous slide">‹</button>
+      <span id="slCount">1 / 1</span>
+      <button id="nextSl" aria-label="Next slide">›</button>
+    </span>
+    <label class="patpick">Patient
+      <select id="patient"></select>
+    </label>
+  </span>
+</nav>
+
+<main>
+  <!-- STORY 1 -->
+  <section class="slide story">
+    <p class="act">1 · The problem</p>
+    <h2>The drug works — then it stops working as well.</h2>
+    <p>The hormone drug can shrink prostate cancer. But if the drug never stops, some
+      cancer cells learn to live with it. Those hard-to-kill cells then grow.
+      Then cancer becomes non-responsive to treatment. A break from the drug can help.</p>
+    <p class="why"><strong>Why it matters:</strong> a break at the wrong time does not help.
+      A break at the right time gives the patient time off the drug, and the cancer
+      still stays under control.</p>
+  </section>
+
+  <!-- COVER: adaptive cancer therapy, in one paragraph + one animated picture -->
+  <section class="slide cover">
+    <h1 class="covertitle">Adaptive Cancer Therapy</h1>
+    <p class="deck coverpara">In adaptive therapy, the drug is stopped and started,
+      instead of given all the time. This stops drug-resistant cancer cells from
+      taking over, by not wiping out the drug-sensitive cells completely. It means
+      less drug, a better quality of life, and cancer that takes longer to
+      become drug-resistant.</p>
+    <div class="calwrap">
+      <svg id="calsvg" viewBox="0 0 1080 470" role="img" aria-label="Animated calendar of adaptive therapy: months with drug on in amber and drug off in blue, a blood-test line falling on drug and rising off drug, and green sensitive cells staying alive during breaks"></svg>
+    </div>
+    <p class="disclaimer">For research only — not medical advice.</p>
+  </section>
+
+  <!-- STORY 2 -->
+  <section class="slide story">
+    <p class="act">2 · Why a break can work</p>
+    <h2>Two kinds of cells, one blood test.</h2>
+    <div class="cols">
+      <div class="coltext">
+        <p>The cancer has two kinds of cells. Green cells die when the drug is on. Red cells
+          do not die. The two kinds fight for space to grow. The blood test only shows green
+          plus red, added up. It cannot show the red cells alone. So we try 200 versions of
+          the model for each patient, to show how unsure we are — most of all about how many
+          red cells there were at the start.</p>
+        <p>Here is why a break can help: if the drug kills all green cells, red cells get all
+          the space. On a break, green cells grow back and crowd the red ones out.</p>
+        <p class="why"><strong>Why it matters:</strong> we have to plan drug breaks without
+          being able to see the red cells. The model helps us guess them from the blood-test
+          line and from when the drug was on or off.</p>
+      </div>
+      <div class="cellstage">
+        <canvas id="act1tumor" width="840" height="520" role="img" aria-label="Living cancer picture: drug kills green cells while red cells spread"></canvas>
+        <p class="cellphase" id="act1phase"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE PREDICT -->
+  <section class="slide">
+    <p class="act">3 · Can we trust our guesses?</p>
+    <h2>How we make the guess, step by step.</h2>
+    <p class="hint">We only ever see one number — the blood test, which is green cells plus
+      red cells added together. Here is how we turn that into a prediction.</p>
+    <div class="calwrap">
+      <svg viewBox="0 0 1080 400" role="img" aria-label="Four steps: what we know (blood tests and drug on or off), guess the hidden split into green and red cells by adjusting six things, keep 200 explanations that fit, then run them forward to get a guess and a plausible range">
+        <!-- stage headers -->
+        <g font-family="inherit">
+          <text x="0" y="22" font-size="14" font-weight="700" fill="#f4f4f2">1 · WHAT WE KNOW</text>
+          <text x="280" y="22" font-size="14" font-weight="700" fill="#f4f4f2">2 · GUESS THE HIDDEN SPLIT</text>
+          <text x="560" y="22" font-size="14" font-weight="700" fill="#f4f4f2">3 · KEEP 200 EXPLANATIONS</text>
+          <text x="840" y="22" font-size="14" font-weight="700" fill="#f4f4f2">4 · RUN THEM FORWARD</text>
+
+          <!-- arrows between stages -->
+          <g stroke="#9aa39f" stroke-width="2" fill="none">
+            <path d="M248 190 L268 190 M260 182 L269 190 L260 198"/>
+            <path d="M528 190 L548 190 M540 182 L549 190 L540 198"/>
+            <path d="M808 190 L828 190 M820 182 L829 190 L820 198"/>
+          </g>
+
+          <!-- 1: readings + drug strip -->
+          <g>
+            <polyline points="8,70 38,150 68,168 98,120 128,82 158,140 188,166 218,110 236,84"
+              fill="none" stroke="#34d3bd" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+            <g>
+              <circle cx="8" cy="70" r="4.5" fill="#e8a33d"/><circle cx="38" cy="150" r="4.5" fill="#e8a33d"/>
+              <circle cx="68" cy="168" r="4.5" fill="#0a0a0a" stroke="#5b9cf5" stroke-width="2"/>
+              <circle cx="98" cy="120" r="4.5" fill="#0a0a0a" stroke="#5b9cf5" stroke-width="2"/>
+              <circle cx="128" cy="82" r="4.5" fill="#e8a33d"/><circle cx="158" cy="140" r="4.5" fill="#e8a33d"/>
+              <circle cx="188" cy="166" r="4.5" fill="#0a0a0a" stroke="#5b9cf5" stroke-width="2"/>
+              <circle cx="218" cy="110" r="4.5" fill="#e8a33d"/>
+            </g>
+            <g>
+              <rect x="8" y="196" width="52" height="12" fill="#e8a33d"/>
+              <rect x="60" y="196" width="64" height="12" fill="#2c4a78"/>
+              <rect x="124" y="196" width="52" height="12" fill="#e8a33d"/>
+              <rect x="176" y="196" width="60" height="12" fill="#2c4a78"/>
+            </g>
+            <text x="0" y="238" font-size="12.5" fill="#d9deda">Blood tests over time, and</text>
+            <text x="0" y="256" font-size="12.5" fill="#d9deda">when the drug was on (amber)</text>
+            <text x="0" y="274" font-size="12.5" fill="#d9deda">or off (blue). That is all</text>
+            <text x="0" y="292" font-size="12.5" fill="#d9deda">we ever get to see. We learn</text>
+            <text x="0" y="310" font-size="12.5" fill="#d9deda">from the first 6 of every 10.</text>
+          </g>
+
+          <!-- 2: hidden split + six knobs -->
+          <g>
+            <rect x="280" y="58" width="196" height="26" fill="#2e9e5b"/>
+            <rect x="476" y="58" width="34" height="26" fill="#d64545"/>
+            <text x="291" y="76" font-size="12" font-weight="700" fill="#06130a">green cells</text>
+            <text x="280" y="106" font-size="12.5" fill="#d9deda">First reading, split in two.</text>
+            <text x="280" y="124" font-size="12.5" fill="#ff9a9a">The red share is hidden —</text>
+            <text x="280" y="142" font-size="12.5" fill="#ff9a9a">we have to guess it.</text>
+            <text x="280" y="172" font-size="12.5" font-weight="700" fill="#f4f4f2">We adjust 6 things to fit:</text>
+            <g font-size="12" fill="#9aa39f">
+              <text x="280" y="193">· how fast green cells grow</text>
+              <text x="280" y="212">· how fast red cells grow (slower)</text>
+              <text x="280" y="231">· how hard the drug kills green</text>
+              <text x="280" y="250">· how much red cells crowd green</text>
+              <text x="280" y="269">· how much green cells crowd red</text>
+              <text x="280" y="288">· the hidden red share at the start</text>
+            </g>
+          </g>
+
+          <!-- 3: fan of 200 -->
+          <g stroke="#34d3bd" fill="none" opacity="0.4">
+            <path d="M566 190 C 640 186, 720 120, 796 62"/>
+            <path d="M566 190 C 640 188, 720 150, 796 96"/>
+            <path d="M566 190 C 640 190, 720 176, 796 138"/>
+            <path d="M566 190 C 640 192, 720 192, 796 178"/>
+            <path d="M566 190 C 640 194, 720 208, 796 214"/>
+            <path d="M566 190 C 640 198, 720 238, 796 258"/>
+            <path d="M566 190 C 640 202, 720 268, 796 296"/>
+          </g>
+          <circle cx="566" cy="190" r="5" fill="#34d3bd"/>
+          <g font-size="12.5" fill="#d9deda">
+            <text x="560" y="330">Many different stories fit the</text>
+            <text x="560" y="348">early readings. We keep 200 of</text>
+            <text x="560" y="366">them — they disagree most</text>
+            <text x="560" y="384">about the hidden red cells.</text>
+          </g>
+
+          <!-- 4: band + median -->
+          <g>
+            <path d="M846 84 C 900 74, 960 96, 1072 130 L 1072 218 C 960 196, 900 190, 846 176 Z"
+              fill="rgba(52,211,189,0.18)"/>
+            <path d="M846 130 C 900 122, 960 140, 1072 176" fill="none" stroke="#34d3bd" stroke-width="3.5"/>
+            <circle cx="930" cy="112" r="5" fill="#e8a33d"/>
+            <circle cx="1000" cy="196" r="5" fill="#0a0a0a" stroke="#5b9cf5" stroke-width="2"/>
+            <text x="846" y="252" font-size="12.5" fill="#34d3bd" font-weight="700">teal line = our guess</text>
+            <text x="846" y="272" font-size="12.5" fill="#d9deda">(the middle of the 200 runs)</text>
+            <text x="846" y="298" font-size="12.5" fill="#d9deda">Shaded band = where 90 of</text>
+            <text x="846" y="316" font-size="12.5" fill="#d9deda">the 100 runs fall. Wide band</text>
+            <text x="846" y="334" font-size="12.5" fill="#d9deda">= we are unsure.</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <p class="lesson"><strong>The key point:</strong> we never see the red cells. That is why
+      we keep 200 explanations instead of one — the spread between them is our honesty
+      about what we do not know. Next slide: we check the guess against readings
+      the model never saw.</p>
+  </section>
+
+  <!-- SLIDE 1: fit -->
+  <section class="slide">
+    <p class="act">3 · Can we trust our guesses?</p>
+    <h2>First, can we guess this patient's blood-test result?</h2>
+    <p class="hint" id="fitHint"></p>
+    <div class="chartwrap"><canvas id="fitChart" width="1200" height="420"></canvas></div>
+    <div class="legend">
+      <span><i class="dot on"></i>real reading, on drug</span>
+      <span><i class="dot off"></i>real reading, off drug</span>
+      <span><i class="line med"></i>model guess (test zone only)</span>
+      <span><i class="band"></i>plausible range</span>
+      <span class="misskey"><i class="missring"></i>missed by the range — line shows how far</span>
+    </div>
+    <dl class="stats" id="fitStats"></dl>
+    <p class="hint">How to read it: in the right-hand test zone, a dot on the teal
+      line means a good guess. A red ring and a long line mean a bad miss.</p>
+  </section>
+
+  <!-- SLIDE 2: sim -->
+  <section class="slide">
+    <p class="act">4 · Less drug, same control</p>
+    <h2>Break vs never stopping: less drug, same control.</h2>
+    <p class="hint">Same cancer, two drug plans. Green cells die on the drug.
+      Red cells do not. Press play and see which plan keeps the cancer
+      under control the longest.</p>
+    <div class="simcontrols">
+      <button id="playBtn">Pause</button>
+      <button id="restartBtn">Restart</button>
+      <label>Speed
+        <select id="speed">
+          <option value="4">4 wk/s</option>
+          <option value="12" selected>12 wk/s</option>
+          <option value="30">30 wk/s</option>
+        </select>
+      </label>
+      <span id="simError" class="simerror"></span>
+    </div>
+    <div class="split two">
+      <div class="panel">
+        <h3>Drug always on</h3>
+        <p class="ruletag">never takes a break</p>
+        <div class="dish3d" id="simCont" role="img" aria-label="Simulated tumor under continuous treatment"></div>
+        <div class="meters">
+          <span>week <b id="wkCont">0</b></span>
+          <span>weeks in control <b id="ctlCont">0</b></span>
+          <span id="drugCont" class="pill on">drug ON</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Usual plan</h3>
+        <p class="ruletag">stop when the blood test falls to half · start again when it goes back up</p>
+        <div class="dish3d" id="simStd" role="img" aria-label="Simulated tumor under the standard rule"></div>
+        <div class="meters">
+          <span>week <b id="wkStd">0</b></span>
+          <span>weeks in control <b id="ctlStd">0</b></span>
+          <span id="drugStd" class="pill on">drug ON</span>
+        </div>
+      </div>
+    </div>
+    <div class="legend" aria-label="What the cell colors mean">
+      <span><i class="dot" style="background:#35c163"></i>green cells — the drug can kill them</span>
+      <span><i class="dot" style="background:#e05252"></i>red cells — the drug cannot kill them</span>
+    </div>
+    <p class="lesson"><strong>What to watch:</strong> the break plan uses far less drug.
+      The question is not “which exact rule?” — it is “which patients save the most
+      time off the drug and still stay in control?” That is the next slide.</p>
+  </section>
+
+  <!-- SLIDE 3b: who should pause -->
+  <section class="slide">
+    <p class="act">5 · Who saves the most?</p>
+    <h2>Half the drug, same control — but for who?</h2>
+    <p class="hint" id="selectionIntro">Loading the results…</p>
+    <dl class="stats" id="selectionStats"></dl>
+  </section>
+
+  <!-- SLIDE 3c: who should pause, the patients -->
+  <section class="slide">
+    <p class="act">5 · Who saves the most? — the patients</p>
+    <h2>Patients we think will save the most drug time.</h2>
+    <table id="selectionTable"></table>
+    <p class="hint" id="selectionMethod"></p>
+    <p class="lesson"><strong>Bottom line:</strong> do not give every patient a fancy new plan.
+      Give a break first to the big savers — they get far less drug with the same
+      control. This is still a computer model, not proof in real patients.</p>
+  </section>
+
+  <!-- CORE 6: real life -->
+  <section class="slide story">
+    <p class="act">6 · What this would change in real life</p>
+    <h2>Not longer life. An easier life.</h2>
+    <p><strong>For patients:</strong> far less time on a hard drug — fewer hot flashes,
+      less tiredness, stronger bones — while the cancer stays under control.</p>
+    <p><strong>For doctors:</strong> a test-based reason to say “you should take a break”
+      to one patient, and “you should not” to another, instead of guessing.</p>
+    <p><strong>For researchers:</strong> test the big savers first, so the next real
+      study is smaller, faster, and more likely to give a clear answer.</p>
+    <p class="why"><strong>Honest limit:</strong> today this changes nothing. It is a
+      computer model, not proof in real patients. No one should change treatment
+      because of it. A real study must prove it first.</p>
+  </section>
+
+  <!-- APPENDIX DIVIDER -->
+  <section class="slide story">
+    <p class="act">Appendix · Proof</p>
+    <h2>That is the story. The rest is proof.</h2>
+    <p>Next come the things judges and doctors may ask for: the full table for
+      all patients, more pictures, the 3D cancer, and how we did the work.</p>
+    <p class="why">You do not need the appendix to get the main point:
+      <strong>who you are matters more than the exact break rule.</strong></p>
+  </section>
+
+  <!-- SLIDE 4: summary -->
+  <section class="slide">
+    <p class="act">Appendix A · All patients</p>
+    <h2>All patients: break plan vs drug always on.</h2>
+    <p class="hint">For each patient: how many weeks the cancer stays under control,
+      and how much of the time is spent on the drug. The longest time we show is
+      260 weeks (5 years).</p>
+    <table id="summaryTable"></table>
+    <p class="hint" id="overallLine"></p>
+  </section>
+
+  <!-- SLIDE 5: gallery -->
+  <section class="slide">
+    <p class="act">Appendix B · Picture gallery</p>
+    <h2>Four more ways to see it.</h2>
+    <p class="hint">All pictures show the patient you picked. Drag the 3D hill to turn it,
+      scroll to zoom in. Green = drug can kill it. Red = drug cannot kill it.</p>
+    <div class="gallery">
+      <div class="viz wide">
+        <h3>How unsure are we? (3D hill)</h3>
+        <p class="ruletag">Our best guess is the top line of the hill. The hill shows how
+          wide our guess could be. Dots are real blood test results.</p>
+        <div id="terrain" class="gl" role="img" aria-label="3D blood-test uncertainty terrain"></div>
+      </div>
+      <div class="viz wide">
+        <h3>Green and red rivers</h3>
+        <p class="ruletag">How much green and red cancer there is over time, for each plan.
+          Dark bands are weeks on the drug.</p>
+        <canvas id="river" height="230"></canvas>
+      </div>
+      <div class="viz">
+        <h3>Good and bad sides of each plan</h3>
+        <p class="ruletag">A star shape for each plan. Big is better on every point:
+          control for longer, more time off drug, control per week of drug.</p>
+        <canvas id="radar" height="220"></canvas>
+      </div>
+      <div class="viz spanall">
+        <h3>Thin slices, week by week</h3>
+        <p class="ruletag">One row per week, top to bottom. Watch red take over
+          the cancer. The white line shows when control is lost.</p>
+        <canvas id="barcode" height="190"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: 3D -->
+  <section class="slide">
+    <p class="act">Appendix C · Under the microscope</p>
+    <h2>Twelve ways to watch one cancer.</h2>
+    <p class="hint">The same cancer as in the race, drawn twelve ways. It uses the patient
+      you picked. Press play on the race slide, then watch here. Drag to turn,
+      scroll to zoom in.</p>
+    <div class="v3controls">
+      <div id="v3views" class="viewbtns"></div>
+      <label>Rule
+        <select id="v3rule"></select>
+      </label>
+    </div>
+    <div id="stage3d" class="stage3d" role="img" aria-label="3D tumor visualization"></div>
+    <p class="hint" id="v3caption"></p>
+  </section>
+
+  <!-- METHODS / FIN -->
+  <section class="slide story">
+    <p class="act">Appendix D · How we did it</p>
+    <h2>How we did it, in short.</h2>
+    <ul class="methods">
+      <li>Our model has two kinds of cancer cells: green (drug kills them) and red
+        (drug cannot kill them). They fight for space. blood test = green + red.</li>
+      <li>We teach the model with the first 60% of each patient's blood tests. Then we
+        test it on the last 40% — tests it has never seen. We try 200 versions of the
+        model to show how unsure we are.</li>
+      <li>We compare two plans: drug always on, and the usual break plan
+        (stop when the blood test falls to half, start again when it goes back up).</li>
+      <li>Last, we guess which patients will save the most time off the drug. We use
+        only what we knew early: starting blood test, how fast each kind of cell grows,
+        how low the blood test fell, and how fast it rose on breaks. A patient who would lose
+        control by taking a break is never picked.</li>
+      <li>All of this is a computer model. It is an idea to test in a real study one
+        day — not a treatment plan for any real person.</li>
+    </ul>
+    <p class="fin">EvoDose Select · a research model · not medical advice.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  var svg = document.getElementById("calsvg");
+  if (!svg) return;
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, text) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    svg.appendChild(n);
+    return n;
+  }
+  var ON = "#e8a33d", OFF = "#5b9cf5", GREEN = "#2e9e5b", RED = "#d64545", INK = "#f4f4f2", MUT = "#9aa39f";
+  // months: 1 = drug on, 0 = drug off
+  var months = [1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1];
+  var X0 = 28, MW = 84, GAP = 3.5, TOP = 8;
+  var cx = months.map(function (_, i) { return X0 + i * (MW + GAP) + MW / 2; });
+  months.forEach(function (on, i) {
+    var x = X0 + i * (MW + GAP), col = on ? ON : OFF;
+    var card = el("rect", { x: x, y: TOP, width: MW, height: 96, rx: 10, fill: "#0c0e0d", stroke: "#262b29" }); card.setAttribute("class", "calcard"); card.style.animationDelay = (i * 0.5) + "s";
+    el("text", { x: x + MW / 2, y: TOP + 20, "text-anchor": "middle", "font-size": 12, fill: MUT }, "MONTH " + (i + 1));
+    // calendar dots
+    for (var d = 0; d < 12; d++) {
+      el("circle", { cx: x + 14 + (d % 4) * 19, cy: TOP + 34 + Math.floor(d / 4) * 13, r: 3.2,
+        fill: col, opacity: 0.35 + 0.05 * (d % 3) });
+    }
+    el("rect", { x: x + 9, y: TOP + 76, width: MW - 18, height: 20, rx: 10, fill: col });
+    el("text", { x: x + MW / 2, y: TOP + 90, "text-anchor": "middle", "font-size": 12, "font-weight": 700,
+      fill: on ? "#1a1206" : "#081426" }, on ? "DRUG ON" : "DRUG OFF");
+  });
+  // PSA wave ------------------------------------------------------
+  var GY0 = 150, GY1 = 292; // graph top/bottom
+  months.forEach(function (on, i) {
+    var x = X0 + i * (MW + GAP);
+    el("rect", { x: x, y: GY0, width: MW + GAP, height: GY1 - GY0, fill: on ? ON : OFF, opacity: 0.06 });
+  });
+  var psa = [92, 52, 27, 15, 23, 37, 54, 30, 17, 27, 41, 24];
+  var Y = function (v) { return GY1 - (v / 100) * (GY1 - GY0); };
+  [[56, "restart level"], [16, "stop level"]].forEach(function (lv) {
+    el("line", { x1: X0, y1: Y(lv[0]), x2: 1052, y2: Y(lv[0]), stroke: MUT, "stroke-dasharray": "5 5", opacity: 0.6 });
+    el("text", { x: 1052, y: Y(lv[0]) - 5, "text-anchor": "end", "font-size": 13, fill: MUT }, lv[1]);
+  });
+  el("text", { x: X0, y: GY0 - 8, "font-size": 13, fill: MUT }, "Blood test over the year");
+  var pts = psa.map(function (v, i) { return cx[i].toFixed(1) + "," + Y(v).toFixed(1); }).join(" ");
+  var line = el("polyline", { points: pts, fill: "none", stroke: "#34d3bd", "stroke-width": 3.5, "stroke-linejoin": "round", "stroke-linecap": "round" }); line.setAttribute("class", "calpsa");
+  psa.forEach(function (v, i) { el("circle", { cx: cx[i], cy: Y(v), r: 4.5, fill: "#34d3bd" }); });
+  // phase captions --------------------------------------------------
+  var phases = [
+    [0, 2, ON, "ON", "Blood test falls. Green cells die,", "red cells spread slowly."],
+    [3, 5, OFF, "OFF", "Break. Green cells grow back", "and crowd the red cells out."],
+    [6, 7, ON, "ON", "Drug restarts before", "red cells take over."],
+    [8, 9, OFF, "OFF", "Break again. Green cells", "keep red cells in check."],
+    [10, 11, ON, "ON", "Restart. Blood test falls, most", "drug time was saved."],
+  ];
+  phases.forEach(function (ph) {
+    var x = cx[ph[0]] - 34;
+    el("text", { x: x, y: 326, "font-size": 14, "font-weight": 700, fill: ph[2] }, ph[3]);
+    el("text", { x: x, y: 348, "font-size": 12.5, fill: INK }, ph[4]);
+    el("text", { x: x, y: 366, "font-size": 12.5, fill: INK }, ph[5]);
+  });
+  // cell mix bars ----------------------------------------------------
+  el("text", { x: X0, y: 402, "font-size": 13, fill: MUT }, "Cancer cells at the end of each stage (green = drug can kill, red = drug cannot)");
+  var mixes = [[0.55, "after ON"], [0.72, "after break"], [0.60, "after ON"], [0.74, "after break"], [0.62, "after ON"]];
+  mixes.forEach(function (m, i) {
+    var bx = X0 + i * 208, bw = 180, by = 414;
+    el("rect", { x: bx, y: by, width: bw * m[0], height: 18, fill: GREEN });
+    el("rect", { x: bx + bw * m[0], y: by, width: bw * (1 - m[0]), height: 18, fill: RED });
+    el("text", { x: bx + bw / 2, y: by + 38, "text-anchor": "middle", "font-size": 12, fill: MUT }, m[1]);
+  });
+})();
+</script>
+<script src="vendor/three.min.js?v=12"></script>
+<script src="app.js?v=18"></script>
+<script src="viz.js?v=16"></script>
+<script src="viz3d.js?v=26"></script>
+<script src="tissue-shader.js?v=1"></script>
+<script>
+// Slide deck: horizontal paging with prev/next, dots, keys, and edge-aware wheel.
+(function () {
+  var main = document.querySelector("main");
+  var slides = Array.prototype.slice.call(main.querySelectorAll(".slide"));
+  var count = document.getElementById("slCount");
+  var dots = document.getElementById("dots");
+  var cur = 0, locked = false;
+
+  slides.forEach(function (s, i) {
+    var b = document.createElement("button");
+    var act = s.querySelector(".act");
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-label", "Slide " + (i + 1) + (act ? ": " + act.textContent : ""));
+    b.addEventListener("click", function () { go(i); });
+    dots.appendChild(b);
+  });
+  var dotBtns = Array.prototype.slice.call(dots.querySelectorAll("button"));
+
+  function render() {
+    count.textContent = (cur + 1) + " / " + slides.length;
+    dotBtns.forEach(function (b, i) { b.classList.toggle("on", i === cur); });
+  }
+  // fitSlides() zooms tall slides below 100vw wide, so slide offsets are
+  // not multiples of the viewport width; always aim at the real offset.
+  function slideLeft(i) {
+    return slides[i].getBoundingClientRect().left -
+      main.getBoundingClientRect().left + main.scrollLeft;
+  }
+  function go(i) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    main.scrollTo({ left: slideLeft(cur), behavior: "smooth" });
+    render();
+  }
+  var ticking = false;
+  main.addEventListener("scroll", function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var best = 0, bestD = Infinity;
+      slides.forEach(function (s, i) {
+        var d = Math.abs(slideLeft(i) - main.scrollLeft);
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      cur = best;
+      render();
+      ticking = false;
+    });
+  }, { passive: true });
+
+  document.getElementById("prevSl").addEventListener("click", function () { go(cur - 1); });
+  document.getElementById("nextSl").addEventListener("click", function () { go(cur + 1); });
+
+  document.addEventListener("keydown", function (e) {
+    var ae = document.activeElement;
+    var tag = (ae && ae.tagName) || "";
+    // Only text entry keeps its keys; selects, sliders and buttons do not
+    // trap deck navigation.
+    var typing = tag === "TEXTAREA" || (ae && ae.isContentEditable) ||
+      (tag === "INPUT" && !/^(range|checkbox|radio|button|submit)$/i.test(ae.type || "text"));
+    if (typing) return;
+    var to = null;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === "PageDown") to = cur + 1;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "PageUp") to = cur - 1;
+    else if (e.key === "Home") to = 0;
+    else if (e.key === "End") to = slides.length - 1;
+    if (to === null) return;
+    // Stop the browser's own arrow-scroll of <main>: after a click inside
+    // the deck it nudges 40px and cancels the smooth slide change.
+    e.preventDefault();
+    go(to);
+  });
+
+  // Vertical wheel moves between slides only at a slide's vertical edge,
+  // so tall slides still scroll normally. Trackpad horizontal swipes pass through.
+  main.addEventListener("wheel", function (e) {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    var s = slides[cur];
+    var down = e.deltaY > 0;
+    var blocked = down
+      ? s.scrollHeight - s.scrollTop - s.clientHeight <= 4
+      : s.scrollTop <= 4;
+    if (!blocked) return;
+    e.preventDefault();
+    if (locked) return;
+    locked = true;
+    setTimeout(function () { locked = false; }, 700);
+    go(cur + (down ? 1 : -1));
+  }, { passive: false });
+
+  // Optional deep link: ?slide=N (1-based) opens on that slide.
+  var startSlide = parseInt(new URLSearchParams(location.search).get("slide"), 10);
+  if (!isNaN(startSlide)) {
+    cur = Math.max(0, Math.min(slides.length - 1, startSlide - 1));
+    main.scrollTo({ left: slideLeft(cur) });
+  }
+  render();
+})();
+
+// Fit every slide to the viewport height: shrink content just enough that no
+// slide ever needs its own vertical scrollbar. Never upscales.
+function fitSlides() {
+  var slides = Array.prototype.slice.call(document.querySelectorAll("main .slide"));
+  if (!slides.length) return;
+  // Note: scrollHeight ignores zoom, so measure once at zoom 1 and set once.
+  // (Iterating would re-shrink every pass and run away to the floor.)
+  slides.forEach(function (s) {
+    s.style.zoom = 1;
+    s.style.minWidth = ""; s.style.maxWidth = ""; s.style.height = "";
+    s.style.paddingLeft = ""; s.style.paddingRight = "";
+  });
+  void document.body.offsetHeight; // settle layout before measuring
+  slides.forEach(function (s) {
+    var avail = s.clientHeight, need = s.scrollHeight;
+    if (need > avail + 1) {
+      var z = Math.max(0.3, avail / need);
+      s.style.zoom = z;
+      // Zoom also shrinks the slide's own box, which would pull the next
+      // slide into view. Grow the un-zoomed box so the zoomed slide still
+      // fills exactly one screen, width and height.
+      var inv = (100 / z).toFixed(3);
+      s.style.minWidth = inv + "vw";
+      s.style.maxWidth = inv + "vw";
+      s.style.height = inv + "vh";
+      // Zoom also shrinks the side padding, shifting this slide's text
+      // column left of every other slide's. Grow the un-zoomed padding so
+      // the zoomed column starts at exactly the same left edge.
+      var target = Math.min(1080, window.innerWidth * 0.92);
+      var padPx = Math.max(0, (s.clientWidth - target / z) / 2);
+      s.style.paddingLeft = padPx + "px";
+      s.style.paddingRight = padPx + "px";
+    }
+  });
+}
+window.fitSlides = fitSlides;
+window.addEventListener("resize", fitSlides);
+fitSlides();
+</script>
+<script>
+// Act I tumor vignette: same custom GLSL tissue shader as the art page.
+// Cycle: grow (drug off) -> drug on (green shrinks, red spreads) -> holiday
+// (green regrows and crowds red back). Phase label follows the same clock.
+(function () {
+  var canvas = document.getElementById("act1tumor");
+  var phase = document.getElementById("act1phase");
+  if (!canvas || !phase) return;
+  var shader = (typeof createTissueShader === "function")
+    ? createTissueShader(canvas, { drug: 0, progress: 0.15, seed: 2.7 }) : null;
+  if (!shader) {
+    phase.textContent = "Green cells (drug kills them) and red cells (drug cannot kill them) share the cancer.";
+    return;
+  }
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) {
+    shader.setDrug(1); shader.setProgress(0.4); shader.drawOnce();
+    phase.textContent = "Green cells (drug kills them) and red cells (drug cannot kill them) share the cancer.";
+    return;
+  }
+  var T_GROW = 3, T_DRUG = 7.5, T_END = 11;
+  var t0 = performance.now(), running = true, lastMsg = "";
+  function say(html) {
+    if (html !== lastMsg) { phase.innerHTML = html; lastMsg = html; }
+  }
+  function frame(now) {
+    if (!running) return;
+    requestAnimationFrame(frame);
+    var t = ((now - t0) / 1000) % T_END;
+    var drug = t >= T_GROW && t < T_DRUG;
+    var holiday = t >= T_DRUG;
+    var prog = !drug && !holiday ? 0.15
+      : drug ? 0.15 + 0.35 * ((t - T_GROW) / (T_DRUG - T_GROW))
+      : 0.50 - 0.28 * ((t - T_DRUG) / (T_END - T_DRUG));
+    shader.setDrug(drug ? 1 : 0);
+    shader.setProgress(prog);
+    say(!drug && !holiday
+      ? "Cancer growing \u2014 green and red cells fight for space"
+      : drug
+      ? '<span class="pill on">DRUG ON</span> green cells die, red cells spread'
+      : '<span class="pill off">DRUG BREAK</span> green cells grow back and crowd the red ones');
+  }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) {
+      var vis = es[0].isIntersecting;
+      if (vis && !running) { running = true; shader.start(); requestAnimationFrame(frame); }
+      else if (!vis) { running = false; shader.stop(); }
+    }).observe(canvas);
+  }
+  shader.start();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

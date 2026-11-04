@@ -1,0 +1,227 @@
+{
+ "n_patients": 16,
+ "dropped": {
+  "S1385": [
+   4,
+   24
+  ],
+  "S1519": [
+   0,
+   6
+  ]
+ },
+ "overall": {
+  "mean_log_rmse": 2.272010795417716,
+  "mean_mae": 16.419421040394685
+ },
+ "rows": [
+  {
+   "patient": "S0619",
+   "baseline": 23.0,
+   "val_log_rmse": 2.813,
+   "val_mae": 10.589,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 15.9,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 15.0
+  },
+  {
+   "patient": "S1003",
+   "baseline": 60.8,
+   "val_log_rmse": 1.311,
+   "val_mae": 10.103,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 34.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 29.9
+  },
+  {
+   "patient": "S1005",
+   "baseline": 1.4,
+   "val_log_rmse": 2.016,
+   "val_mae": 1.579,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 9.6,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 9.4
+  },
+  {
+   "patient": "S1018",
+   "baseline": 3.2,
+   "val_log_rmse": 4.247,
+   "val_mae": 16.292,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 31.3,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 30.7
+  },
+  {
+   "patient": "S1280",
+   "baseline": 1.8,
+   "val_log_rmse": 4.984,
+   "val_mae": 7.186,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 27.5,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 27.5
+  },
+  {
+   "patient": "S1429",
+   "baseline": 0.1,
+   "val_log_rmse": 2.512,
+   "val_mae": 74.495,
+   "cont_med": 230.0,
+   "std_med": 227.0,
+   "std_p10": 179.9,
+   "std_on": 69.4,
+   "agent_med": 227.0,
+   "agent_p10": 183.9,
+   "agent_on": 70.4
+  },
+  {
+   "patient": "S1721",
+   "baseline": 3.0,
+   "val_log_rmse": 1.58,
+   "val_mae": 6.106,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 253.0,
+   "std_on": 32.0,
+   "agent_med": 260.0,
+   "agent_p10": 253.0,
+   "agent_on": 30.8
+  },
+  {
+   "patient": "S1916",
+   "baseline": 350.0,
+   "val_log_rmse": 1.503,
+   "val_mae": 8.074,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 2.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 1.6
+  },
+  {
+   "patient": "S5211",
+   "baseline": 12.0,
+   "val_log_rmse": 2.255,
+   "val_mae": 1.447,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 23.4,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 22.7
+  },
+  {
+   "patient": "S5251",
+   "baseline": 138.0,
+   "val_log_rmse": 1.567,
+   "val_mae": 4.776,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 2.4,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 1.8
+  },
+  {
+   "patient": "S5252",
+   "baseline": 4.6,
+   "val_log_rmse": 1.625,
+   "val_mae": 7.531,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 34.8,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 33.9
+  },
+  {
+   "patient": "S5256",
+   "baseline": 27.0,
+   "val_log_rmse": 3.959,
+   "val_mae": 22.014,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 46.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 46.1
+  },
+  {
+   "patient": "S5257",
+   "baseline": 222.7,
+   "val_log_rmse": 1.146,
+   "val_mae": 31.59,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 0.8,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 0.8
+  },
+  {
+   "patient": "S5259",
+   "baseline": 90.0,
+   "val_log_rmse": 1.752,
+   "val_mae": 15.251,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 14.6,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 1.2
+  },
+  {
+   "patient": "S5262",
+   "baseline": 21.0,
+   "val_log_rmse": 2.603,
+   "val_mae": 43.738,
+   "cont_med": 239.0,
+   "std_med": 247.0,
+   "std_p10": 226.0,
+   "std_on": 61.8,
+   "agent_med": 248.0,
+   "agent_p10": 227.9,
+   "agent_on": 60.3
+  },
+  {
+   "patient": "S5263",
+   "baseline": 31.0,
+   "val_log_rmse": 0.48,
+   "val_mae": 1.939,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 28.7,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 26.9
+  }
+ ]
+}

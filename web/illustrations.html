@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EvoDose — Art illustration gallery</title>
+<style>
+:root{
+  --bg:#000; --panel:#0c0e0d; --panel2:#101312; --ink:#f4f4f2; --muted:#a8b0ad;
+  --line:#262b29; --accent:#34d3bd; --warn:#e05252; --good:#35c163; --amber:#e8a33d; --blue:#5b9cf5;
+  --redcell:#d64545; --greencell:#2e9e5b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.55;padding:1.5rem 1.25rem 3rem;max-width:1280px;margin-inline:auto}
+.topbar{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.topbar h1{font-size:1.7rem;margin:0;font-weight:700;letter-spacing:-0.01em}
+.topbar h1 .teal{color:var(--accent)}
+.backlink{color:var(--accent);text-decoration:none;font-size:.9rem}
+.backlink:hover{text-decoration:underline}
+.lede{color:var(--muted);max-width:72ch;margin:.4rem 0 1.6rem;font-size:.96rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.fig{margin:0;background:linear-gradient(180deg,var(--panel2),var(--panel));
+  border:1px solid var(--line);border-radius:14px;padding:1.05rem 1.1rem .9rem}
+.fig.full{grid-column:1/-1}
+.fig h2{margin:0;font-size:1.12rem;font-weight:650}
+.fig .sub{color:var(--muted);font-size:.82rem;margin:.15rem 0 .7rem}
+.fig svg{width:100%;height:auto;display:block}
+.fig figcaption{color:var(--muted);font-size:.84rem;margin:.6rem 0 0}
+.fig figcaption strong{color:var(--ink);font-weight:600}
+.legend{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:.55rem;font-size:.8rem;color:var(--muted)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:-1px;margin-right:.35rem}
+.controls{display:flex;gap:.5rem;align-items:center;margin-top:.65rem;flex-wrap:wrap}
+button,select{background:#131615;color:var(--ink);border:1px solid var(--line);
+  border-radius:8px;padding:.32rem .75rem;font-size:.84rem;cursor:pointer;font-family:inherit}
+button:hover{border-color:var(--accent)}
+button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+input[type=range]{accent-color:var(--accent)}
+.pill{font-size:.75rem;border-radius:999px;padding:.12rem .65rem;border:1px solid var(--line)}
+.pill.on{color:var(--good);border-color:var(--good)}
+.pill.off{color:var(--blue);border-color:var(--blue)}
+.stack{display:grid;gap:1.1rem}
+footer{color:var(--muted);font-size:.8rem;margin:1.8rem 0 0}
+footer strong{color:var(--ink)}
+.shader-stage{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#050807;aspect-ratio:960/420}
+.shader-stage canvas{width:100%;height:100%;display:block}
+.shader-stage .tag{position:absolute;font-size:.78rem;line-height:1.35;pointer-events:none;text-shadow:0 1px 8px #000}
+.shader-stage .tag b{display:block;font-size:.86rem}
+.shader-stage .tag.s{left:14px;top:12px;color:#7ee2a0}
+.shader-stage .tag.r{right:14px;top:12px;color:#ff8a7a;text-align:right}
+.shader-stage .tag.d{right:14px;bottom:12px;color:#34d3bd;text-align:right}
+.shader-stage .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.9rem;text-align:center;padding:1rem}
+.drift{animation:drift 8s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(7px,-9px)}}
+.flow{stroke-dasharray:7 7;animation:dashmove 1.1s linear infinite}
+@keyframes dashmove{to{stroke-dashoffset:-28}}
+.glowpulse{animation:glowpulse 3s ease-in-out infinite}
+@keyframes glowpulse{0%,100%{opacity:.95}50%{opacity:.55}}
+.floaty{animation:floaty 9s ease-in-out infinite alternate}
+@keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+@media(prefers-reduced-motion:reduce){
+  .drift,.flow,.glowpulse,.floaty{animation:none}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <h1>EvoDose <span class="teal">art illustrations</span></h1>
+  <a class="backlink" href="index.html">← back to the main deck</a>
+</header>
+<p class="lede">Artwork of the ideas behind the exhibit — the hero is a live custom GLSL
+shader (domain-warped noise, voronoi cells, vessels, drug front); the rest are hand-built
+inline SVG with CSS and JS. No images. Drug-sensitive cells are green; resistant cells are red throughout.</p>
+<div class="stack">
+<!-- HERO -->
+<figure class="fig full">
+  <h2>Tumor tissue, alive</h2>
+  <p class="sub">Live GLSL shader · voronoi cells in warped tissue, a resistant invasion front, vessels, and the drug front</p>
+  <div class="shader-stage">
+    <canvas id="heroShader" role="img" aria-label="Shader artwork: living tumor tissue with sensitive green colonies, a resistant red invasion front, vessels and a drug front"></canvas>
+    <span class="tag s"><b>sensitive colonies (S)</b>drug-responsive</span>
+    <span class="tag r"><b>resistant front (R)</b>drug-proof</span>
+    <span class="tag d"><b>drug front</b>kills sensitive cells only</span>
+  </div>
+  <div class="controls">
+    <button id="heroToggle" aria-pressed="true">drug front: ON</button>
+    <label style="font-size:.84rem;color:var(--muted)">resistance <input type="range" id="heroRange" min="0" max="100" value="38"></label>
+    <span class="pill on" id="heroPill">green shrinking · red held back</span>
+  </div>
+  <div class="legend">
+    <span><i style="background:#2e9e5b"></i>sensitive cell (S)</span>
+    <span><i style="background:#d64545"></i>resistant cell (R)</span>
+    <span><i style="background:#34d3bd"></i>drug front</span>
+    <span><i style="background:#8a5560"></i>blood vessel</span>
+  </div>
+  <figcaption><strong>Why it matters:</strong> the blood test reads PSA = S + R, so the
+  resistant front is invisible until late. Holidays keep enough green alive to crowd it out.</figcaption>
+</figure>
+<!-- PSA CHART -->
+<figure class="fig full">
+  <h2>One patient's PSA, read closely</h2>
+  <p class="sub">Clinical chart artwork · fit, held-out test, ensemble band, progression threshold</p>
+  <svg id="psaArt" viewBox="0 0 960 400" role="img" aria-label="Detailed PSA chart with on-drug spans, fit line, ensemble band and readings">
+    <defs>
+      <linearGradient id="bandFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#34d3bd" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#34d3bd" stop-opacity="0.05"/>
+      </linearGradient>
+      <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="8" height="8" fill="#e8a33d" opacity="0.07"/>
+        <line x1="0" y1="0" x2="0" y2="8" stroke="#e8a33d" stroke-width="1" opacity="0.10"/>
+      </pattern>
+    </defs>
+    <g id="psaSpans"></g>
+    <g id="psaGrid" stroke="#1e2422" stroke-width="1"></g>
+    <g id="psaBand"></g>
+    <line x1="600" y1="26" x2="600" y2="330" stroke="#9aa39f" stroke-width="1.5" stroke-dasharray="6 5"/>
+    <text x="606" y="42" fill="#9aa39f" font-size="12">fit → held-out split (week 130)</text>
+    <line x1="70" y1="120" x2="930" y2="120" stroke="#9aa39f" stroke-dasharray="5 5" opacity="0.85"/>
+    <line x1="70" y1="96" x2="930" y2="96" stroke="#e05252" stroke-dasharray="5 5" opacity="0.9"/>
+    <text x="934" y="124" fill="#9aa39f" font-size="12">baseline</text>
+    <text x="934" y="100" fill="#e05252" font-size="12">progression 1.15×</text>
+    <path id="psaFit" d="M70,150 C160,215 230,235 310,180 S430,95 520,120 S640,250 720,205 S840,120 930,165"
+      fill="none" stroke="#34d3bd" stroke-width="3" stroke-linecap="round"/>
+    <g id="psaPts"></g>
+    <g id="psaAxes" fill="#9aa39f" font-size="11"></g>
+    <line id="psaHover" x1="0" y1="26" x2="0" y2="330" stroke="#f4f4f2" stroke-width="1" opacity="0"/>
+    <g id="psaTip" opacity="0"><rect rx="8" width="150" height="42" fill="#131615" stroke="#3a4140"/>
+      <text id="psaTipT" x="10" y="18" fill="#f4f4f2" font-size="12"></text>
+      <text id="psaTipV" x="10" y="35" fill="#34d3bd" font-size="12"></text></g>
+    <text x="70" y="372" fill="#9aa39f" font-size="11">amber hatch = weeks on drug · dots = monthly readings · shaded band = 90% ensemble range</text>
+  </svg>
+  <figcaption><strong>The honesty test:</strong> the model is fit on the first 60% of
+  readings, then must predict the rest. Hover the chart to read PSA by week.</figcaption>
+</figure>
+
+<!-- SCHEDULE -->
+<figure class="fig full">
+  <h2>A year of holidays</h2>
+  <p class="sub">Timeline artwork · 52 weeks of treat, rest, treat</p>
+  <svg viewBox="0 0 960 300" role="img" aria-label="52 week holiday schedule with PSA sparkline and playhead">
+    <g id="schedBlocks"></g>
+    <text x="34" y="52" fill="#e8a33d" font-size="12" font-weight="600">on drug</text>
+    <text x="34" y="96" fill="#5b9cf5" font-size="12" font-weight="600">holiday</text>
+    <g id="schedTicks" fill="#9aa39f" font-size="10.5"></g>
+    <path d="M70,235 C150,200 200,255 270,225 S410,175 480,210 S620,265 700,220 S830,185 920,225"
+      fill="none" stroke="#34d3bd" stroke-width="2.2" opacity="0.85"/>
+    <text x="70" y="278" fill="#a8b0ad" font-size="11">PSA falls on drug, recovers on holiday — the sawtooth a good rule rides</text>
+    <line id="schedPlay" x1="70" y1="58" x2="70" y2="252" stroke="#f4f4f2" stroke-width="2"/>
+    <circle id="schedDot" cx="70" cy="235" r="5" fill="#f4f4f2" stroke="#0c0e0d" stroke-width="2"/>
+    <text x="70" y="36" fill="#f4f4f2" font-size="12">week <tspan id="schedLabel">0</tspan></text>
+  </svg>
+  <div class="controls">
+    <button id="schedPlayBtn">play the year</button>
+    <button id="schedReset">reset</button>
+  </div>
+  <figcaption><strong>The bet:</strong> fixed-length breaks while PSA is safely low cut
+  drug exposure while sensitive cells regrow and compete.</figcaption>
+</figure>
+
+<div class="grid">
+<!-- PHASE PORTRAIT -->
+<figure class="fig">
+  <h2>The competition, mapped</h2>
+  <p class="sub">Phase artwork · where S and R push each other</p>
+  <svg viewBox="0 0 460 340" role="img" aria-label="Phase portrait of sensitive versus resistant populations">
+    <defs>
+      <linearGradient id="phaseBg" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#0a2b22" stop-opacity="0.55"/>
+        <stop offset="55%" stop-color="#0c0e0d" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#230d0d" stop-opacity="0.65"/>
+      </linearGradient>
+      <marker id="arr2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <path d="M0,0 L8,4.5 L0,9" fill="none" stroke="#e8a33d" stroke-width="1.6"/>
+      </marker>
+    </defs>
+    <rect x="52" y="14" width="384" height="272" rx="10" fill="url(#phaseBg)" stroke="#2c3331"/>
+    <g id="phaseGrid" stroke="#1e2422"></g>
+    <path d="M70,240 C140,180 190,205 250,140 S360,45 420,32" fill="none" stroke="#9aa39f"
+      stroke-width="1.6" stroke-dasharray="6 5"/>
+    <path d="M52,262 C150,254 260,140 420,74" fill="none" stroke="#34d3bd" stroke-width="2.8"
+      marker-end="url(#arr2)"/>
+    <path d="M52,262 C170,238 300,196 420,150" fill="none" stroke="#5b9cf5" stroke-width="2.2"
+      stroke-dasharray="7 6" marker-end="url(#arr2)"/>
+    <circle cx="252" cy="142" r="6" fill="#f4f4f2" stroke="#0c0e0d" stroke-width="2"/>
+    <circle cx="252" cy="142" r="13" fill="none" stroke="#f4f4f2" opacity="0.35"/>
+    <text x="266" y="138" fill="#f4f4f2" font-size="11.5">equilibrium</text>
+    <g fill="#9aa39f" font-size="11">
+      <text x="386" y="304">resistant R →</text>
+      <text x="4" y="28" transform="rotate(-90 14 100)">sensitive S →</text>
+      <text x="72" y="36" fill="#35c163">S dominates</text>
+      <text x="316" y="276" fill="#e05252">R takes over</text>
+    </g>
+    <text x="60" y="322" fill="#34d3bd" font-size="11">teal trajectory = adaptive rule</text>
+    <text x="232" y="322" fill="#5b9cf5" font-size="11">blue dashes = continuous</text>
+  </svg>
+  <figcaption><strong>Reading it:</strong> continuous therapy slides toward the red corner;
+  a well-timed holiday bends the trajectory back toward balance.</figcaption>
+</figure>
+
+<!-- ENSEMBLE LANDSCAPE -->
+<figure class="fig">
+  <h2>Uncertainty, as a landscape</h2>
+  <p class="sub">Terrain artwork · 200 plausible tumors as contours</p>
+  <svg viewBox="0 0 460 340" role="img" aria-label="Contoured ensemble landscape with ridge and held-out region">
+    <defs>
+      <linearGradient id="terra" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#34d3bd" stop-opacity="0.30"/>
+        <stop offset="100%" stop-color="#34d3bd" stop-opacity="0.03"/>
+      </linearGradient>
+      <linearGradient id="fog" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#5b9cf5" stop-opacity="0.10"/>
+      </linearGradient>
+    </defs>
+    <g fill="none" stroke="#34d3bd">
+      <path d="M30,250 C110,190 170,205 250,150 S370,95 435,70 L435,286 L30,286 Z" fill="url(#terra)" stroke="none"/>
+      <path d="M30,238 C115,182 175,196 255,142 S372,88 435,62" opacity="0.25"/>
+      <path d="M30,226 C120,174 180,187 260,134 S374,81 435,54" opacity="0.4"/>
+      <path d="M30,214 C125,166 185,178 265,126 S376,74 435,46" opacity="0.6"/>
+    </g>
+    <path d="M30,202 C130,158 190,169 270,118 S378,67 435,38" fill="none" stroke="#34d3bd" stroke-width="3"/>
+    <rect x="298" y="14" width="138" height="272" rx="9" fill="url(#fog)" stroke="#5b9cf5" stroke-dasharray="6 5"/>
+    <text x="308" y="34" fill="#5b9cf5" font-size="11.5">held-out region</text>
+    <g fill="#f4f4f2">
+      <circle cx="80" cy="196" r="3.2"/><circle cx="150" cy="172" r="3.2"/>
+      <circle cx="220" cy="148" r="3.2"/><circle cx="330" cy="112" r="3.2"/>
+      <circle cx="400" cy="66" r="3.2"/>
+    </g>
+    <g fill="#9aa39f" font-size="11">
+      <text x="30" y="308">ridge = median tumor · contours = uncertainty</text>
+      <text x="30" y="326">dots = real readings the ridge must respect</text>
+    </g>
+  </svg>
+  <figcaption><strong>Robust, not lucky:</strong> rules are scored across the whole
+  landscape and rewarded for their worst decile.</figcaption>
+</figure>
+</div>
+
+<!-- AGENT LOOP -->
+<figure class="fig full">
+  <h2>Inside the Meta Muse Agent</h2>
+  <p class="sub">Pipeline artwork · propose, score on 200 tumors, keep or revise</p>
+  <svg viewBox="0 0 960 360" role="img" aria-label="Detailed agent loop with rule code, ensemble dots and scoring">
+    <defs>
+      <linearGradient id="scoreBar" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#5b9cf5"/><stop offset="100%" stop-color="#34d3bd"/>
+      </linearGradient>
+    </defs>
+    <g font-size="13" font-weight="600">
+      <text x="30" y="34" fill="#f4f4f2">1 · propose a rule</text>
+      <text x="352" y="34" fill="#f4f4f2">2 · score it on 200 tumors</text>
+      <text x="700" y="34" fill="#f4f4f2">3 · keep or revise</text>
+    </g>
+    <rect x="24" y="46" width="290" height="196" rx="10" fill="#0a0d0c" stroke="#2c3331"/>
+    <text x="40" y="72" fill="#9aa39f" font-size="12" font-family="monospace">def rule(psa, on_off, base, week):</text>
+    <text x="56" y="94" fill="#34d3bd" font-size="12" font-family="monospace">if on and psa &lt; 0.50 * base:</text>
+    <text x="72" y="114" fill="#e8a33d" font-size="12" font-family="monospace">return 0  # holiday</text>
+    <text x="56" y="136" fill="#34d3bd" font-size="12" font-family="monospace">if not on and psa &gt;= base:</text>
+    <text x="72" y="156" fill="#e8a33d" font-size="12" font-family="monospace">return 1  # restart</text>
+    <text x="40" y="186" fill="#a8b0ad" font-size="11.5">short, readable, checkable code —</text>
+    <text x="40" y="204" fill="#a8b0ad" font-size="11.5">never a black box</text>
+    <text x="40" y="226" fill="#5b9cf5" font-size="11.5">families: thresholds · slopes · holidays · dwell times</text>
+    <g id="ensDots"></g>
+    <text x="352" y="252" fill="#9aa39f" font-size="11.5">each dot = one plausible tumor</text>
+    <g>
+      <rect x="352" y="266" width="280" height="14" rx="7" fill="#1c2220"/>
+      <rect id="scoreFill" x="352" y="266" width="212" height="14" rx="7" fill="url(#scoreBar)"/>
+      <text x="352" y="298" fill="#f4f4f2" font-size="12">median TTP + 0.5 × worst-decile − 0.2 × % on drug</text>
+      <text x="352" y="316" fill="#9aa39f" font-size="11.5">durable control, worst-case aware, drug-sparing</text>
+    </g>
+    <g>
+      <rect id="stPropose" x="700" y="52" width="110" height="52" rx="9" fill="#131615" stroke="#34d3bd" stroke-width="2"/>
+      <text x="755" y="82" fill="#f4f4f2" font-size="13" text-anchor="middle">kept ↑</text>
+      <rect id="stScore" x="700" y="118" width="110" height="52" rx="9" fill="#131615" stroke="#3a4140" stroke-width="2"/>
+      <text x="755" y="148" fill="#f4f4f2" font-size="13" text-anchor="middle">revise ↺</text>
+      <rect id="stKeep" x="700" y="184" width="110" height="52" rx="9" fill="#131615" stroke="#3a4140" stroke-width="2"/>
+      <text x="755" y="214" fill="#f4f4f2" font-size="13" text-anchor="middle">new best ★</text>
+      <path class="flow" d="M755,236 C755,286 180,286 180,242" fill="none" stroke="#e05252" stroke-width="2"/>
+      <text x="470" y="304" fill="#e05252" font-size="12" text-anchor="middle">up to 10 iterations × 3 candidates per patient</text>
+    </g>
+    <path d="M314,144 L352,144 M632,144 L700,144" stroke="#3a4140" stroke-width="2"/>
+  </svg>
+  <figcaption><strong>Only improvements survive.</strong> Muse Spark proposes when an API key
+  is set; otherwise a built-in evolutionary search explores the same families.</figcaption>
+</figure>
+
+<div class="grid">
+<!-- TREE -->
+<figure class="fig">
+  <h2>The family tree of rules</h2>
+  <p class="sub">Genealogy artwork · every candidate, grouped by family</p>
+  <svg viewBox="0 0 460 320" role="img" aria-label="Detailed search tree with family lanes and best lineage">
+    <g id="treeLanes" font-size="11"></g>
+    <polyline id="treeBest" points="" fill="none" stroke="#e05252" stroke-width="2.4" opacity="0.9"/>
+    <g id="treeNodes"></g>
+    <text x="24" y="306" fill="#9aa39f" font-size="11">node size = score · red line = best-so-far lineage</text>
+  </svg>
+  <div class="controls">
+    <label style="font-size:.84rem;color:var(--muted)">replay <input type="range" id="treeRange" min="1" max="16" value="16"></label>
+  </div>
+  <figcaption><strong>New structures, not just tuning:</strong> slope triggers, minimum
+  dwell times, and holiday schedules keep entering the pool.</figcaption>
+</figure>
+
+<!-- RADAR -->
+<figure class="fig">
+  <h2>Three rules, five trade-offs</h2>
+  <p class="sub">Radar artwork · pick a rule to spotlight</p>
+  <svg viewBox="0 0 460 320" role="img" aria-label="Radar chart comparing continuous, standard and Meta Muse Agent rules">
+    <g id="radarGrid" fill="none" stroke="#262b29"></g>
+    <polygon id="radarCont" points="230,42 352,132 318,252 142,252 108,132"
+      fill="none" stroke="#888" stroke-width="1.6"/>
+    <polygon id="radarStd" points="230,72 322,138 292,238 168,238 138,138"
+      fill="none" stroke="#5b9cf5" stroke-width="2"/>
+    <polygon id="radarAgent" points="230,58 338,138 306,246 154,246 122,130"
+      fill="#34d3bd" fill-opacity="0.16" stroke="#34d3bd" stroke-width="2.6"/>
+    <g fill="#9aa39f" font-size="11" text-anchor="middle">
+      <text x="230" y="26">median TTP</text>
+      <text x="382" y="136">worst decile</text>
+      <text x="326" y="272">time drug-free</text>
+      <text x="134" y="272">holiday weeks</text>
+      <text x="78" y="136">robustness</text>
+    </g>
+  </svg>
+  <div class="controls">
+    <button data-radar="cont">continuous</button>
+    <button data-radar="std">standard</button>
+    <button data-radar="agent" aria-pressed="true">Meta Muse Agent</button>
+  </div>
+  <figcaption><strong>Control vs burden:</strong> continuous wins raw time on drug and
+  loses almost everywhere else.</figcaption>
+</figure>
+</div>
+
+<!-- RIVERS -->
+<figure class="fig full">
+  <h2>Clonal rivers</h2>
+  <p class="sub">Alluvial artwork · sensitive and resistant volumes through time</p>
+  <svg viewBox="0 0 960 360" role="img" aria-label="Flowing clonal volumes under three rules">
+    <defs>
+      <linearGradient id="riverG" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#2e9e5b"/><stop offset="100%" stop-color="#35c163"/>
+      </linearGradient>
+      <linearGradient id="riverR" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#a83232"/><stop offset="100%" stop-color="#e05252"/>
+      </linearGradient>
+    </defs>
+    <g font-size="13" font-weight="600" fill="#f4f4f2">
+      <text x="24" y="52">continuous</text>
+      <text x="24" y="162">standard</text>
+      <text x="24" y="272">Meta Muse Agent</text>
+    </g>
+    <g id="rivers"></g>
+    <g fill="#9aa39f" font-size="11">
+      <text x="150" y="338">green = sensitive volume · red = resistant volume · shared scale</text>
+      <text x="700" y="338">white tick = progression</text>
+    </g>
+  </svg>
+  <div class="controls"><button id="riverBtn" aria-pressed="true">pause the flow</button></div>
+  <figcaption><strong>Same tumor, three futures:</strong> never stopping clears green early
+  and red floods the channel. Holidays keep the green current running.</figcaption>
+</figure>
+
+<div class="grid">
+<!-- BARCODE -->
+<figure class="fig">
+  <h2>A biopsy every week</h2>
+  <p class="sub">Heatmap artwork · resistant fraction, week by week</p>
+  <svg viewBox="0 0 460 340" role="img" aria-label="Barcode heatmap of resistant fraction over 60 weeks">
+    <g id="bars"></g>
+    <g fill="#9aa39f" font-size="11">
+      <text x="14" y="326">top = week 0 · bottom = week 60 · white line = progression</text>
+    </g>
+    <g font-size="10">
+      <rect x="330" y="8" width="12" height="10" fill="#2e9e5b"/><text x="346" y="17" fill="#9aa39f">mostly S</text>
+      <rect x="330" y="24" width="12" height="10" fill="#d64545"/><text x="346" y="33" fill="#9aa39f">mostly R</text>
+    </g>
+  </svg>
+  <figcaption><strong>Invasion in slow motion:</strong> under the winning rules the red
+  front stays a thin seam instead of becoming the whole tumor.</figcaption>
+</figure>
+
+<!-- RELEASE -->
+<figure class="fig">
+  <h2>Why stopping can win</h2>
+  <p class="sub">Colony artwork · drag time and watch both tumors</p>
+  <svg viewBox="0 0 460 340" role="img" aria-label="Two colonies: continuous treatment versus timed holidays">
+    <g id="releaseA"></g>
+    <g id="releaseB"></g>
+    <text x="115" y="318" fill="#f4f4f2" font-size="12" text-anchor="middle">never stop</text>
+    <text x="345" y="318" fill="#f4f4f2" font-size="12" text-anchor="middle">timed holidays</text>
+    <text x="230" y="336" fill="#e8a33d" font-size="11" text-anchor="middle">competitive release: kill all S, and R inherits the dish</text>
+  </svg>
+  <div class="controls">
+    <label style="font-size:.84rem;color:var(--muted)">week <input type="range" id="relRange" min="0" max="100" value="55"></label>
+    <span class="pill" id="relLabel">week 55</span>
+  </div>
+  <figcaption><strong>The whole argument in one picture:</strong> less drug can mean
+  longer control — when the pauses are timed to the tumor.</figcaption>
+</figure>
+</div>
+</div>
+<footer><strong>Research prototype only — not medical advice.</strong>
+Stylized artwork of the EvoDose model, not patient data.</footer>
+<script src="tissue-shader.js"></script>
+<script>
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function el(tag, attrs, parent) {
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+const rnd = (a, b) => a + Math.random() * (b - a);
+
+/* hero: live custom GLSL tissue shader (tissue-shader.js) */
+const heroCanvas = document.getElementById("heroShader");
+const heroShader = heroCanvas ? createTissueShader(heroCanvas, { drug: 1, progress: 0.38 }) : null;
+if (!heroShader) {
+  const fb = document.createElement("div");
+  fb.className = "fallback";
+  fb.textContent = "Shader unavailable here (WebGL off) - green is sensitive, red is resistant.";
+  heroCanvas.parentNode.appendChild(fb);
+} else if (reduced) {
+  heroShader.drawOnce();
+} else {
+  heroShader.start();
+}
+const heroToggle = document.getElementById("heroToggle");
+const heroPill = document.getElementById("heroPill");
+const heroRange = document.getElementById("heroRange");
+let heroOn = true;
+heroToggle.addEventListener("click", () => {
+  heroOn = !heroOn;
+  heroToggle.textContent = heroOn ? "drug front: ON" : "drug front: OFF";
+  heroToggle.setAttribute("aria-pressed", String(heroOn));
+  heroPill.textContent = heroOn ? "green shrinking \u00b7 red held back" : "green regrowing \u00b7 red crowded out";
+  heroPill.className = "pill " + (heroOn ? "on" : "off");
+  if (heroShader) heroShader.setDrug(heroOn ? 1 : 0);
+});
+if (heroRange) heroRange.addEventListener("input", () => {
+  if (heroShader) heroShader.setProgress(parseInt(heroRange.value, 10) / 100);
+});
+
+/* PSA chart: spans, grid, band, readings, hover readout */
+const psaSvg = document.getElementById("psaArt");
+(function buildPsa() {
+  const X = (wk) => 70 + (wk / 216) * 860;
+  const spansG = document.getElementById("psaSpans");
+  [[0, 36], [82, 130], [158, 216]].forEach(([a, b]) =>
+    el("rect", { x: X(a), y: 26, width: X(b) - X(a), height: 304, fill: "url(#hatch)" }, spansG));
+  const grid = document.getElementById("psaGrid");
+  [90, 150, 210, 270, 330].forEach((y) => el("line", { x1: 70, y1: y, x2: 930, y2: y }, grid));
+  [0, 52, 104, 156, 216].forEach((wk) => el("line", { x1: X(wk), y1: 26, x2: X(wk), y2: 330 }, grid));
+  el("polygon", { fill: "url(#bandFill)", stroke: "none",
+    points: "70,122 310,152 520,92 720,177 930,137 930,193 720,233 520,148 310,208 70,178" },
+    document.getElementById("psaBand"));
+  const pts = document.getElementById("psaPts");
+  const fitY = [150, 196, 232, 214, 180, 132, 98, 108, 128, 186, 228, 244, 208, 168, 142, 158, 172, 164];
+  fitY.forEach((y, i) => {
+    const x = X(i * 12.5);
+    el("line", { x1: x, y1: y - 9, x2: x, y2: y + 9, stroke: "#f4f4f2", "stroke-width": 1.4, opacity: 0.55 }, pts);
+    el("circle", { cx: x, cy: y, r: 4.2, fill: "#f4f4f2", stroke: "#0c0e0d", "stroke-width": 1.6 }, pts);
+  });
+  const axes = document.getElementById("psaAxes");
+  [0, 52, 104, 156, 216].forEach((wk) => {
+    const t = el("text", { x: X(wk), y: 352, "text-anchor": "middle" }, axes);
+    t.textContent = "wk " + wk;
+  });
+  const rot = el("text", { x: 22, y: 178, transform: "rotate(-90 22 178)", "text-anchor": "middle" }, axes);
+  rot.textContent = "PSA (ng/mL)";
+  const hover = document.getElementById("psaHover"), tip = document.getElementById("psaTip"),
+    tipT = document.getElementById("psaTipT"), tipV = document.getElementById("psaTipV");
+  psaSvg.addEventListener("mousemove", (e) => {
+    const box = psaSvg.getBoundingClientRect();
+    const x = (e.clientX - box.left) / box.width * 960;
+    if (x < 70 || x > 930) { tip.setAttribute("opacity", "0"); hover.setAttribute("opacity", "0"); return; }
+    const wk = Math.round((x - 70) / 860 * 216);
+    const psa = (34 * Math.exp(-wk / 90) + 7 + 5 * Math.sin(wk / 18)).toFixed(1);
+    hover.setAttribute("x1", x); hover.setAttribute("x2", x); hover.setAttribute("opacity", "0.5");
+    tip.setAttribute("transform", `translate(${Math.min(x + 12, 795)},34)`);
+    tip.setAttribute("opacity", "1");
+    tipT.textContent = "week " + wk + (wk > 130 ? " · held-out" : " · fit");
+    tipV.textContent = "PSA ≈ " + psa + " ng/mL";
+  });
+  psaSvg.addEventListener("mouseleave", () => {
+    tip.setAttribute("opacity", "0"); hover.setAttribute("opacity", "0");
+  });
+})();
+
+/* schedule strip + playhead */
+(function buildSched() {
+  const pat = [1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,1,1];
+  const g = document.getElementById("schedBlocks");
+  pat.forEach((on, i) => el("rect", {
+    x: 70 + i * 16.6, y: on ? 60 : 102, width: 14.6, height: 26, rx: 5,
+    fill: on ? "#e8a33d" : "#1d3a5f", opacity: on ? 0.9 : 0.75,
+    stroke: on ? "#f0b65c" : "#3f6db3", "stroke-width": 0.7
+  }, g));
+  const ticks = document.getElementById("schedTicks");
+  [0, 13, 26, 39, 52].forEach((w) => {
+    el("line", { x1: 70 + w * 16.6, y1: 132, x2: 70 + w * 16.6, y2: 140, stroke: "#3a4140" }, ticks);
+    const t = el("text", { x: 70 + w * 16.6, y: 154, "text-anchor": "middle" }, ticks);
+    t.textContent = "wk " + w;
+  });
+  const play = document.getElementById("schedPlay"), dot = document.getElementById("schedDot"),
+    label = document.getElementById("schedLabel"), btn = document.getElementById("schedPlayBtn");
+  let w = 0, timer = null;
+  const sparkY = (wk) => 235 - 26 * Math.sin(wk / 52 * Math.PI * 3.2) - wk * 0.12;
+  function render() {
+    const x = 70 + w * 16.6;
+    play.setAttribute("x1", x); play.setAttribute("x2", x);
+    dot.setAttribute("cx", x); dot.setAttribute("cy", sparkY(w).toFixed(1));
+    label.textContent = w;
+  }
+  function stop() { clearInterval(timer); timer = null; btn.textContent = "play the year"; }
+  btn.addEventListener("click", () => {
+    if (timer) return stop();
+    btn.textContent = "pause";
+    timer = setInterval(() => {
+      w = w + 1;
+      if (w > 52) { w = 52; render(); return stop(); }
+      render();
+    }, reduced ? 300 : 140);
+  });
+  document.getElementById("schedReset").addEventListener("click", () => { stop(); w = 0; render(); });
+  render();
+})();
+
+/* phase grid */
+(function phaseGrid() {
+  const g = document.getElementById("phaseGrid");
+  for (let i = 1; i < 8; i++) {
+    el("line", { x1: 52 + i * 48, y1: 14, x2: 52 + i * 48, y2: 286 }, g);
+    el("line", { x1: 52, y1: 14 + i * 34, x2: 436, y2: 14 + i * 34 }, g);
+  }
+})();
+
+/* ensemble dots + score bar + loop stepper */
+(function ensDots() {
+  const g = document.getElementById("ensDots");
+  for (let i = 0; i < 200; i++) {
+    const col = i % 20, row = Math.floor(i / 20);
+    const good = Math.random();
+    el("circle", { cx: 362 + col * 13.4, cy: 62 + row * 18.5,
+      r: rnd(2.2, 3.6),
+      fill: good > 0.82 ? "#e05252" : good > 0.35 ? "#34d3bd" : "#5b9cf5",
+      opacity: rnd(0.45, 0.95) }, g);
+  }
+  const fill = document.getElementById("scoreFill");
+  if (!reduced) {
+    let t = 0;
+    setInterval(() => { t = (t + 1) % 100; fill.setAttribute("width", 150 + 110 * Math.abs(Math.sin(t / 16)).toFixed(0)); }, 120);
+  }
+  const ids = ["stPropose", "stScore", "stKeep"].map((id) => document.getElementById(id));
+  let s = 0;
+  if (!reduced) setInterval(() => {
+    s = (s + 1) % 3;
+    ids.forEach((n, i) => n.setAttribute("stroke", i === s ? "#34d3bd" : "#3a4140"));
+  }, 1300);
+})();
+
+/* search tree */
+(function tree() {
+  const lanes = ["threshold", "slope", "holiday", "dwell", "velocity"];
+  const laneY = [52, 96, 140, 184, 228];
+  const lg = document.getElementById("treeLanes");
+  lanes.forEach((name, i) => {
+    el("line", { x1: 92, y1: laneY[i], x2: 440, y2: laneY[i], stroke: "#262b29" }, lg);
+    const t = el("text", { x: 24, y: laneY[i] + 4, fill: "#9aa39f" }, lg);
+    t.textContent = name;
+  });
+  const ng = document.getElementById("treeNodes");
+  const nodes = [];
+  for (let i = 0; i < 16; i++) {
+    const lane = (i * 7) % 5, y = laneY[lane] + rnd(-7, 7);
+    const x = 104 + i * 21.5, best = i === 2 || i === 6 || i === 11 || i === 15;
+    nodes.push({ x, y, best });
+    el("circle", { cx: x, cy: y, r: best ? rnd(6, 8) : rnd(3.5, 5.5),
+      fill: best ? "#e05252" : "#131615", stroke: best ? "#e87a7a" : "#5b9cf5",
+      "stroke-width": best ? 1.6 : 1.1 }, ng);
+  }
+  const range = document.getElementById("treeRange"), best = document.getElementById("treeBest");
+  function render() {
+    const k = parseInt(range.value, 10);
+    [...ng.children].forEach((c, i) => c.setAttribute("opacity", i < k ? 1 : 0.12));
+    best.setAttribute("points", nodes.filter((n, i) => n.best && i < k).map((n) => n.x + "," + n.y).join(" "));
+  }
+  range.addEventListener("input", render);
+  render();
+})();
+
+/* radar grid + spotlight */
+(function radar() {
+  const g = document.getElementById("radarGrid");
+  [[230, 58, 338, 138, 306, 246, 154, 246, 122, 130],
+   [230, 92, 302, 150, 282, 224, 178, 224, 158, 150],
+   [230, 126, 266, 162, 258, 202, 202, 202, 194, 170]].forEach((p) => {
+    el("polygon", { points: `${p[0]},${p[1]} ${p[2]},${p[3]} ${p[4]},${p[5]} ${p[6]},${p[7]} ${p[8]},${p[9]}` }, g);
+  });
+  [[230, 132], [338, 138], [306, 246], [154, 246], [122, 130]].forEach(([x, y]) =>
+    el("line", { x1: 230, y1: 162, x2: x, y2: y }, g));
+  const polys = { cont: document.getElementById("radarCont"),
+    std: document.getElementById("radarStd"), agent: document.getElementById("radarAgent") };
+  document.querySelectorAll("[data-radar]").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll("[data-radar]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+    b.setAttribute("aria-pressed", "true");
+    for (const k in polys) polys[k].setAttribute("opacity", k === b.dataset.radar ? "1" : "0.18");
+  }));
+})();
+
+/* rivers */
+(function rivers() {
+  const g = document.getElementById("rivers");
+  const lanes = [
+    { y: 26, down: 78 }, { y: 136, down: 60 }, { y: 246, down: 34 }
+  ];
+  lanes.forEach(({ y, down }, li) => {
+    el("path", { d: `M150,${y} C320,${y + 6} 520,${y + 2} 930,${y + 4} L930,${y + down} C520,${y + down - 4} 320,${y + down + 2} 150,${y + down} Z`,
+      fill: "url(#riverG)", opacity: 0.8, "class": reduced ? "" : "floaty" }, g);
+    el("path", { d: `M150,${y + down} C380,${y + down + 8} 640,${y + down - 6} 930,${y + down + 2} L930,${y + 96} C600,${y + 92} 360,${y + 100} 150,${y + 96} Z`,
+      fill: "url(#riverR)", opacity: 0.75 }, g);
+    if (li < 2) el("line", { x1: 700 + li * 60, y1: y + 6, x2: 700 + li * 60, y2: y + 96, stroke: "#f4f4f2", "stroke-width": 2 }, g);
+  });
+  const btn = document.getElementById("riverBtn");
+  btn.addEventListener("click", () => {
+    const on = btn.getAttribute("aria-pressed") === "true";
+    btn.setAttribute("aria-pressed", String(!on));
+    btn.textContent = on ? "resume the flow" : "pause the flow";
+    g.querySelectorAll("*").forEach((n) => n.style.animationPlayState = on ? "paused" : "running");
+  });
+})();
+
+/* barcode heatmap */
+(function barcode() {
+  const g = document.getElementById("bars");
+  for (let w = 0; w < 60; w++) {
+    const frac = Math.min(0.94, 0.06 + w * 0.013 + (w > 34 ? (w - 34) * 0.016 : 0));
+    for (let j = 0; j < 30; j++) {
+      const hit = (j + Math.sin(w * 0.7 + j) * 2) / 30 < frac;
+      el("rect", { x: 14 + j * 10.2, y: 44 + w * 4.35, width: 9, height: 3.5, rx: 1,
+        fill: hit ? "#d64545" : "#2e9e5b", opacity: hit ? rnd(0.6, 0.95) : rnd(0.55, 0.9) }, g);
+    }
+    if (w === 44) el("rect", { x: 14, y: 44 + w * 4.35, width: 306, height: 2.4, fill: "#f4f4f2" }, g);
+  }
+})();
+
+/* competitive release colonies */
+(function release() {
+  function colony(gid, cx) {
+    const g = document.getElementById(gid);
+    el("circle", { cx, cy: 165, r: 108, fill: "#0a0d0c", stroke: "#3a4140", "stroke-width": 2.5 }, g);
+    const green = el("circle", { cx, cy: 165, r: 96, fill: "#2e9e5b", opacity: 0.35 }, g);
+    const red = el("circle", { cx, cy: 165, r: 20, fill: "#d64545", opacity: 0.9 }, g);
+    const ring = el("circle", { cx, cy: 165, r: 96, fill: "none", stroke: "#35c163", "stroke-width": 5, opacity: 0.8 }, g);
+    return { green, red, ring };
+  }
+  const A = colony("releaseA", 115), B = colony("releaseB", 345);
+  const range = document.getElementById("relRange"), label = document.getElementById("relLabel");
+  function render() {
+    const t = parseInt(range.value, 10) / 100;
+    label.textContent = "week " + range.value;
+    const rA = 14 + t * 82, rB = 14 + t * 34;
+    A.red.setAttribute("r", rA); A.green.setAttribute("opacity", (0.35 - t * 0.24).toFixed(2));
+    A.ring.setAttribute("opacity", (0.8 - t * 0.65).toFixed(2)); A.ring.setAttribute("r", 96);
+    B.red.setAttribute("r", rB); B.green.setAttribute("opacity", 0.35);
+    B.ring.setAttribute("r", (58 + t * 12).toFixed(1));
+  }
+  range.addEventListener("input", render);
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+Additional real datasets in this folder
+======================================
+
+- shaw_real.csv : 18 patients, 665 PSA readings -> 16 pass the >=5-on/>=5-off
+  filter (S1385, S1519 dropped: too few on-drug readings).
+  Source: same archive as bruchovsky_real.csv (dataTanaka.zip, folder
+  Shaw_et_al/; ids prefixed S). Conversion: same columns as Bruchovsky
+  (file number -> S###, date -> ISO, col 5 PSA, col 8 on/off 1/0).
+
+- zhang_real.csv : Moffitt adaptive-abiraterone pilot trial (NCT02415621) +
+  standard-of-care arm, via Zhang/Cunningham et al., eLife 2022 (eLife.76284).
+  32 patient blocks, 678 PSA readings -> 17 pass the filter (all 12 dropped
+  SOC patients are continuous-treatment with ~0 holidays, plus 3 sparse
+  adaptive cases: AP1004, AP1007, AP1018).
+  Source: https://github.com/cunninghamjj/Evolution-based-mathematical-models-significantly-prolong-response-to-Abiraterone-in-mCRPC
+  file data/TrialPatientData.xlsx, sheets Adaptive (ids A...) and SOC (C...).
+  Columns per block: Days (days since enrollment), PSA, Abi (abiraterone
+  1/0 -> on_treatment), relPSA_Indi. Dates are synthetic
+  (2015-04-01 + Days, enrollment era); the pipeline only uses
+  weeks-since-first-reading, so absolute dates do not matter.
+  PSA units ng/mL. Converters used openpyxl (one-off, not in requirements).
+
+Caveat: Zhang patients have metastatic castrate-resistant disease on
+abiraterone under an adaptive (not intermittent) schedule — a different drug
+and setting from Bruchovsky/Shaw. Comparable through the same S/R model,
+but expect different dynamics.
+
+Use with e.g.:
+  ./.venv/bin/python src/run_pipeline.py --data data/shaw_real.csv
+  ./.venv/bin/python src/run_pipeline.py --data data/zhang_real.csv
