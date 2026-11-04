@@ -53,108 +53,107 @@
   {
    "feature": "log_f",
    "label": "log initial resistant fraction (fitted)",
-   "weight": -7.279599182527093
+   "weight": -6.779518450721561
   },
   {
    "feature": "r_r",
    "label": "resistant-cell growth rate r_r (fitted)",
-   "weight": -7.204709046854941
-  },
-  {
-   "feature": "log_baseline",
-   "label": "log baseline PSA",
-   "weight": 5.316952323188283
+   "weight": -6.639799909132059
   },
   {
    "feature": "rr_rs",
    "label": "resistant/sensitive growth ratio r_r/r_s",
-   "weight": -4.499940355978097
+   "weight": -5.807182030399267
+  },
+  {
+   "feature": "log_baseline",
+   "label": "log baseline PSA",
+   "weight": 5.069545548782501
   },
   {
    "feature": "r_s",
    "label": "sensitive-cell growth rate r_s (fitted)",
-   "weight": -3.0534124551685875
+   "weight": -2.9957781219468136
   },
   {
    "feature": "off_slope",
    "label": "off-drug log-PSA rebound slope in fit period",
-   "weight": -2.9277140534015738
+   "weight": -2.776557560677915
   },
   {
    "feature": "on_frac_fit",
    "label": "share of fit-period readings on drug",
-   "weight": -2.8855172116770653
-  },
-  {
-   "feature": "b",
-   "label": "competition: sensitive on resistant, b (fitted)",
-   "weight": 2.6042558681385386
+   "weight": -2.6205614077054387
   },
   {
    "feature": "kill",
    "label": "drug kill rate on sensitive cells (fitted)",
-   "weight": 1.8521120876024857
-  },
-  {
-   "feature": "a",
-   "label": "competition: resistant on sensitive, a (fitted)",
-   "weight": -0.5528616672862449
+   "weight": 1.427654554759856
   },
   {
    "feature": "nadir_ratio",
    "label": "deepest PSA in fit period / baseline",
-   "weight": 0.194748624212402
+   "weight": -0.907604752739356
+  },
+  {
+   "feature": "b",
+   "label": "competition: sensitive on resistant, b (fitted)",
+   "weight": -0.7989378440551752
+  },
+  {
+   "feature": "a",
+   "label": "competition: resistant on sensitive, a (fitted)",
+   "weight": -0.46306920766235427
   }
  ],
  "overall": {
-  "gain_med_vs_std": 0.4095238095238095,
-  "gain_p10_vs_std": 0.4019047619047618,
-  "drug_save_vs_std": 1.5873260073260074,
-  "obj_gain_vs_std": 0.9279413919413919,
-  "ttp_change_vs_cont": 2.361904761904762,
-  "drug_save_vs_cont": 51.71166666666667,
+  "gain_med_vs_std": 0.4,
+  "gain_p10_vs_std": 0.3542857142857142,
+  "drug_save_vs_std": 1.5793406593406596,
+  "obj_gain_vs_std": 0.8930109890109891,
+  "ttp_change_vs_cont": 2.3047619047619046,
+  "drug_save_vs_cont": 52.19263736263736,
   "frac_gain_med_negative": 0.0
  },
  "held_out": {
   "drug_save_vs_cont": {
-   "selected_mean": 69.11485798816568,
-   "all_mean": 51.71966568047337
+   "selected_mean": 69.92348816568047,
+   "all_mean": 52.18007322485207
   },
   "ttp_change_vs_cont": {
-   "selected_mean": 0.7807692307692308,
-   "all_mean": 2.415480769230769
+   "selected_mean": 0.7592307692307692,
+   "all_mean": 2.358942307692308
   },
   "drug_save_vs_std": {
-   "selected_mean": 1.7402204142011823,
-   "all_mean": 1.62355325443787
+   "selected_mean": 1.551079881656804,
+   "all_mean": 1.616737980769231
   },
   "gain_med_vs_std": {
-   "selected_mean": 0.17057692307692307,
-   "all_mean": 0.4147596153846154
+   "selected_mean": 0.13057692307692306,
+   "all_mean": 0.4052403846153847
   },
   "high_saver": {
    "threshold_pts": 70.0,
-   "selected_rate": 0.41192307692307695,
+   "selected_rate": 0.4453846153846154,
    "all_rate": 0.18009615384615388
   }
  },
  "held_out_method": "200 random half-splits; in each, a ridge model trained on one half selects the top 25% predicted patients in the other half; selected means are compared with the whole test half",
  "tier_thresholds": {
-  "low_below": 47.987553310908055,
-  "strong_at_or_above": 56.89574724418286
+  "low_below": 47.085070279800924,
+  "strong_at_or_above": 57.3929894968751
  },
  "tier_counts": {
   "moderate": 35,
-  "strong": 35,
-  "low": 34,
-  "not-a-candidate": 1
+  "low": 35,
+  "strong": 35
  },
  "patients": {
   "B001": {
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 53.75602754480946,
+   "predicted_drug_save_vs_cont": 52.71071398614967,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -166,9 +165,9 @@
   },
   "B002": {
    "cohort": "bruchovsky-real",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 51.16980636889497,
+   "tier": "low",
+   "tier_label": "Low saver \u2014 pause saves little drug",
+   "predicted_drug_save_vs_cont": 46.808203336934895,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 1.0,
@@ -182,7 +181,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 59.82112381942859,
+   "predicted_drug_save_vs_cont": 59.60835977060354,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 1.0,
@@ -196,7 +195,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 53.29381176200127,
+   "predicted_drug_save_vs_cont": 52.9724881295291,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -208,9 +207,9 @@
   },
   "B006": {
    "cohort": "bruchovsky-real",
-   "tier": "strong",
-   "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 56.92329542898937,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 57.20265711559144,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -224,7 +223,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 57.706526768219845,
+   "predicted_drug_save_vs_cont": 58.051931329092,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -238,7 +237,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 23.857872116494697,
+   "predicted_drug_save_vs_cont": 23.95741329555541,
    "actual": {
     "gain_med_vs_std": 0.5,
     "gain_p10_vs_std": 1.0,
@@ -252,7 +251,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 68.68064754907036,
+   "predicted_drug_save_vs_cont": 68.36675822225021,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -266,7 +265,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 71.21291089521304,
+   "predicted_drug_save_vs_cont": 75.63996565704312,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -280,7 +279,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 60.27703344198918,
+   "predicted_drug_save_vs_cont": 58.169882773070945,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -292,9 +291,9 @@
   },
   "B016": {
    "cohort": "bruchovsky-real",
-   "tier": "low",
-   "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 44.021085234116384,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 47.61503040134366,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -308,7 +307,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 62.18197204816402,
+   "predicted_drug_save_vs_cont": 57.64944209086421,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -322,7 +321,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 79.93656318080598,
+   "predicted_drug_save_vs_cont": 78.71581603075371,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -336,7 +335,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 49.30777148100055,
+   "predicted_drug_save_vs_cont": 47.98802637048044,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.09999999999999432,
@@ -350,7 +349,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 47.5215962949498,
+   "predicted_drug_save_vs_cont": 40.714678517933606,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 2.0,
@@ -364,7 +363,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 64.65512890558132,
+   "predicted_drug_save_vs_cont": 62.02536730136808,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -378,7 +377,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 42.04899604191815,
+   "predicted_drug_save_vs_cont": 38.84319211713763,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 0.09999999999999432,
@@ -392,7 +391,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 60.26889669706051,
+   "predicted_drug_save_vs_cont": 58.66307790828909,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -406,7 +405,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 65.84275064998454,
+   "predicted_drug_save_vs_cont": 63.61746157957666,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -420,7 +419,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 54.194231991424445,
+   "predicted_drug_save_vs_cont": 55.200323615981944,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -434,7 +433,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 76.69199442300435,
+   "predicted_drug_save_vs_cont": 79.340302418961,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -448,7 +447,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 50.29751307088845,
+   "predicted_drug_save_vs_cont": 54.0065096229946,
    "actual": {
     "gain_med_vs_std": 0.5,
     "gain_p10_vs_std": 1.0,
@@ -462,7 +461,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 66.67357539247618,
+   "predicted_drug_save_vs_cont": 63.63507600316588,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -476,7 +475,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 52.476760142503885,
+   "predicted_drug_save_vs_cont": 49.18918532055098,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -490,7 +489,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 72.63439782145394,
+   "predicted_drug_save_vs_cont": 77.3825039473058,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -504,7 +503,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 53.21375545015597,
+   "predicted_drug_save_vs_cont": 52.26677504326872,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -518,7 +517,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 51.23948294169626,
+   "predicted_drug_save_vs_cont": 48.41996213724902,
    "actual": {
     "gain_med_vs_std": 2.0,
     "gain_p10_vs_std": 1.0,
@@ -532,7 +531,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 45.36217240201624,
+   "predicted_drug_save_vs_cont": 42.70463921559508,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 1.0,
@@ -546,7 +545,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 54.43370245478867,
+   "predicted_drug_save_vs_cont": 55.85537939255236,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -560,7 +559,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 53.637780977728426,
+   "predicted_drug_save_vs_cont": 51.821881763087994,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -572,9 +571,9 @@
   },
   "B046": {
    "cohort": "bruchovsky-real",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 49.83223891910973,
+   "tier": "strong",
+   "tier_label": "High saver \u2014 strong pause candidate",
+   "predicted_drug_save_vs_cont": 58.517016324482796,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -588,7 +587,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 50.86091476297396,
+   "predicted_drug_save_vs_cont": 54.53046524596016,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -602,7 +601,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 35.69067796728173,
+   "predicted_drug_save_vs_cont": 38.47361597616444,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 1.0,
@@ -616,7 +615,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 17.75729405621213,
+   "predicted_drug_save_vs_cont": 17.7832809544882,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -630,7 +629,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 41.86439472719887,
+   "predicted_drug_save_vs_cont": 41.044927561785244,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -644,7 +643,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 47.636238104469115,
+   "predicted_drug_save_vs_cont": 45.378397210402184,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -658,7 +657,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 45.41725008917996,
+   "predicted_drug_save_vs_cont": 46.67358330904818,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -672,7 +671,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 56.86604313874219,
+   "predicted_drug_save_vs_cont": 55.970181719815116,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -684,9 +683,9 @@
   },
   "B060": {
    "cohort": "bruchovsky-real",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 48.16321091412752,
+   "tier": "low",
+   "tier_label": "Low saver \u2014 pause saves little drug",
+   "predicted_drug_save_vs_cont": 47.01059673253289,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -700,7 +699,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 71.04668190361363,
+   "predicted_drug_save_vs_cont": 75.09774970784106,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -714,7 +713,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 67.67792631726961,
+   "predicted_drug_save_vs_cont": 67.0400805582961,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -726,9 +725,9 @@
   },
   "B063": {
    "cohort": "bruchovsky-real",
-   "tier": "low",
-   "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 45.35505233230728,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 50.578853646912734,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -742,7 +741,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 41.027312131175066,
+   "predicted_drug_save_vs_cont": 36.70118916881782,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 1.0,
@@ -756,7 +755,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 49.8147788517919,
+   "predicted_drug_save_vs_cont": 47.79686023936061,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -770,7 +769,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 44.60283607535314,
+   "predicted_drug_save_vs_cont": 45.211377805302,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -784,7 +783,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 51.0751481717727,
+   "predicted_drug_save_vs_cont": 52.17955961018624,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.09999999999999432,
@@ -798,7 +797,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 54.825212515187005,
+   "predicted_drug_save_vs_cont": 54.8306367434521,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -810,9 +809,9 @@
   },
   "B078": {
    "cohort": "bruchovsky-real",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 49.42556794936279,
+   "tier": "low",
+   "tier_label": "Low saver \u2014 pause saves little drug",
+   "predicted_drug_save_vs_cont": 46.22824284298156,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -826,7 +825,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 51.06447510051348,
+   "predicted_drug_save_vs_cont": 49.1995487344123,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -840,7 +839,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 61.87136318311096,
+   "predicted_drug_save_vs_cont": 62.27923832984965,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -854,7 +853,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 55.310242284333505,
+   "predicted_drug_save_vs_cont": 54.542310286645524,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 1.0,
@@ -868,7 +867,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 34.85517243718458,
+   "predicted_drug_save_vs_cont": 42.43640656202972,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 1.0,
@@ -882,7 +881,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 36.57068138131234,
+   "predicted_drug_save_vs_cont": 43.426331377076934,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -896,7 +895,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 69.74104579334382,
+   "predicted_drug_save_vs_cont": 68.5942707000014,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -910,7 +909,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 62.98068108610576,
+   "predicted_drug_save_vs_cont": 62.99267606850579,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -924,7 +923,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 42.79894173808807,
+   "predicted_drug_save_vs_cont": 37.79479784503783,
    "actual": {
     "gain_med_vs_std": 0.5,
     "gain_p10_vs_std": 1.0,
@@ -938,7 +937,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 52.35332176351263,
+   "predicted_drug_save_vs_cont": 50.836600994328855,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -952,7 +951,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 50.09287904859272,
+   "predicted_drug_save_vs_cont": 50.40096309243705,
    "actual": {
     "gain_med_vs_std": 2.0,
     "gain_p10_vs_std": 1.0999999999999943,
@@ -964,9 +963,9 @@
   },
   "B093": {
    "cohort": "bruchovsky-real",
-   "tier": "strong",
-   "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 56.94778204817536,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 54.90439815462363,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -980,7 +979,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 45.74965462518733,
+   "predicted_drug_save_vs_cont": 44.916211319825265,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -994,7 +993,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 55.22216263759602,
+   "predicted_drug_save_vs_cont": 53.36641151229672,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1008,7 +1007,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 62.26694184522719,
+   "predicted_drug_save_vs_cont": 68.24910658846446,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1022,7 +1021,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 45.60849539774337,
+   "predicted_drug_save_vs_cont": 42.74536085181351,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1034,9 +1033,9 @@
   },
   "B099": {
    "cohort": "bruchovsky-real",
-   "tier": "strong",
-   "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 59.411680822096756,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 57.2574396310613,
    "actual": {
     "gain_med_vs_std": 11.0,
     "gain_p10_vs_std": 7.0,
@@ -1050,7 +1049,7 @@
    "cohort": "bruchovsky-real",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 66.33879905853183,
+   "predicted_drug_save_vs_cont": 65.92173107297813,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1064,7 +1063,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 50.34287804116005,
+   "predicted_drug_save_vs_cont": 49.707527108559496,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1078,7 +1077,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 33.478082544613656,
+   "predicted_drug_save_vs_cont": 37.76790846659593,
    "actual": {
     "gain_med_vs_std": 0.5,
     "gain_p10_vs_std": 0.09999999999999432,
@@ -1092,7 +1091,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 56.6237012371723,
+   "predicted_drug_save_vs_cont": 56.044227450038726,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1106,7 +1105,7 @@
    "cohort": "bruchovsky-real",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 53.07050267746193,
+   "predicted_drug_save_vs_cont": 51.95752401459679,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 4.099999999999994,
@@ -1120,7 +1119,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 44.05190942456231,
+   "predicted_drug_save_vs_cont": 40.54291261410738,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1134,7 +1133,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 40.970513241404845,
+   "predicted_drug_save_vs_cont": 37.12739228836459,
    "actual": {
     "gain_med_vs_std": 0.5,
     "gain_p10_vs_std": 0.0,
@@ -1148,7 +1147,7 @@
    "cohort": "bruchovsky-real",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 38.80546627963605,
+   "predicted_drug_save_vs_cont": 36.3434404307159,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1162,231 +1161,231 @@
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 74.92083747309486,
+   "predicted_drug_save_vs_cont": 75.20389227253017,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 0.8826923076923077,
-    "obj_gain_vs_std": 0.17653846153846153,
+    "drug_save_vs_std": 0.9826923076923109,
+    "obj_gain_vs_std": 0.1965384615384622,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 84.97115384615384
+    "drug_save_vs_cont": 80.11538461538461
    }
   },
   "S1003": {
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 71.15008753647552,
+   "predicted_drug_save_vs_cont": 65.17627323351249,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 4.261538461538468,
-    "obj_gain_vs_std": 0.8523076923076935,
+    "drug_save_vs_std": 3.3461538461538467,
+    "obj_gain_vs_std": 0.6692307692307694,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 70.12115384615385
+    "drug_save_vs_cont": 72.85384615384615
    }
   },
   "S1005": {
    "cohort": "shaw",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 56.552056816281116,
+   "tier": "strong",
+   "tier_label": "High saver \u2014 strong pause candidate",
+   "predicted_drug_save_vs_cont": 59.753833597894754,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 0.1999999999999975,
-    "obj_gain_vs_std": 0.03999999999999951,
+    "drug_save_vs_std": 0.1884615384615369,
+    "obj_gain_vs_std": 0.037692307692307386,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 90.59423076923076
+    "drug_save_vs_cont": 90.31923076923077
    }
   },
   "S1018": {
    "cohort": "shaw",
-   "tier": "strong",
-   "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 58.036160618654925,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 54.67289370941486,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 0.5711538461538481,
-    "obj_gain_vs_std": 0.11423076923076964,
+    "drug_save_vs_std": 0.6096153846153882,
+    "obj_gain_vs_std": 0.12192307692307765,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 69.29615384615384
+    "drug_save_vs_cont": 67.72115384615384
    }
   },
   "S1280": {
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 58.464639776838524,
+   "predicted_drug_save_vs_cont": 60.72897351679451,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
     "drug_save_vs_std": 0.0,
     "obj_gain_vs_std": 0.0,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 72.47884615384616
+    "drug_save_vs_cont": 74.59423076923076
    }
   },
   "S1429": {
    "cohort": "shaw",
-   "tier": "not-a-candidate",
-   "tier_label": "Not a pause candidate (loses TTP in simulation)",
-   "predicted_drug_save_vs_cont": 30.45024669165779,
+   "tier": "low",
+   "tier_label": "Low saver \u2014 pause saves little drug",
+   "predicted_drug_save_vs_cont": 38.92892724852619,
    "actual": {
     "gain_med_vs_std": 0.0,
-    "gain_p10_vs_std": 4.0,
-    "drug_save_vs_std": -1.0519230769230887,
-    "obj_gain_vs_std": 1.7896153846153822,
-    "ttp_change_vs_cont": -3.0,
-    "drug_save_vs_cont": 29.557692307692292
+    "gain_p10_vs_std": 0.0,
+    "drug_save_vs_std": 0.9961538461538311,
+    "obj_gain_vs_std": 0.1992307692307662,
+    "ttp_change_vs_cont": 0.0,
+    "drug_save_vs_cont": 49.715384615384615
    }
   },
   "S1721": {
    "cohort": "shaw",
-   "tier": "low",
-   "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 43.7581693744482,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 50.8253361234782,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 1.2596153846153797,
-    "obj_gain_vs_std": 0.251923076923076,
+    "drug_save_vs_std": 1.9634615384615373,
+    "obj_gain_vs_std": 0.39269230769230745,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 69.24038461538461
+    "drug_save_vs_cont": 69.66153846153847
    }
   },
   "S1916": {
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 71.07517949965427,
+   "predicted_drug_save_vs_cont": 82.417112496784,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 0.46923076923076934,
-    "obj_gain_vs_std": 0.09384615384615387,
+    "drug_save_vs_std": 0.3865384615384615,
+    "obj_gain_vs_std": 0.0773076923076923,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 98.3576923076923
+    "drug_save_vs_cont": 98.8423076923077
    }
   },
   "S5211": {
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 59.20174482220965,
+   "predicted_drug_save_vs_cont": 59.33972014553017,
    "actual": {
     "gain_med_vs_std": 0.0,
-    "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 0.7326923076923073,
-    "obj_gain_vs_std": 0.14653846153846148,
+    "gain_p10_vs_std": 0.9000000000000057,
+    "drug_save_vs_std": 1.684615384615384,
+    "obj_gain_vs_std": 0.7869230769230797,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 77.33461538461538
+    "drug_save_vs_cont": 75.18076923076923
    }
   },
   "S5251": {
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 71.23645571561664,
+   "predicted_drug_save_vs_cont": 71.21736368739278,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 0.5346153846153854,
-    "obj_gain_vs_std": 0.10692307692307708,
+    "drug_save_vs_std": 0.5153846153846151,
+    "obj_gain_vs_std": 0.10307692307692302,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 98.16730769230769
+    "drug_save_vs_cont": 98.50769230769231
    }
   },
   "S5252": {
    "cohort": "shaw",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 48.19455139684829,
-   "actual": {
-    "gain_med_vs_std": 0.0,
-    "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 0.9326923076923066,
-    "obj_gain_vs_std": 0.18653846153846132,
-    "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 66.09615384615384
-   }
-  },
-  "S5256": {
-   "cohort": "shaw",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 53.492500147378124,
+   "predicted_drug_save_vs_cont": 57.26476319988054,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
     "drug_save_vs_std": 0.0,
     "obj_gain_vs_std": 0.0,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 53.90961538461538
+    "drug_save_vs_cont": 64.47115384615385
+   }
+  },
+  "S5256": {
+   "cohort": "shaw",
+   "tier": "strong",
+   "tier_label": "High saver \u2014 strong pause candidate",
+   "predicted_drug_save_vs_cont": 64.14538882541405,
+   "actual": {
+    "gain_med_vs_std": 0.0,
+    "gain_p10_vs_std": 0.0,
+    "drug_save_vs_std": 0.0,
+    "obj_gain_vs_std": 0.0,
+    "ttp_change_vs_cont": 0.0,
+    "drug_save_vs_cont": 54.35961538461538
    }
   },
   "S5257": {
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 73.54610473098896,
+   "predicted_drug_save_vs_cont": 87.79259913167137,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 0.0,
-    "obj_gain_vs_std": 0.0,
+    "drug_save_vs_std": 0.17692307692307696,
+    "obj_gain_vs_std": 0.035384615384615396,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 99.23076923076923
+    "drug_save_vs_cont": 98.85
    }
   },
   "S5259": {
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 70.78431171358912,
+   "predicted_drug_save_vs_cont": 69.13794090765353,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 13.438461538461535,
-    "obj_gain_vs_std": 2.6876923076923074,
+    "drug_save_vs_std": 11.813461538461539,
+    "obj_gain_vs_std": 2.3626923076923076,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 98.80961538461538
+    "drug_save_vs_cont": 98.59230769230768
    }
   },
   "S5262": {
    "cohort": "shaw",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 56.881973151779604,
+   "tier": "strong",
+   "tier_label": "High saver \u2014 strong pause candidate",
+   "predicted_drug_save_vs_cont": 58.830394328106124,
    "actual": {
-    "gain_med_vs_std": 1.0,
-    "gain_p10_vs_std": 1.9000000000000057,
-    "drug_save_vs_std": 1.451923076923073,
-    "obj_gain_vs_std": 2.2403846153846176,
-    "ttp_change_vs_cont": 9.0,
-    "drug_save_vs_cont": 39.67307692307692
+    "gain_med_vs_std": 0.0,
+    "gain_p10_vs_std": 0.0,
+    "drug_save_vs_std": 1.3999999999999986,
+    "obj_gain_vs_std": 0.27999999999999975,
+    "ttp_change_vs_cont": 0.0,
+    "drug_save_vs_cont": 54.34423076923076
    }
   },
   "S5263": {
    "cohort": "shaw",
    "tier": "strong",
    "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 63.20652203897049,
+   "predicted_drug_save_vs_cont": 62.37390855417592,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
-    "drug_save_vs_std": 1.7673076923076856,
-    "obj_gain_vs_std": 0.35346153846153716,
+    "drug_save_vs_std": 0.5480769230769216,
+    "obj_gain_vs_std": 0.10961538461538432,
     "ttp_change_vs_cont": 0.0,
-    "drug_save_vs_cont": 73.075
+    "drug_save_vs_cont": 93.28653846153846
    }
   },
   "AP1001": {
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 37.98957994608344,
+   "predicted_drug_save_vs_cont": 46.61920771673336,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.9000000000000057,
@@ -1400,7 +1399,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": -3.502160664293811,
+   "predicted_drug_save_vs_cont": -5.741645134092984,
    "actual": {
     "gain_med_vs_std": 9.0,
     "gain_p10_vs_std": 2.0,
@@ -1412,9 +1411,9 @@
   },
   "AP1003": {
    "cohort": "zhang",
-   "tier": "strong",
-   "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 58.67432392808571,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 56.341471001830904,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1428,7 +1427,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 17.18796559838018,
+   "predicted_drug_save_vs_cont": 23.06651133852988,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1440,9 +1439,9 @@
   },
   "AP1006": {
    "cohort": "zhang",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 54.380142365338976,
+   "tier": "strong",
+   "tier_label": "High saver \u2014 strong pause candidate",
+   "predicted_drug_save_vs_cont": 58.699865624644,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1456,7 +1455,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 22.509062749774536,
+   "predicted_drug_save_vs_cont": 18.999617831787255,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1470,7 +1469,7 @@
    "cohort": "zhang",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 56.35276845069524,
+   "predicted_drug_save_vs_cont": 47.12230705343494,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1484,7 +1483,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 35.1914869259772,
+   "predicted_drug_save_vs_cont": 35.31552109332496,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1498,7 +1497,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 43.43574329878746,
+   "predicted_drug_save_vs_cont": 45.39996342185465,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1512,7 +1511,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 40.13583137292005,
+   "predicted_drug_save_vs_cont": 42.67386076228165,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1526,7 +1525,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 25.27386943063904,
+   "predicted_drug_save_vs_cont": 28.934564962062023,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.9000000000000057,
@@ -1538,9 +1537,9 @@
   },
   "AP1016": {
    "cohort": "zhang",
-   "tier": "strong",
-   "tier_label": "High saver \u2014 strong pause candidate",
-   "predicted_drug_save_vs_cont": 57.902981526010024,
+   "tier": "moderate",
+   "tier_label": "Moderate saver \u2014 possible pause candidate",
+   "predicted_drug_save_vs_cont": 54.27116778052317,
    "actual": {
     "gain_med_vs_std": 4.5,
     "gain_p10_vs_std": 4.0,
@@ -1554,7 +1553,7 @@
    "cohort": "zhang",
    "tier": "moderate",
    "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 54.09059658524834,
+   "predicted_drug_save_vs_cont": 47.82896590987019,
    "actual": {
     "gain_med_vs_std": 1.0,
     "gain_p10_vs_std": 0.0,
@@ -1568,7 +1567,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 31.182840786878124,
+   "predicted_drug_save_vs_cont": 36.06971605942905,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1580,9 +1579,9 @@
   },
   "CC009": {
    "cohort": "zhang",
-   "tier": "moderate",
-   "tier_label": "Moderate saver \u2014 possible pause candidate",
-   "predicted_drug_save_vs_cont": 53.30246961421109,
+   "tier": "strong",
+   "tier_label": "High saver \u2014 strong pause candidate",
+   "predicted_drug_save_vs_cont": 60.18192033087257,
    "actual": {
     "gain_med_vs_std": 2.0,
     "gain_p10_vs_std": 1.9000000000000057,
@@ -1596,7 +1595,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 25.05321753738652,
+   "predicted_drug_save_vs_cont": 27.560874757176812,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 0.0,
@@ -1610,7 +1609,7 @@
    "cohort": "zhang",
    "tier": "low",
    "tier_label": "Low saver \u2014 pause saves little drug",
-   "predicted_drug_save_vs_cont": 0.5582766446695118,
+   "predicted_drug_save_vs_cont": 2.161413550470421,
    "actual": {
     "gain_med_vs_std": 0.0,
     "gain_p10_vs_std": 1.0,

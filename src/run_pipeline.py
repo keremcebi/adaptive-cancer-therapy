@@ -68,6 +68,7 @@ def main():
             "readings": {"weeks": d["weeks"], "psa": d["psa"], "on": d["on"],
                          "dates": d["dates"]},
             "n_fit": fit["n_fit"],
+            "forecast": fit.get("forecast_agent"),
             "baseline": base,
             "map_params": map_p,
             "fit": {"median": fit["median_full"], "pi5": fit["pi5_full"],

@@ -391,13 +391,13 @@ function renderBarcode() {
 
 /* ------------------------------------------------------------------ driver - */
 function renderViz() {
-  if (!PATIENTS[PID]) return;
+  if (!PATIENTS[PID] || !$("terrain")) return; // gallery slide removed
   renderTerrain();
   renderRiver();
   renderRadar();
   renderBarcode();
 }
-if ("IntersectionObserver" in window) {
+if ("IntersectionObserver" in window && $("terrain")) {
   const vio = new IntersectionObserver((entries) => {
     for (const e of entries) {
       if (e.target.id === "terrain") terrain3d.visible = e.isIntersecting;

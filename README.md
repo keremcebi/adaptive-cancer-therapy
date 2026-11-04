@@ -131,7 +131,8 @@ labels which backend produced each patient's rule.
 
 - `src/make_data.py` — synthetic Bruchovsky-style surrogate generator
 - `src/data_loader.py` — CSV loading + ≥5-readings-per-arm filter
-- `src/model.py` — competition model, global fit, 200-member ensemble, held-out validation
+- `src/model.py` — competition model (simulate, parameter bounds); fitting is delegated to the forecast agent
+- `src/forecast_agent.py` — Forecast Agent: propose → score → keep/reject → revise loop that makes the prediction and its 200-member ensemble
 - `src/baselines.py` — continuous + standard rules, ensemble scoring
 - `src/agent.py` — propose → score → revise rule search (Meta API or local evolution)
 - `src/selection.py` — EvoDose Select: features, benefits, ridge selector, held-out analysis

@@ -47,11 +47,14 @@ function heldOutStats(P) {
 }
 
 function updateFitText() {
+  if (!$("fitHint") || !$("fitStats")) return; // fit slide removed from the deck
   const P = PATIENTS[PID];
   const { weeks } = P.readings;
   $("fitHint").textContent =
-    `Patient ${PID}: ${weeks.length} blood-test readings. Left: the model learns from the ` +
-    `first ${P.n_fit}. Right: it is tested on the rest — readings it never saw.`;
+    `Patient ${PID}: ${weeks.length} blood-test readings. Left: the agent learns from the ` +
+    `first ${P.n_fit}. Right: it is tested on the rest — readings it never saw.` +
+    (P.forecast ? ` The forecast agent tried ${P.forecast.n_proposals} explanations, ` +
+      `kept ${P.forecast.n_kept} (${P.forecast.backend}).` : "");
   const sel = selectionFor(PID);
   const hs = heldOutStats(P);
   const TIER = { strong: "Big saver — good break candidate", moderate: "Middle saver — maybe",
@@ -65,6 +68,7 @@ function updateFitText() {
 }
 
 function renderFit() {
+  if (!$("fitChart")) return; // fit slide removed from the deck
   const P = PATIENTS[PID];
   if (visible.fitChart === false) { updateFitText(); return; } // offscreen: skip canvas
   const { weeks, psa, on } = P.readings;
@@ -640,7 +644,7 @@ async function boot() {
   // layout (late stylesheet, restored tab, zoom), any size change re-renders.
   if ("ResizeObserver" in window) {
     const ro = new ResizeObserver(() => { renderFit(); renderSimFrame(); });
-    ["fitChart", "simCont", "simStd"].forEach((id) => ro.observe($(id)));
+    ["fitChart", "simCont", "simStd"].forEach((id) => { const n = $(id); if (n) ro.observe(n); });
   }
   window.addEventListener("load", () => { renderFit(); renderSimFrame(); if (typeof fitSlides === "function") fitSlides(); });
   // Heartbeat: if the frame loop ever stalls while it should be playing
@@ -668,7 +672,7 @@ async function boot() {
       // A panel scrolled back into view repaints immediately, never stale.
       if (repaint) { renderFit(); renderSimFrame(); }
     });
-    ["fitChart", "simCont", "simStd"].forEach((id) => io.observe($(id)));
+    ["fitChart", "simCont", "simStd"].forEach((id) => { const n = $(id); if (n) io.observe(n); });
   }
   renderSummary();
   selectPatient(Object.keys(PATIENTS).sort()[0]);

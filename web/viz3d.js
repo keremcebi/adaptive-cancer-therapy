@@ -783,7 +783,7 @@ function v3loop(t) {
     st.renderer.render(st.scene, st.camera);
   }
 }
-if ("IntersectionObserver" in window) {
+if ("IntersectionObserver" in window && $("stage3d")) {
   new IntersectionObserver((entries) => {
     for (const e of entries) {
       if (e.target.id === "stage3d") V3.visible = e.isIntersecting;

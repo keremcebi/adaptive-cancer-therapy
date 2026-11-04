@@ -76,16 +76,17 @@
   <!-- HOW WE PREDICT -->
   <section class="slide">
     <p class="act">3 · Can we trust our guesses?</p>
-    <h2>How we make the guess, step by step.</h2>
+    <h2>How the agent makes the guess, step by step.</h2>
     <p class="hint">We only ever see one number — the blood test, which is green cells plus
-      red cells added together. Here is how we turn that into a prediction.</p>
+      red cells added together. An agent turns that into a prediction: it proposes an
+      explanation, runs it, scores it, keeps or rejects it — and tries again, 80 rounds over.</p>
     <div class="calwrap">
-      <svg viewBox="0 0 1080 400" role="img" aria-label="Four steps: what we know (blood tests and drug on or off), guess the hidden split into green and red cells by adjusting six things, keep 200 explanations that fit, then run them forward to get a guess and a plausible range">
+      <svg viewBox="0 0 1080 445" role="img" aria-label="Four steps: what we know (blood tests and drug on or off), the agent proposes a hidden green and red split by setting six things and scoring it on the early readings, it keeps or rejects each try over 80 rounds until 200 explanations are kept, then runs them forward with the real drug calendar to get a guess and a plausible range. Below, the loop: propose, simulate week by week, score on the early readings only, keep or reject, try again, with every try logged.">
         <!-- stage headers -->
         <g font-family="inherit">
           <text x="0" y="22" font-size="14" font-weight="700" fill="#f4f4f2">1 · WHAT WE KNOW</text>
-          <text x="280" y="22" font-size="14" font-weight="700" fill="#f4f4f2">2 · GUESS THE HIDDEN SPLIT</text>
-          <text x="560" y="22" font-size="14" font-weight="700" fill="#f4f4f2">3 · KEEP 200 EXPLANATIONS</text>
+          <text x="280" y="22" font-size="14" font-weight="700" fill="#f4f4f2">2 · THE AGENT GUESSES THE SPLIT</text>
+          <text x="560" y="22" font-size="14" font-weight="700" fill="#f4f4f2">3 · KEEP OR REJECT, 80 ROUNDS</text>
           <text x="840" y="22" font-size="14" font-weight="700" fill="#f4f4f2">4 · RUN THEM FORWARD</text>
 
           <!-- arrows between stages -->
@@ -125,10 +126,11 @@
             <rect x="280" y="58" width="196" height="26" fill="#2e9e5b"/>
             <rect x="476" y="58" width="34" height="26" fill="#d64545"/>
             <text x="291" y="76" font-size="12" font-weight="700" fill="#06130a">green cells</text>
+            <text x="493" y="76" font-size="10" font-weight="700" fill="#1a0606" text-anchor="middle">red</text>
             <text x="280" y="106" font-size="12.5" fill="#d9deda">First reading, split in two.</text>
             <text x="280" y="124" font-size="12.5" fill="#ff9a9a">The red share is hidden —</text>
             <text x="280" y="142" font-size="12.5" fill="#ff9a9a">we have to guess it.</text>
-            <text x="280" y="172" font-size="12.5" font-weight="700" fill="#f4f4f2">We adjust 6 things to fit:</text>
+            <text x="280" y="172" font-size="12.5" font-weight="700" fill="#f4f4f2">Each try, it sets 6 things:</text>
             <g font-size="12" fill="#9aa39f">
               <text x="280" y="193">· how fast green cells grow</text>
               <text x="280" y="212">· how fast red cells grow (slower)</text>
@@ -137,6 +139,11 @@
               <text x="280" y="269">· how much green cells crowd red</text>
               <text x="280" y="288">· the hidden red share at the start</text>
             </g>
+            <text x="280" y="318" font-size="12" fill="#34d3bd">It runs that cancer week by week</text>
+            <text x="280" y="336" font-size="12" fill="#34d3bd">and scores how well it fits.</text>
+            <text x="280" y="360" font-size="11" fill="#ff9a9a">One hard rule: red must grow</text>
+            <text x="280" y="376" font-size="11" fill="#ff9a9a">slower than green, or the try</text>
+            <text x="280" y="392" font-size="11" fill="#ff9a9a">is thrown out at once.</text>
           </g>
 
           <!-- 3: fan of 200 -->
@@ -151,10 +158,10 @@
           </g>
           <circle cx="566" cy="190" r="5" fill="#34d3bd"/>
           <g font-size="12.5" fill="#d9deda">
-            <text x="560" y="330">Many different stories fit the</text>
-            <text x="560" y="348">early readings. We keep 200 of</text>
-            <text x="560" y="366">them — they disagree most</text>
-            <text x="560" y="384">about the hidden red cells.</text>
+            <text x="560" y="322">8 tries a round: sharpen the best,</text>
+            <text x="560" y="340">mix two kept, vary one, explore.</text>
+            <text x="560" y="358">Kept only if nearly as good as</text>
+            <text x="560" y="376">the best — until 200 are kept.</text>
           </g>
 
           <!-- 4: band + median -->
@@ -162,39 +169,26 @@
             <path d="M846 84 C 900 74, 960 96, 1072 130 L 1072 218 C 960 196, 900 190, 846 176 Z"
               fill="rgba(52,211,189,0.18)"/>
             <path d="M846 130 C 900 122, 960 140, 1072 176" fill="none" stroke="#34d3bd" stroke-width="3.5"/>
-            <circle cx="930" cy="112" r="5" fill="#e8a33d"/>
-            <circle cx="1000" cy="196" r="5" fill="#0a0a0a" stroke="#5b9cf5" stroke-width="2"/>
             <text x="846" y="252" font-size="12.5" fill="#34d3bd" font-weight="700">teal line = our guess</text>
-            <text x="846" y="272" font-size="12.5" fill="#d9deda">(the middle of the 200 runs)</text>
-            <text x="846" y="298" font-size="12.5" fill="#d9deda">Shaded band = where 90 of</text>
-            <text x="846" y="316" font-size="12.5" fill="#d9deda">the 100 runs fall. Wide band</text>
-            <text x="846" y="334" font-size="12.5" fill="#d9deda">= we are unsure.</text>
+            <text x="846" y="272" font-size="12.5" fill="#d9deda">(the middle of the 200 runs,</text>
+            <text x="846" y="290" font-size="12.5" fill="#d9deda">run with the real drug calendar)</text>
+            <text x="846" y="316" font-size="12.5" fill="#d9deda">Shaded band = where 90 of</text>
+            <text x="846" y="334" font-size="12.5" fill="#d9deda">the 100 runs fall. Wide band</text>
+            <text x="846" y="352" font-size="12.5" fill="#d9deda">= we are unsure.</text>
           </g>
+
+          <!-- the loop, in one strip -->
+          <rect x="0" y="404" width="1080" height="32" rx="8" fill="#0c0e0d" stroke="#262b29"/>
+          <text x="540" y="425" font-size="12.5" fill="#d9deda" text-anchor="middle">THE LOOP — propose → simulate week by week → score on the early readings only → keep or reject → try again · every try is logged with its reason</text>
         </g>
       </svg>
     </div>
-    <p class="lesson"><strong>The key point:</strong> we never see the red cells. That is why
-      we keep 200 explanations instead of one — the spread between them is our honesty
-      about what we do not know. Next slide: we check the guess against readings
-      the model never saw.</p>
-  </section>
-
-  <!-- SLIDE 1: fit -->
-  <section class="slide">
-    <p class="act">3 · Can we trust our guesses?</p>
-    <h2>First, can we guess this patient's blood-test result?</h2>
-    <p class="hint" id="fitHint"></p>
-    <div class="chartwrap"><canvas id="fitChart" width="1200" height="420"></canvas></div>
-    <div class="legend">
-      <span><i class="dot on"></i>real reading, on drug</span>
-      <span><i class="dot off"></i>real reading, off drug</span>
-      <span><i class="line med"></i>model guess (test zone only)</span>
-      <span><i class="band"></i>plausible range</span>
-      <span class="misskey"><i class="missring"></i>missed by the range — line shows how far</span>
-    </div>
-    <dl class="stats" id="fitStats"></dl>
-    <p class="hint">How to read it: in the right-hand test zone, a dot on the teal
-      line means a good guess. A red ring and a long line mean a bad miss.</p>
+    <p class="lesson"><strong>The key point:</strong> the agent never sees the red cells, and
+      it is only ever scored on the early readings. That is why it keeps 200 explanations
+      instead of one — the spread between them is our honesty about what we do not know.
+      With a Meta API key, Muse Spark proposes each try; without one, a local proposer
+      runs the same loop (this deck's run used the local proposer).
+      Next slide: two drug plans race on the same cancer.</p>
   </section>
 
   <!-- SLIDE 2: sim -->
@@ -286,7 +280,7 @@
     <p class="act">Appendix · Proof</p>
     <h2>That is the story. The rest is proof.</h2>
     <p>Next come the things judges and doctors may ask for: the full table for
-      all patients, more pictures, the 3D cancer, and how we did the work.</p>
+      all patients.</p>
     <p class="why">You do not need the appendix to get the main point:
       <strong>who you are matters more than the exact break rule.</strong></p>
   </section>
@@ -302,78 +296,6 @@
     <p class="hint" id="overallLine"></p>
   </section>
 
-  <!-- SLIDE 5: gallery -->
-  <section class="slide">
-    <p class="act">Appendix B · Picture gallery</p>
-    <h2>Four more ways to see it.</h2>
-    <p class="hint">All pictures show the patient you picked. Drag the 3D hill to turn it,
-      scroll to zoom in. Green = drug can kill it. Red = drug cannot kill it.</p>
-    <div class="gallery">
-      <div class="viz wide">
-        <h3>How unsure are we? (3D hill)</h3>
-        <p class="ruletag">Our best guess is the top line of the hill. The hill shows how
-          wide our guess could be. Dots are real blood test results.</p>
-        <div id="terrain" class="gl" role="img" aria-label="3D blood-test uncertainty terrain"></div>
-      </div>
-      <div class="viz wide">
-        <h3>Green and red rivers</h3>
-        <p class="ruletag">How much green and red cancer there is over time, for each plan.
-          Dark bands are weeks on the drug.</p>
-        <canvas id="river" height="230"></canvas>
-      </div>
-      <div class="viz">
-        <h3>Good and bad sides of each plan</h3>
-        <p class="ruletag">A star shape for each plan. Big is better on every point:
-          control for longer, more time off drug, control per week of drug.</p>
-        <canvas id="radar" height="220"></canvas>
-      </div>
-      <div class="viz spanall">
-        <h3>Thin slices, week by week</h3>
-        <p class="ruletag">One row per week, top to bottom. Watch red take over
-          the cancer. The white line shows when control is lost.</p>
-        <canvas id="barcode" height="190"></canvas>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 6: 3D -->
-  <section class="slide">
-    <p class="act">Appendix C · Under the microscope</p>
-    <h2>Twelve ways to watch one cancer.</h2>
-    <p class="hint">The same cancer as in the race, drawn twelve ways. It uses the patient
-      you picked. Press play on the race slide, then watch here. Drag to turn,
-      scroll to zoom in.</p>
-    <div class="v3controls">
-      <div id="v3views" class="viewbtns"></div>
-      <label>Rule
-        <select id="v3rule"></select>
-      </label>
-    </div>
-    <div id="stage3d" class="stage3d" role="img" aria-label="3D tumor visualization"></div>
-    <p class="hint" id="v3caption"></p>
-  </section>
-
-  <!-- METHODS / FIN -->
-  <section class="slide story">
-    <p class="act">Appendix D · How we did it</p>
-    <h2>How we did it, in short.</h2>
-    <ul class="methods">
-      <li>Our model has two kinds of cancer cells: green (drug kills them) and red
-        (drug cannot kill them). They fight for space. blood test = green + red.</li>
-      <li>We teach the model with the first 60% of each patient's blood tests. Then we
-        test it on the last 40% — tests it has never seen. We try 200 versions of the
-        model to show how unsure we are.</li>
-      <li>We compare two plans: drug always on, and the usual break plan
-        (stop when the blood test falls to half, start again when it goes back up).</li>
-      <li>Last, we guess which patients will save the most time off the drug. We use
-        only what we knew early: starting blood test, how fast each kind of cell grows,
-        how low the blood test fell, and how fast it rose on breaks. A patient who would lose
-        control by taking a break is never picked.</li>
-      <li>All of this is a computer model. It is an idea to test in a real study one
-        day — not a treatment plan for any real person.</li>
-    </ul>
-    <p class="fin">EvoDose Select · a research model · not medical advice.</p>
-  </section>
 </main>
 
 <script>
@@ -448,9 +370,9 @@
 })();
 </script>
 <script src="vendor/three.min.js?v=12"></script>
-<script src="app.js?v=18"></script>
-<script src="viz.js?v=16"></script>
-<script src="viz3d.js?v=26"></script>
+<script src="app.js?v=19"></script>
+<script src="viz.js?v=17"></script>
+<script src="viz3d.js?v=27"></script>
 <script src="tissue-shader.js?v=1"></script>
 <script>
 // Slide deck: horizontal paging with prev/next, dots, keys, and edge-aware wheel.
