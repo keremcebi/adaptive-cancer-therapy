@@ -535,6 +535,7 @@ function replayLog() {
 
 /* --------------------------------------------------------------- summary -- */
 function renderSummary() {
+  if (!$("summaryTable") || !$("overallLine")) return; // appendix slides removed
   const rows = SUMMARY.rows;
   let html = "<tr><th>Patient</th><th>Starting blood test</th><th>Model guess error</th>" +
     "<th>Drug always on: weeks in control</th>" +
@@ -564,22 +565,18 @@ function renderSelection() {
   }
   const h = S.held_out, o = S.overall;
   intro.textContent =
-    `Taking a break does not beat never stopping by keeping control longer. It wins by ` +
-    `using less drug: across ${S.n_patients} patients, a break plan spends ` +
-    `${o.drug_save_vs_cont.toFixed(0)} of every 100 weeks off the drug, and control is ` +
-    `still ${o.ttp_change_vs_cont >= 0 ? "+" : ""}${o.ttp_change_vs_cont.toFixed(1)} weeks vs never stopping. ` +
-    `But some patients save only a few weeks, and some save 99. We try to guess who saves most.`;
+    `Not all patients respond well to adaptive therapy. ` +
+    `We try to guess patients who are more likely to benefit from adaptive therapy.`;
   stats.innerHTML =
     stat("Patients we picked: weeks off drug, out of 100", h.drug_save_vs_cont.selected_mean.toFixed(0) + " wks") +
     stat("All patients: weeks off drug, out of 100", h.drug_save_vs_cont.all_mean.toFixed(0) + " wks") +
     stat("Picked patients: control vs never stopping", (h.ttp_change_vs_cont.selected_mean >= 0 ? "+" : "") + h.ttp_change_vs_cont.selected_mean.toFixed(1) + " wks") +
-    stat("Big savers (70+ wks off): picked vs all", `${(h.high_saver.selected_rate * 100).toFixed(0)}% vs ${(h.high_saver.all_rate * 100).toFixed(0)}%`) +
-    stat("Big / middle / small savers", `${S.tier_counts.strong || 0} / ${S.tier_counts.moderate || 0} / ${S.tier_counts.low || 0}`);
+    stat("Big savers (70+ wks off): picked vs all", `${(h.high_saver.selected_rate * 100).toFixed(0)}% vs ${(h.high_saver.all_rate * 100).toFixed(0)}%`);
   const top = Object.entries(S.patients)
     .sort((a, b) => b[1].predicted_drug_save_vs_cont - a[1].predicted_drug_save_vs_cont).slice(0, 10);
   const COHORT = { "bruchovsky-real": "Bruchovsky study", shaw: "Shaw study", zhang: "Zhang study" };
   const TIER = { strong: "Big saver", moderate: "Middle saver", low: "Small saver", "not-a-candidate": "Should not take a break" };
-  table.innerHTML = "<tr><th>Patient</th><th>Study</th><th>Our guess</th>" +
+  if (table) table.innerHTML = "<tr><th>Patient</th><th>Study</th><th>Our guess</th>" +
     "<th>We guessed: weeks off, of 100</th><th>True: weeks off, of 100</th><th>Control vs never stopping (wks)</th></tr>" +
     top.map(([pid, p]) => `<tr><td>${pid}</td><td>${COHORT[p.cohort] || p.cohort || ""}</td>` +
       `<td class="tier-${p.tier}">${TIER[p.tier] || p.tier_label}</td>` +
@@ -592,7 +589,7 @@ function renderSelection() {
     off_slope: "blood test rises slowly on a break" };
   const drivers = (S.feature_weights || []).slice(0, 3)
     .map((w) => DRIVER[w.feature] || w.label).join(" · ");
-  method.textContent =
+  if (method) method.textContent =
     `How we know this is fair: when we guess a patient, the model has never seen that patient. ` +
     `We did this test many times with new groups each time. Big savers often have: ${drivers}. ` +
     `Taking even longer breaks does not help — in our model it made control much worse for many ` +
@@ -624,9 +621,6 @@ async function boot() {
     if (r.ok) SELECTION = await r.json();
   } catch (e) { SELECTION = null; }
   renderSelection();
-  $("patient").innerHTML = Object.keys(PATIENTS).sort()
-    .map((k) => `<option>${k}</option>`).join("");
-  $("patient").addEventListener("change", (e) => { setPlaying(false); selectPatient(e.target.value); });
   $("playBtn").addEventListener("click", () => {
     if ($("playBtn").textContent === "Play") {
       // A finished run restarts from week 0 instead of sitting dead at the end.

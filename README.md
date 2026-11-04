@@ -11,6 +11,40 @@ is barely. So the project now asks the question the data can support:
 
 Nothing it outputs is a treatment recommendation.
 
+## For the jury — try it in 2 minutes
+
+**Live demo: [keremcebi.github.io/adaptive-cancer-therapy](https://keremcebi.github.io/adaptive-cancer-therapy/)**
+— just open it; nothing to install. (If you prefer local: `cd web && python3 -m http.server 8000`,
+then open http://localhost:8000. Do not double-click `index.html`; browsers block its data
+files over `file://`. Re-running the Python pipeline below is *not* needed to use the deck —
+all patient results ship precomputed.)
+
+Click path:
+
+1. **Move** with the ← → arrow keys (↑ ↓ also work), the dots at the top, or the ‹ › buttons.
+   Nine slides: the problem, an animated year of treatment, why a break can work, how the
+   agent makes its guess, the race, who saves most (two slides), what it would change,
+   and the tool last. Or skip straight there with the **Try the tool** button (top-right).
+2. **Slide 5 (the race):** press **Play** and watch *Drug always on* vs the *Usual plan* on the
+   same cancer — green cells are the ones the drug can kill, red cells the ones it cannot.
+   Try **Restart** and the **Speed** control.
+3. **Slides 6–7 (who saves most):** the payoff — out of every 100 weeks, how much time off the
+   drug a break buys, and the patients our model picks as the biggest savers.
+4. **Slide 9 (try it, last slide):** upload your own patient's CSV
+   (`patient_id, date, psa_ng_ml, on_treatment`; at least 5 readings on and 5 off the drug)
+   and get a saver guess back in seconds. The fit runs entirely in the browser — nothing is
+   sent anywhere. No file handy? Click **Use example patient**, or download the example CSV
+   from that slide and upload it back. Every patient in the file is fitted and scored
+   locally, but that alone makes no guess. Paste a Muse (Meta) API key into the
+   masked field on that slide: Muse is the only source of the benefit guess — it
+   reads the scored patients and returns a likelihood (0–100) per patient, best
+   first, with a reason each (patients whose break loses control are excluded
+   before Muse sees them). No key, or a failed call, means no guess is shown.
+   The key is never stored and is only sent to Meta's API.
+5. **Optional eye candy:** the living tumor as a custom shader at
+   [illustrations.html](https://keremcebi.github.io/adaptive-cancer-therapy/illustrations.html)
+   (toggle the drug front, drag the resistance slider).
+
 ## The honest headline numbers (105 real patients)
 
 Two dead ends came first, and we report them because they motivate the design:
@@ -74,10 +108,9 @@ Full per-patient tiers are in `web/selection.json`; the method is in
    off drug vs continuous treatment, and produces out-of-fold predictions, held-out
    enrichment estimates, and a tier per patient — *High saver / Moderate saver /
    Low saver / Not a candidate*.
-6. **UI** (single page): the "Who should pause?" scene leads with the held-out
-   selection result and the strongest candidates; the patient view shows that
-   patient's tier and predicted saving alongside the fit, the simulated tumor race,
-   the agent log, and the full cross-patient table.
+6. **UI** (single page, 9 slides): a plain-language deck — the problem, an animated
+   year of treatment, why a break can work, how the agent guesses, the two-plan
+   race per selected patient, and the held-out "who saves most" result.
 
 ## Data
 
@@ -86,6 +119,9 @@ Full per-patient tiers are in `web/selection.json`; the method is in
 - `data/bruchovsky_real.csv` — real Bruchovsky Phase II extract: 72 patients,
   3,461 PSA readings. See `data/bruchovsky_real.SOURCES.txt`.
 - `data/shaw_real.csv` — Shaw et al.: 18 patients, 665 readings (16 usable).
+- `data/example_patient.csv` — one real Shaw patient (S0619, 42 readings) in the
+  upload format; the same file the deck's try-it slide offers as a download
+  (copy in `web/example_patient.csv`). Upload it there to see a guess end to end.
 - `data/zhang_real.csv` — Zhang Moffitt adaptive-abiraterone cohort: 32 blocks,
   678 readings (17 usable; different disease setting and drug — used as an
   external-style ranking check). See `data/more_real_data.SOURCES.txt`.
@@ -120,7 +156,7 @@ re-fitting.
 
 ```bash
 export META_API_KEY="..."
-# optional: export META_MODEL_API_URL="https://..." META_MODEL="muse-spark"
+# optional: export META_MODEL_API_URL="https://..." META_MODEL="muse-spark-1.3"
 ./.venv/bin/python src/run_pipeline.py --data data/bruchovsky_real.csv
 ```
 

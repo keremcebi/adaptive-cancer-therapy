@@ -3,944 +3,2177 @@
  "dropped": {},
  "overall": {
   "mean_log_rmse": Infinity,
-  "mean_mae": 18.232050533060477
+  "mean_mae": 17.086960600426135
+ },
+ "selection": {
+  "available": true,
+  "n_patients": 72,
+  "target": "drug_save_vs_cont",
+  "target_label": "simulated drug saving of the personalized pause rule vs continuous treatment (percentage points of weeks off drug), with no median-TTP loss vs continuous or vs the standard rule allowed",
+  "features": [
+   {
+    "key": "log_baseline",
+    "label": "log baseline PSA"
+   },
+   {
+    "key": "log_f",
+    "label": "log initial resistant fraction (fitted)"
+   },
+   {
+    "key": "r_s",
+    "label": "sensitive-cell growth rate r_s (fitted)"
+   },
+   {
+    "key": "r_r",
+    "label": "resistant-cell growth rate r_r (fitted)"
+   },
+   {
+    "key": "kill",
+    "label": "drug kill rate on sensitive cells (fitted)"
+   },
+   {
+    "key": "a",
+    "label": "competition: resistant on sensitive, a (fitted)"
+   },
+   {
+    "key": "b",
+    "label": "competition: sensitive on resistant, b (fitted)"
+   },
+   {
+    "key": "rr_rs",
+    "label": "resistant/sensitive growth ratio r_r/r_s"
+   },
+   {
+    "key": "nadir_ratio",
+    "label": "deepest PSA in fit period / baseline"
+   },
+   {
+    "key": "off_slope",
+    "label": "off-drug log-PSA rebound slope in fit period"
+   },
+   {
+    "key": "on_frac_fit",
+    "label": "share of fit-period readings on drug"
+   }
+  ],
+  "feature_weights": [
+   {
+    "feature": "r_r",
+    "label": "resistant-cell growth rate r_r (fitted)",
+    "weight": -6.612287306076448
+   },
+   {
+    "feature": "log_baseline",
+    "label": "log baseline PSA",
+    "weight": 4.969246634977979
+   },
+   {
+    "feature": "log_f",
+    "label": "log initial resistant fraction (fitted)",
+    "weight": -4.466022226553331
+   },
+   {
+    "feature": "kill",
+    "label": "drug kill rate on sensitive cells (fitted)",
+    "weight": 4.305002149935179
+   },
+   {
+    "feature": "r_s",
+    "label": "sensitive-cell growth rate r_s (fitted)",
+    "weight": -4.087771154666491
+   },
+   {
+    "feature": "rr_rs",
+    "label": "resistant/sensitive growth ratio r_r/r_s",
+    "weight": -2.9861019792016847
+   },
+   {
+    "feature": "nadir_ratio",
+    "label": "deepest PSA in fit period / baseline",
+    "weight": -1.5100083236709718
+   },
+   {
+    "feature": "off_slope",
+    "label": "off-drug log-PSA rebound slope in fit period",
+    "weight": -1.4093873450269807
+   },
+   {
+    "feature": "on_frac_fit",
+    "label": "share of fit-period readings on drug",
+    "weight": -1.1518191134073397
+   },
+   {
+    "feature": "a",
+    "label": "competition: resistant on sensitive, a (fitted)",
+    "weight": 1.1237392050650696
+   },
+   {
+    "feature": "b",
+    "label": "competition: sensitive on resistant, b (fitted)",
+    "weight": 0.45128823490634995
+   }
+  ],
+  "overall": {
+   "gain_med_vs_std": 0.3125,
+   "gain_p10_vs_std": 0.3333333333333333,
+   "drug_save_vs_std": 1.5368856837606844,
+   "obj_gain_vs_std": 0.7865438034188035,
+   "ttp_change_vs_cont": 2.486111111111111,
+   "drug_save_vs_cont": 54.979166666666664,
+   "frac_gain_med_negative": 0.0
+  },
+  "held_out": {
+   "drug_save_vs_cont": {
+    "selected_mean": 63.3470641025641,
+    "all_mean": 54.81002884615385
+   },
+   "ttp_change_vs_cont": {
+    "selected_mean": 0.6638888888888889,
+    "all_mean": 2.502777777777778
+   },
+   "drug_save_vs_std": {
+    "selected_mean": 1.2109059829059843,
+    "all_mean": 1.559353098290599
+   },
+   "gain_med_vs_std": {
+    "selected_mean": 0.12833333333333333,
+    "all_mean": 0.30722222222222223
+   },
+   "high_saver": {
+    "threshold_pts": 70.0,
+    "selected_rate": 0.2622222222222222,
+    "all_rate": 0.15083333333333335
+   }
+  },
+  "held_out_method": "100 random half-splits; in each, a ridge model trained on one half selects the top 25% predicted patients in the other half; selected means are compared with the whole test half",
+  "tier_thresholds": {
+   "low_below": 53.1064810596204,
+   "strong_at_or_above": 58.96999575024248
+  },
+  "tier_counts": {
+   "moderate": 24,
+   "strong": 24,
+   "low": 24
+  },
+  "patients": {
+   "B001": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 58.17261077341595,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 2.2865384615384627,
+     "obj_gain_vs_std": 0.4573076923076926,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 53.044230769230765
+    }
+   },
+   "B002": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 54.5393508013624,
+    "actual": {
+     "gain_med_vs_std": 1.0,
+     "gain_p10_vs_std": 1.0,
+     "drug_save_vs_std": 2.021153846153844,
+     "obj_gain_vs_std": 1.9042307692307687,
+     "ttp_change_vs_cont": 6.0,
+     "drug_save_vs_cont": 46.68461538461539
+    }
+   },
+   "B003": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 56.9575370207496,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.4500000000000028,
+     "obj_gain_vs_std": 0.2900000000000006,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 61.25192307692308
+    }
+   },
+   "B004": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 54.289210996487796,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 53.81730769230769
+    }
+   },
+   "B006": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 53.31715319341051,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 32.0,
+     "drug_save_vs_cont": 57.63461538461539
+    }
+   },
+   "B011": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 65.87174241848062,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.03846153846154,
+     "obj_gain_vs_std": 0.20769230769230804,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 87.2
+    }
+   },
+   "B012": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 34.44907078930467,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.9000000000000057,
+     "drug_save_vs_std": 1.1153846153846132,
+     "obj_gain_vs_std": 0.6730769230769255,
+     "ttp_change_vs_cont": 2.0,
+     "drug_save_vs_cont": 21.453846153846158
+    }
+   },
+   "B013": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 69.84364290573927,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.1153846153846203,
+     "obj_gain_vs_std": 0.22307692307692406,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 67.01153846153846
+    }
+   },
+   "B014": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 57.50574873874001,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.7057692307692278,
+     "obj_gain_vs_std": 0.14115384615384557,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 69.05576923076923
+    }
+   },
+   "B015": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 58.14662480300319,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 57.051923076923075
+    }
+   },
+   "B016": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 54.9139121243546,
+    "actual": {
+     "gain_med_vs_std": 2.0,
+     "gain_p10_vs_std": 1.0,
+     "drug_save_vs_std": 1.5307692307692378,
+     "obj_gain_vs_std": 2.8061538461538476,
+     "ttp_change_vs_cont": 9.0,
+     "drug_save_vs_cont": 40.8423076923077
+    }
+   },
+   "B017": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 52.937833700335474,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.49423076923077147,
+     "obj_gain_vs_std": 0.0988461538461543,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 72.65576923076924
+    }
+   },
+   "B019": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 61.927918961598046,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.9750000000000085,
+     "obj_gain_vs_std": 0.39500000000000174,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 61.76538461538462
+    }
+   },
+   "B020": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 46.24020439547183,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.09999999999999432,
+     "drug_save_vs_std": 1.9461538461538552,
+     "obj_gain_vs_std": 0.4392307692307682,
+     "ttp_change_vs_cont": 4.5,
+     "drug_save_vs_cont": 39.35576923076923
+    }
+   },
+   "B022": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 58.89508628321378,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.9615384615384706,
+     "obj_gain_vs_std": 0.19230769230769412,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 79.04807692307693
+    }
+   },
+   "B024": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 58.776379255735755,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.205769230769235,
+     "obj_gain_vs_std": 0.241153846153847,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 63.38076923076923
+    }
+   },
+   "B025": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 38.883400423606254,
+    "actual": {
+     "gain_med_vs_std": 0.5,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.29999999999998295,
+     "obj_gain_vs_std": 0.5599999999999966,
+     "ttp_change_vs_cont": 1.5,
+     "drug_save_vs_cont": 23.33846153846153
+    }
+   },
+   "B026": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 59.711536736553995,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.5788461538461434,
+     "obj_gain_vs_std": 0.3157692307692287,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 58.605769230769226
+    }
+   },
+   "B028": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 75.6192375207537,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 74.59807692307692
+    }
+   },
+   "B029": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 52.6735597145684,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.43076923076923634,
+     "obj_gain_vs_std": 0.08615384615384727,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 66.34615384615384
+    }
+   },
+   "B030": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 64.01769807533556,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.125000000000007,
+     "obj_gain_vs_std": 0.22500000000000142,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 67.23846153846154
+    }
+   },
+   "B031": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 52.59481204144546,
+    "actual": {
+     "gain_med_vs_std": 3.0,
+     "gain_p10_vs_std": 2.0,
+     "drug_save_vs_std": 2.696153846153834,
+     "obj_gain_vs_std": 4.539230769230767,
+     "ttp_change_vs_cont": 13.0,
+     "drug_save_vs_cont": 53.640384615384605
+    }
+   },
+   "B032": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 59.21186923378283,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 63.28846153846154
+    }
+   },
+   "B036": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 55.20084000073,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 42.19423076923079
+    }
+   },
+   "B037": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 73.45529484446675,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.39230769230769624,
+     "obj_gain_vs_std": 0.07846153846153925,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 57.176923076923075
+    }
+   },
+   "B039": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 68.68444895477704,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.2269230769230859,
+     "obj_gain_vs_std": 0.04538461538461718,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 45.11538461538463
+    }
+   },
+   "B040": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 53.36885748459169,
+    "actual": {
+     "gain_med_vs_std": 1.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 3.5749999999999886,
+     "obj_gain_vs_std": 1.7149999999999976,
+     "ttp_change_vs_cont": 3.0,
+     "drug_save_vs_cont": 55.41538461538461
+    }
+   },
+   "B041": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 64.28125368222273,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.5480769230769305,
+     "obj_gain_vs_std": 0.3096153846153861,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 69.57884615384616
+    }
+   },
+   "B042": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 59.179904506605254,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 7.0,
+     "drug_save_vs_cont": 47.375000000000014
+    }
+   },
+   "B044": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 53.29226949030854,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.41153846153846985,
+     "obj_gain_vs_std": 0.08230769230769397,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 58.65961538461539
+    }
+   },
+   "B046": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 61.34836014470277,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.5634615384615387,
+     "obj_gain_vs_std": 0.31269230769230777,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 77.55
+    }
+   },
+   "B050": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 71.93378417032132,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 74.50192307692308
+    }
+   },
+   "B051": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 58.765693905560134,
+    "actual": {
+     "gain_med_vs_std": 1.5,
+     "gain_p10_vs_std": 1.0,
+     "drug_save_vs_std": 4.880769230769232,
+     "obj_gain_vs_std": 2.9761538461538466,
+     "ttp_change_vs_cont": 5.0,
+     "drug_save_vs_cont": 74.61538461538461
+    }
+   },
+   "B052": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 36.047171301678446,
+    "actual": {
+     "gain_med_vs_std": 2.0,
+     "gain_p10_vs_std": 1.0,
+     "drug_save_vs_std": 1.6250000000000142,
+     "obj_gain_vs_std": 2.825000000000003,
+     "ttp_change_vs_cont": 13.5,
+     "drug_save_vs_cont": 43.10192307692308
+    }
+   },
+   "B054": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 35.80523976762811,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 1.0,
+     "drug_save_vs_std": 0.47307692307691696,
+     "obj_gain_vs_std": 0.5946153846153834,
+     "ttp_change_vs_cont": 4.0,
+     "drug_save_vs_cont": 17.488461538461536
+    }
+   },
+   "B055": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 44.36040054880475,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.2961538461538495,
+     "obj_gain_vs_std": 0.25923076923076993,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 48.8173076923077
+    }
+   },
+   "B056": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 56.72890686845167,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 2.0,
+     "drug_save_vs_cont": 38.41730769230769
+    }
+   },
+   "B058": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 63.97034456340741,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 60.24423076923077
+    }
+   },
+   "B060": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 50.4114607461013,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.8961538461538403,
+     "obj_gain_vs_std": 0.17923076923076808,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 68.88269230769231
+    }
+   },
+   "B061": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 61.548880567388856,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.2307692307692264,
+     "obj_gain_vs_std": 0.24615384615384528,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 62.10961538461538
+    }
+   },
+   "B062": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 69.53892105775472,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 2.3730769230769226,
+     "obj_gain_vs_std": 0.47461538461538455,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 63.99230769230769
+    }
+   },
+   "B063": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 55.29894102319193,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 53.701923076923066
+    }
+   },
+   "B064": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 35.54928497008619,
+    "actual": {
+     "gain_med_vs_std": 1.0,
+     "gain_p10_vs_std": 0.09999999999999432,
+     "drug_save_vs_std": 3.9115384615384627,
+     "obj_gain_vs_std": 1.8323076923076898,
+     "ttp_change_vs_cont": 4.0,
+     "drug_save_vs_cont": 44.265384615384605
+    }
+   },
+   "B066": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 57.252925533453244,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 69.75576923076923
+    }
+   },
+   "B071": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 49.65555656271303,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.3288461538461505,
+     "obj_gain_vs_std": 0.2657692307692301,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 46.9673076923077
+    }
+   },
+   "B075": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 54.275572801983934,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.8076923076922995,
+     "obj_gain_vs_std": 0.1615384615384599,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 45.79615384615386
+    }
+   },
+   "B077": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 63.755017817926344,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.9230769230769198,
+     "obj_gain_vs_std": 0.38461538461538397,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 52.79038461538461
+    }
+   },
+   "B078": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 47.083518349493175,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 3.0,
+     "drug_save_vs_cont": 31.39807692307693
+    }
+   },
+   "B079": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 59.1198146842999,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 3.0,
+     "drug_save_vs_std": 3.8173076923077005,
+     "obj_gain_vs_std": 2.26346153846154,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 53.04807692307692
+    }
+   },
+   "B081": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 61.389341598472114,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.6884615384615387,
+     "obj_gain_vs_std": 0.13769230769230775,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 78.12692307692308
+    }
+   },
+   "B083": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 66.20721725031001,
+    "actual": {
+     "gain_med_vs_std": 4.0,
+     "gain_p10_vs_std": 4.0,
+     "drug_save_vs_std": 4.378846153846155,
+     "obj_gain_vs_std": 6.875769230769231,
+     "ttp_change_vs_cont": 16.0,
+     "drug_save_vs_cont": 52.32115384615385
+    }
+   },
+   "B084": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 44.07424743820979,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.1384615384615273,
+     "obj_gain_vs_std": 0.22769230769230547,
+     "ttp_change_vs_cont": 2.0,
+     "drug_save_vs_cont": 36.794230769230765
+    }
+   },
+   "B085": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 49.050912820835165,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.0826923076923123,
+     "obj_gain_vs_std": 0.21653846153846246,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 59.059615384615384
+    }
+   },
+   "B086": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 68.36832880437676,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 2.8788461538461547,
+     "obj_gain_vs_std": 0.5757692307692309,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 58.730769230769226
+    }
+   },
+   "B087": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 69.82640674224447,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 53.8826923076923
+    }
+   },
+   "B088": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 46.626115471647935,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.319230769230785,
+     "obj_gain_vs_std": 0.263846153846157,
+     "ttp_change_vs_cont": 3.0,
+     "drug_save_vs_cont": 26.19038461538463
+    }
+   },
+   "B091": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 45.8215679046348,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.6673076923076806,
+     "obj_gain_vs_std": 0.13346153846153613,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 48.051923076923075
+    }
+   },
+   "B092": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 42.518073136814415,
+    "actual": {
+     "gain_med_vs_std": 1.0,
+     "gain_p10_vs_std": 1.0,
+     "drug_save_vs_std": 2.8500000000000085,
+     "obj_gain_vs_std": 2.0700000000000016,
+     "ttp_change_vs_cont": 5.5,
+     "drug_save_vs_cont": 48.73653846153847
+    }
+   },
+   "B093": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 56.68523655359543,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.859615384615367,
+     "obj_gain_vs_std": 0.3719230769230734,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 52.05384615384615
+    }
+   },
+   "B094": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 24.565934427779805,
+    "actual": {
+     "gain_med_vs_std": 1.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 1.3250000000000028,
+     "obj_gain_vs_std": 1.2650000000000006,
+     "ttp_change_vs_cont": 4.0,
+     "drug_save_vs_cont": 28.126923076923077
+    }
+   },
+   "B095": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 49.26992562856347,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 21.18846153846154,
+     "obj_gain_vs_std": 4.237692307692308,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 99.23076923076923
+    }
+   },
+   "B096": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 56.83874124863524,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.7980769230769234,
+     "obj_gain_vs_std": 0.1596153846153847,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 71.9673076923077
+    }
+   },
+   "B097": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 57.452415672953485,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 65.11153846153846
+    }
+   },
+   "B099": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 63.848473443544215,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 3.0,
+     "drug_save_vs_std": 3.965384615384618,
+     "obj_gain_vs_std": 2.2930769230769235,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 71.15
+    }
+   },
+   "B100": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "strong",
+    "tier_label": "High saver \u2014 strong pause candidate",
+    "predicted_drug_save_vs_cont": 70.62264814218841,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 53.31538461538461
+    }
+   },
+   "B101": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 50.47180325598792,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 15.0,
+     "drug_save_vs_cont": 54.80576923076923
+    }
+   },
+   "B102": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 40.110441113365354,
+    "actual": {
+     "gain_med_vs_std": 1.0,
+     "gain_p10_vs_std": 0.9000000000000057,
+     "drug_save_vs_std": 1.8999999999999986,
+     "obj_gain_vs_std": 1.8300000000000025,
+     "ttp_change_vs_cont": 5.5,
+     "drug_save_vs_cont": 44.565384615384616
+    }
+   },
+   "B104": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 53.190804739262866,
+    "actual": {
+     "gain_med_vs_std": 2.5,
+     "gain_p10_vs_std": 3.0,
+     "drug_save_vs_std": 2.61346153846155,
+     "obj_gain_vs_std": 4.52269230769231,
+     "ttp_change_vs_cont": 9.5,
+     "drug_save_vs_cont": 38.142307692307696
+    }
+   },
+   "B105": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 54.81328561246675,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 2.8788461538461476,
+     "obj_gain_vs_std": 0.5757692307692296,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 50.28653846153846
+    }
+   },
+   "B106": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 43.65766172735719,
+    "actual": {
+     "gain_med_vs_std": 1.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 2.0461538461538566,
+     "obj_gain_vs_std": 1.4092307692307713,
+     "ttp_change_vs_cont": 4.0,
+     "drug_save_vs_cont": 38.52307692307693
+    }
+   },
+   "B108": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "low",
+    "tier_label": "Low saver \u2014 pause saves little drug",
+    "predicted_drug_save_vs_cont": 34.571043432288405,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 1.0,
+     "drug_save_vs_std": 0.8192307692307566,
+     "obj_gain_vs_std": 0.6638461538461513,
+     "ttp_change_vs_cont": 5.0,
+     "drug_save_vs_cont": 37.19230769230768
+    }
+   },
+   "B109": {
+    "cohort": "bruchovsky_real.csv",
+    "tier": "moderate",
+    "tier_label": "Moderate saver \u2014 possible pause candidate",
+    "predicted_drug_save_vs_cont": 53.46225254319498,
+    "actual": {
+     "gain_med_vs_std": 0.0,
+     "gain_p10_vs_std": 0.0,
+     "drug_save_vs_std": 0.0,
+     "obj_gain_vs_std": 0.0,
+     "ttp_change_vs_cont": 0.0,
+     "drug_save_vs_cont": 50.86538461538461
+    }
+   }
+  }
  },
  "rows": [
   {
    "patient": "B001",
    "baseline": 29.0,
-   "val_log_rmse": 1.385,
-   "val_mae": 12.068,
+   "val_log_rmse": 1.499,
+   "val_mae": 6.019,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 53.8,
+   "std_on": 49.2,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 51.2
+   "agent_on": 47.0,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B002",
    "baseline": 7.7,
-   "val_log_rmse": 3.748,
-   "val_mae": 48.323,
-   "cont_med": 167.0,
-   "std_med": 172.0,
-   "std_p10": 165.0,
-   "std_on": 49.8,
-   "agent_med": 173.0,
-   "agent_p10": 166.0,
-   "agent_on": 48.8
+   "val_log_rmse": 3.845,
+   "val_mae": 52.697,
+   "cont_med": 161.0,
+   "std_med": 166.0,
+   "std_p10": 144.0,
+   "std_on": 55.3,
+   "agent_med": 167.0,
+   "agent_p10": 145.0,
+   "agent_on": 53.3,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B003",
    "baseline": 16.5,
-   "val_log_rmse": 1.562,
+   "val_log_rmse": 1.462,
    "val_mae": 4.324,
    "cont_med": 260.0,
    "std_med": 260.0,
-   "std_p10": 243.9,
-   "std_on": 46.7,
+   "std_p10": 260.0,
+   "std_on": 40.2,
    "agent_med": 260.0,
-   "agent_p10": 244.9,
-   "agent_on": 44.7
+   "agent_p10": 260.0,
+   "agent_on": 38.7,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B004",
    "baseline": 12.0,
-   "val_log_rmse": 0.816,
-   "val_mae": 2.122,
+   "val_log_rmse": 0.817,
+   "val_mae": 2.011,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 47.1,
+   "std_on": 46.2,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 47.1
+   "agent_on": 46.2,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B006",
    "baseline": 28.4,
-   "val_log_rmse": 2.887,
-   "val_mae": 23.892,
-   "cont_med": 188.5,
-   "std_med": 196.0,
+   "val_log_rmse": 3.596,
+   "val_mae": 53.24,
+   "cont_med": 155.0,
+   "std_med": 187.0,
    "std_p10": 178.0,
-   "std_on": 40.9,
-   "agent_med": 196.0,
+   "std_on": 42.4,
+   "agent_med": 187.0,
    "agent_p10": 178.0,
-   "agent_on": 40.9
+   "agent_on": 42.4,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B011",
    "baseline": 28.9,
-   "val_log_rmse": 0.483,
-   "val_mae": 2.279,
+   "val_log_rmse": 0.549,
+   "val_mae": 2.491,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 47.7,
+   "std_on": 13.8,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 45.4
+   "agent_on": 12.8,
+   "sel_tier": "strong"
   },
   {
    "patient": "B012",
    "baseline": 10.7,
-   "val_log_rmse": 0.43,
-   "val_mae": 1.714,
-   "cont_med": 249.5,
-   "std_med": 254.5,
-   "std_p10": 229.0,
-   "std_on": 74.7,
-   "agent_med": 255.0,
-   "agent_p10": 230.0,
-   "agent_on": 72.0
+   "val_log_rmse": 0.399,
+   "val_mae": 1.65,
+   "cont_med": 179.0,
+   "std_med": 181.0,
+   "std_p10": 166.0,
+   "std_on": 79.7,
+   "agent_med": 181.0,
+   "agent_p10": 166.9,
+   "agent_on": 78.5,
+   "sel_tier": "low"
   },
   {
    "patient": "B013",
    "baseline": 38.2,
-   "val_log_rmse": 1.97,
-   "val_mae": 4.257,
+   "val_log_rmse": 1.52,
+   "val_mae": 3.952,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 36.0,
+   "std_on": 34.1,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 34.8
+   "agent_on": 33.0,
+   "sel_tier": "strong"
   },
   {
    "patient": "B014",
    "baseline": 6.8,
-   "val_log_rmse": 1.98,
-   "val_mae": 2.486,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 28.3,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 27.6
-  },
-  {
-   "patient": "B015",
-   "baseline": 32.4,
-   "val_log_rmse": 0.853,
-   "val_mae": 3.56,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 43.3,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 40.6
-  },
-  {
-   "patient": "B016",
-   "baseline": 10.4,
-   "val_log_rmse": 3.185,
-   "val_mae": 60.681,
-   "cont_med": 106.0,
-   "std_med": 110.0,
-   "std_p10": 105.9,
-   "std_on": 70.3,
-   "agent_med": 110.0,
-   "agent_p10": 105.9,
-   "agent_on": 70.3
-  },
-  {
-   "patient": "B017",
-   "baseline": 11.1,
-   "val_log_rmse": 2.758,
-   "val_mae": 4.313,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 24.7,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 23.6
-  },
-  {
-   "patient": "B019",
-   "baseline": 20.6,
-   "val_log_rmse": 1.758,
-   "val_mae": 4.065,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 40.3,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 38.5
-  },
-  {
-   "patient": "B020",
-   "baseline": 13.2,
-   "val_log_rmse": 0.64,
-   "val_mae": 2.915,
-   "cont_med": 214.0,
-   "std_med": 220.0,
-   "std_p10": 191.9,
-   "std_on": 63.4,
-   "agent_med": 220.0,
-   "agent_p10": 192.0,
-   "agent_on": 61.4
-  },
-  {
-   "patient": "B022",
-   "baseline": 9.6,
-   "val_log_rmse": 1.452,
-   "val_mae": 19.65,
-   "cont_med": 228.0,
-   "std_med": 235.0,
-   "std_p10": 218.0,
-   "std_on": 39.3,
-   "agent_med": 236.0,
-   "agent_p10": 220.0,
-   "agent_on": 36.6
-  },
-  {
-   "patient": "B024",
-   "baseline": 14.1,
-   "val_log_rmse": 1.909,
-   "val_mae": 3.544,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 35.8,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 34.4
-  },
-  {
-   "patient": "B025",
-   "baseline": 7.9,
-   "val_log_rmse": 3.415,
-   "val_mae": 71.481,
-   "cont_med": 92.0,
-   "std_med": 93.0,
-   "std_p10": 88.9,
-   "std_on": 76.1,
-   "agent_med": 94.0,
-   "agent_p10": 89.0,
-   "agent_on": 75.2
-  },
-  {
-   "patient": "B026",
-   "baseline": 19.0,
-   "val_log_rmse": 1.029,
-   "val_mae": 2.625,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 56.0,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 54.4
-  },
-  {
-   "patient": "B028",
-   "baseline": 61.0,
-   "val_log_rmse": 3.774,
-   "val_mae": 39.402,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 21.8,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 21.8
-  },
-  {
-   "patient": "B029",
-   "baseline": 7.7,
-   "val_log_rmse": 1.087,
-   "val_mae": 6.366,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 34.7,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 34.5
-  },
-  {
-   "patient": "B030",
-   "baseline": 12.5,
-   "val_log_rmse": 1.089,
-   "val_mae": 8.304,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 32.1,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 31.0
-  },
-  {
-   "patient": "B031",
-   "baseline": 20.0,
-   "val_log_rmse": 3.881,
-   "val_mae": 67.683,
-   "cont_med": 160.0,
-   "std_med": 164.5,
-   "std_p10": 155.0,
-   "std_on": 51.3,
-   "agent_med": 165.0,
-   "agent_p10": 156.0,
-   "agent_on": 49.1
-  },
-  {
-   "patient": "B032",
-   "baseline": 22.4,
-   "val_log_rmse": 1.03,
-   "val_mae": 3.153,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 39.6,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 39.6
-  },
-  {
-   "patient": "B036",
-   "baseline": 9.6,
-   "val_log_rmse": 1.298,
-   "val_mae": 5.182,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 57.9,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 57.9
-  },
-  {
-   "patient": "B037",
-   "baseline": 18.6,
-   "val_log_rmse": 1.132,
-   "val_mae": 1.931,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 42.6,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 42.2
-  },
-  {
-   "patient": "B039",
-   "baseline": 19.0,
-   "val_log_rmse": 1.312,
-   "val_mae": 20.455,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 54.7,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 54.5
-  },
-  {
-   "patient": "B040",
-   "baseline": 6.4,
-   "val_log_rmse": 3.311,
-   "val_mae": 7.592,
-   "cont_med": 224.0,
-   "std_med": 229.5,
-   "std_p10": 189.9,
-   "std_on": 39.1,
-   "agent_med": 231.5,
-   "agent_p10": 190.9,
-   "agent_on": 34.3
-  },
-  {
-   "patient": "B041",
-   "baseline": 17.5,
-   "val_log_rmse": 1.545,
-   "val_mae": 28.115,
-   "cont_med": 169.0,
-   "std_med": 174.0,
-   "std_p10": 160.0,
-   "std_on": 60.9,
-   "agent_med": 175.0,
-   "agent_p10": 161.0,
-   "agent_on": 59.3
-  },
-  {
-   "patient": "B042",
-   "baseline": 10.4,
-   "val_log_rmse": 3.256,
-   "val_mae": 33.19,
-   "cont_med": 163.0,
-   "std_med": 171.0,
-   "std_p10": 164.0,
-   "std_on": 47.2,
-   "agent_med": 171.0,
-   "agent_p10": 164.0,
-   "agent_on": 47.2
-  },
-  {
-   "patient": "B044",
-   "baseline": 7.5,
-   "val_log_rmse": 2.01,
-   "val_mae": 43.569,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 44.0,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 43.8
-  },
-  {
-   "patient": "B046",
-   "baseline": 17.2,
-   "val_log_rmse": 0.877,
-   "val_mae": 3.004,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 22.6,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 21.9
-  },
-  {
-   "patient": "B050",
-   "baseline": 47.0,
-   "val_log_rmse": 2.067,
-   "val_mae": 28.033,
-   "cont_med": 258.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 23.1,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 23.1
-  },
-  {
-   "patient": "B051",
-   "baseline": 10.1,
-   "val_log_rmse": 1.121,
-   "val_mae": 5.249,
-   "cont_med": 154.0,
-   "std_med": 156.5,
-   "std_p10": 131.0,
-   "std_on": 60.7,
-   "agent_med": 157.5,
-   "agent_p10": 132.0,
-   "agent_on": 56.8
-  },
-  {
-   "patient": "B052",
-   "baseline": 22.7,
-   "val_log_rmse": 0.821,
-   "val_mae": 4.828,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 67.1,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 65.8
-  },
-  {
-   "patient": "B054",
-   "baseline": 11.2,
-   "val_log_rmse": 0.801,
-   "val_mae": 11.267,
-   "cont_med": 195.5,
-   "std_med": 199.5,
-   "std_p10": 181.0,
-   "std_on": 74.8,
-   "agent_med": 199.5,
-   "agent_p10": 181.0,
-   "agent_on": 73.3
-  },
-  {
-   "patient": "B055",
-   "baseline": 10.7,
-   "val_log_rmse": 1.341,
-   "val_mae": 4.395,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 58.4,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 55.7
-  },
-  {
-   "patient": "B056",
-   "baseline": 5.2,
-   "val_log_rmse": 1.856,
-   "val_mae": 13.55,
-   "cont_med": 144.0,
-   "std_med": 147.0,
-   "std_p10": 130.0,
-   "std_on": 67.9,
-   "agent_med": 147.0,
-   "agent_p10": 130.0,
-   "agent_on": 66.7
-  },
-  {
-   "patient": "B058",
-   "baseline": 19.0,
-   "val_log_rmse": 0.924,
-   "val_mae": 1.461,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 46.1,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 46.1
-  },
-  {
-   "patient": "B060",
-   "baseline": 15.1,
-   "val_log_rmse": 1.532,
-   "val_mae": 10.307,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 51.5,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 50.6
-  },
-  {
-   "patient": "B061",
-   "baseline": 8.1,
-   "val_log_rmse": 0.282,
-   "val_mae": 1.452,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 36.1,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 35.3
-  },
-  {
-   "patient": "B062",
-   "baseline": 32.7,
-   "val_log_rmse": 2.553,
-   "val_mae": 24.584,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 38.2,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 35.8
-  },
-  {
-   "patient": "B063",
-   "baseline": 7.7,
-   "val_log_rmse": 1.565,
-   "val_mae": 7.148,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 51.7,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 51.7
-  },
-  {
-   "patient": "B064",
-   "baseline": 11.6,
-   "val_log_rmse": 2.557,
-   "val_mae": 43.856,
-   "cont_med": 112.0,
-   "std_med": 117.0,
-   "std_p10": 109.0,
-   "std_on": 75.4,
-   "agent_med": 118.0,
-   "agent_p10": 110.0,
-   "agent_on": 74.5
-  },
-  {
-   "patient": "B066",
-   "baseline": 8.5,
-   "val_log_rmse": 1.881,
-   "val_mae": 5.38,
+   "val_log_rmse": 1.95,
+   "val_mae": 2.387,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
    "std_on": 31.6,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 31.6
+   "agent_on": 30.9,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B015",
+   "baseline": 32.4,
+   "val_log_rmse": 1.925,
+   "val_mae": 14.362,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 42.9,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 42.9,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B016",
+   "baseline": 10.4,
+   "val_log_rmse": 3.098,
+   "val_mae": 55.695,
+   "cont_med": 109.0,
+   "std_med": 116.0,
+   "std_p10": 112.0,
+   "std_on": 60.7,
+   "agent_med": 118.0,
+   "agent_p10": 113.0,
+   "agent_on": 59.2,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B017",
+   "baseline": 11.1,
+   "val_log_rmse": 1.942,
+   "val_mae": 3.759,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 27.8,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 27.3,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B019",
+   "baseline": 20.6,
+   "val_log_rmse": 0.569,
+   "val_mae": 2.401,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 40.2,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 38.2,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B020",
+   "baseline": 13.2,
+   "val_log_rmse": 0.57,
+   "val_mae": 2.425,
+   "cont_med": 221.5,
+   "std_med": 226.0,
+   "std_p10": 186.9,
+   "std_on": 62.6,
+   "agent_med": 226.0,
+   "agent_p10": 187.0,
+   "agent_on": 60.6,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B022",
+   "baseline": 9.6,
+   "val_log_rmse": 1.454,
+   "val_mae": 19.553,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 21.9,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 21.0,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B024",
+   "baseline": 14.1,
+   "val_log_rmse": 1.827,
+   "val_mae": 3.239,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 37.8,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 36.6,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B025",
+   "baseline": 7.9,
+   "val_log_rmse": 3.317,
+   "val_mae": 65.197,
+   "cont_med": 95.0,
+   "std_med": 96.0,
+   "std_p10": 93.0,
+   "std_on": 77.0,
+   "agent_med": 96.5,
+   "agent_p10": 93.0,
+   "agent_on": 76.7,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B026",
+   "baseline": 19.0,
+   "val_log_rmse": 1.152,
+   "val_mae": 4.215,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 43.0,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 41.4,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B028",
+   "baseline": 61.0,
+   "val_log_rmse": 1.915,
+   "val_mae": 5.126,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 25.4,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 25.4,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B029",
+   "baseline": 7.7,
+   "val_log_rmse": 1.061,
+   "val_mae": 4.161,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 34.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 33.7,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B030",
+   "baseline": 12.5,
+   "val_log_rmse": 1.461,
+   "val_mae": 18.132,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 33.9,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 32.8,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B031",
+   "baseline": 20.0,
+   "val_log_rmse": 3.883,
+   "val_mae": 67.941,
+   "cont_med": 159.0,
+   "std_med": 169.0,
+   "std_p10": 164.0,
+   "std_on": 49.1,
+   "agent_med": 172.0,
+   "agent_p10": 166.0,
+   "agent_on": 46.4,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B032",
+   "baseline": 22.4,
+   "val_log_rmse": 1.163,
+   "val_mae": 3.315,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 36.7,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 36.7,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B036",
+   "baseline": 9.6,
+   "val_log_rmse": 1.252,
+   "val_mae": 5.19,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 57.8,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 57.8,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B037",
+   "baseline": 18.6,
+   "val_log_rmse": 1.14,
+   "val_mae": 1.858,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 43.2,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 42.8,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B039",
+   "baseline": 19.0,
+   "val_log_rmse": 1.084,
+   "val_mae": 14.699,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 55.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 54.9,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B040",
+   "baseline": 6.4,
+   "val_log_rmse": 3.704,
+   "val_mae": 15.184,
+   "cont_med": 196.0,
+   "std_med": 198.0,
+   "std_p10": 185.0,
+   "std_on": 48.2,
+   "agent_med": 199.0,
+   "agent_p10": 185.0,
+   "agent_on": 44.6,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B041",
+   "baseline": 17.5,
+   "val_log_rmse": 1.724,
+   "val_mae": 35.693,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 32.0,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 30.4,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B042",
+   "baseline": 10.4,
+   "val_log_rmse": 3.284,
+   "val_mae": 34.414,
+   "cont_med": 163.0,
+   "std_med": 170.0,
+   "std_p10": 162.0,
+   "std_on": 52.6,
+   "agent_med": 170.0,
+   "agent_p10": 162.0,
+   "agent_on": 52.6,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B044",
+   "baseline": 7.5,
+   "val_log_rmse": 1.778,
+   "val_mae": 30.274,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 41.8,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 41.3,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B046",
+   "baseline": 17.2,
+   "val_log_rmse": 0.886,
+   "val_mae": 4.138,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 24.0,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 22.5,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B050",
+   "baseline": 47.0,
+   "val_log_rmse": 0.953,
+   "val_mae": 4.885,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 25.5,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 25.5,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B051",
+   "baseline": 10.1,
+   "val_log_rmse": 0.809,
+   "val_mae": 2.931,
+   "cont_med": 225.0,
+   "std_med": 228.5,
+   "std_p10": 216.0,
+   "std_on": 30.3,
+   "agent_med": 230.0,
+   "agent_p10": 217.0,
+   "agent_on": 25.4,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B052",
+   "baseline": 22.7,
+   "val_log_rmse": 0.793,
+   "val_mae": 4.21,
+   "cont_med": 184.5,
+   "std_med": 196.0,
+   "std_p10": 170.9,
+   "std_on": 58.5,
+   "agent_med": 198.0,
+   "agent_p10": 171.9,
+   "agent_on": 56.9,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B054",
+   "baseline": 11.2,
+   "val_log_rmse": 1.581,
+   "val_mae": 23.015,
+   "cont_med": 134.0,
+   "std_med": 138.0,
+   "std_p10": 121.0,
+   "std_on": 83.0,
+   "agent_med": 138.0,
+   "agent_p10": 122.0,
+   "agent_on": 82.5,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B055",
+   "baseline": 10.7,
+   "val_log_rmse": 1.258,
+   "val_mae": 4.138,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 52.5,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 51.2,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B056",
+   "baseline": 5.2,
+   "val_log_rmse": 2.169,
+   "val_mae": 21.946,
+   "cont_med": 134.0,
+   "std_med": 136.0,
+   "std_p10": 126.0,
+   "std_on": 61.6,
+   "agent_med": 136.0,
+   "agent_p10": 126.0,
+   "agent_on": 61.6,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B058",
+   "baseline": 19.0,
+   "val_log_rmse": 1.339,
+   "val_mae": 2.487,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 39.8,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 39.8,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B060",
+   "baseline": 15.1,
+   "val_log_rmse": 1.635,
+   "val_mae": 3.976,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 32.0,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 31.1,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B061",
+   "baseline": 8.1,
+   "val_log_rmse": 0.605,
+   "val_mae": 5.87,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 39.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 37.9,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B062",
+   "baseline": 32.7,
+   "val_log_rmse": 2.742,
+   "val_mae": 25.713,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 38.4,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 36.0,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B063",
+   "baseline": 7.7,
+   "val_log_rmse": 0.849,
+   "val_mae": 1.308,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 46.3,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 46.3,
+   "sel_tier": "moderate"
+  },
+  {
+   "patient": "B064",
+   "baseline": 11.6,
+   "val_log_rmse": 2.037,
+   "val_mae": 27.346,
+   "cont_med": 129.0,
+   "std_med": 132.0,
+   "std_p10": 116.9,
+   "std_on": 59.6,
+   "agent_med": 133.0,
+   "agent_p10": 117.0,
+   "agent_on": 55.7,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B066",
+   "baseline": 8.5,
+   "val_log_rmse": 1.724,
+   "val_mae": 2.676,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 30.2,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 30.2,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B071",
    "baseline": 7.9,
-   "val_log_rmse": 1.15,
-   "val_mae": 19.69,
+   "val_log_rmse": 0.421,
+   "val_mae": 3.333,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 57.1,
+   "std_on": 54.4,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 57.1
+   "agent_on": 53.0,
+   "sel_tier": "low"
   },
   {
    "patient": "B075",
    "baseline": 10.0,
-   "val_log_rmse": 0.872,
-   "val_mae": 2.401,
+   "val_log_rmse": 0.819,
+   "val_mae": 2.119,
    "cont_med": 260.0,
    "std_med": 260.0,
-   "std_p10": 223.9,
-   "std_on": 56.6,
+   "std_p10": 260.0,
+   "std_on": 55.0,
    "agent_med": 260.0,
-   "agent_p10": 224.0,
-   "agent_on": 55.1
+   "agent_p10": 260.0,
+   "agent_on": 54.2,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B077",
    "baseline": 21.0,
-   "val_log_rmse": 1.937,
-   "val_mae": 3.77,
+   "val_log_rmse": 1.805,
+   "val_mae": 3.905,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 49.9,
+   "std_on": 49.1,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 48.0
+   "agent_on": 47.2,
+   "sel_tier": "strong"
   },
   {
    "patient": "B078",
    "baseline": 19.0,
-   "val_log_rmse": 1.973,
-   "val_mae": 25.004,
-   "cont_med": 137.0,
-   "std_med": 141.0,
-   "std_p10": 132.0,
-   "std_on": 67.5,
-   "agent_med": 141.0,
-   "agent_p10": 132.0,
-   "agent_on": 67.5
+   "val_log_rmse": 2.118,
+   "val_mae": 30.878,
+   "cont_med": 132.0,
+   "std_med": 135.0,
+   "std_p10": 129.0,
+   "std_on": 68.6,
+   "agent_med": 135.0,
+   "agent_p10": 129.0,
+   "agent_on": 68.6,
+   "sel_tier": "low"
   },
   {
    "patient": "B079",
    "baseline": 17.0,
-   "val_log_rmse": 1.046,
-   "val_mae": 3.005,
+   "val_log_rmse": 1.148,
+   "val_mae": 2.99,
    "cont_med": 260.0,
    "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 50.5,
+   "std_p10": 225.7,
+   "std_on": 50.8,
    "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 49.3
+   "agent_p10": 228.7,
+   "agent_on": 47.0,
+   "sel_tier": "strong"
   },
   {
    "patient": "B081",
    "baseline": 20.2,
-   "val_log_rmse": 1.948,
-   "val_mae": 2.054,
+   "val_log_rmse": 2.646,
+   "val_mae": 3.58,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 22.6,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 21.9,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B083",
+   "baseline": 15.2,
+   "val_log_rmse": 2.569,
+   "val_mae": 29.525,
+   "cont_med": 154.0,
+   "std_med": 166.0,
+   "std_p10": 150.8,
+   "std_on": 52.1,
+   "agent_med": 170.0,
+   "agent_p10": 154.8,
+   "agent_on": 47.7,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B084",
+   "baseline": 13.6,
+   "val_log_rmse": 3.699,
+   "val_mae": 17.285,
+   "cont_med": 136.0,
+   "std_med": 138.0,
+   "std_p10": 134.0,
+   "std_on": 64.3,
+   "agent_med": 138.0,
+   "agent_p10": 134.0,
+   "agent_on": 63.2,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B085",
+   "baseline": 11.6,
+   "val_log_rmse": 0.758,
+   "val_mae": 5.668,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 42.0,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 40.9,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B086",
+   "baseline": 30.5,
+   "val_log_rmse": 1.452,
+   "val_mae": 24.633,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 44.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 41.3,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B087",
+   "baseline": 36.3,
+   "val_log_rmse": 1.375,
+   "val_mae": 26.72,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 46.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 46.1,
+   "sel_tier": "strong"
+  },
+  {
+   "patient": "B088",
+   "baseline": 10.6,
+   "val_log_rmse": 3.386,
+   "val_mae": 77.257,
+   "cont_med": 111.0,
+   "std_med": 114.0,
+   "std_p10": 110.0,
+   "std_on": 75.1,
+   "agent_med": 114.0,
+   "agent_p10": 110.0,
+   "agent_on": 73.8,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B091",
+   "baseline": 6.8,
+   "val_log_rmse": 1.415,
+   "val_mae": 2.224,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 52.6,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 51.9,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B092",
+   "baseline": 15.1,
+   "val_log_rmse": 3.903,
+   "val_mae": 9.86,
+   "cont_med": 141.0,
+   "std_med": 145.5,
+   "std_p10": 137.0,
+   "std_on": 54.1,
+   "agent_med": 146.5,
+   "agent_p10": 138.0,
+   "agent_on": 51.3,
+   "sel_tier": "low"
+  },
+  {
+   "patient": "B093",
+   "baseline": 22.0,
+   "val_log_rmse": 1.21,
+   "val_mae": 24.526,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
    "std_on": 49.8,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 48.4
-  },
-  {
-   "patient": "B083",
-   "baseline": 15.2,
-   "val_log_rmse": 2.416,
-   "val_mae": 24.033,
-   "cont_med": 163.0,
-   "std_med": 166.0,
-   "std_p10": 158.0,
-   "std_on": 62.0,
-   "agent_med": 167.0,
-   "agent_p10": 159.0,
-   "agent_on": 58.1
-  },
-  {
-   "patient": "B084",
-   "baseline": 13.6,
-   "val_log_rmse": 3.648,
-   "val_mae": 16.299,
-   "cont_med": 137.0,
-   "std_med": 142.0,
-   "std_p10": 135.0,
-   "std_on": 66.1,
-   "agent_med": 143.0,
-   "agent_p10": 136.0,
-   "agent_on": 63.6
-  },
-  {
-   "patient": "B085",
-   "baseline": 11.6,
-   "val_log_rmse": 0.681,
-   "val_mae": 9.676,
-   "cont_med": 123.0,
-   "std_med": 124.0,
-   "std_p10": 102.9,
-   "std_on": 86.0,
-   "agent_med": 124.0,
-   "agent_p10": 102.9,
-   "agent_on": 84.2
-  },
-  {
-   "patient": "B086",
-   "baseline": 30.5,
-   "val_log_rmse": 1.014,
-   "val_mae": 13.221,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 42.1,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 39.2
-  },
-  {
-   "patient": "B087",
-   "baseline": 36.3,
-   "val_log_rmse": 1.354,
-   "val_mae": 26.739,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 45.3,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 45.3
-  },
-  {
-   "patient": "B088",
-   "baseline": 10.6,
-   "val_log_rmse": 3.404,
-   "val_mae": 78.719,
-   "cont_med": 110.0,
-   "std_med": 111.5,
-   "std_p10": 107.0,
-   "std_on": 72.4,
-   "agent_med": 112.0,
-   "agent_p10": 108.0,
-   "agent_on": 71.1
-  },
-  {
-   "patient": "B091",
-   "baseline": 6.8,
-   "val_log_rmse": 1.526,
-   "val_mae": 2.856,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 54.1,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 53.6
-  },
-  {
-   "patient": "B092",
-   "baseline": 15.1,
-   "val_log_rmse": 3.924,
-   "val_mae": 10.079,
-   "cont_med": 140.0,
-   "std_med": 146.0,
-   "std_p10": 137.9,
-   "std_on": 56.1,
-   "agent_med": 148.0,
-   "agent_p10": 139.0,
-   "agent_on": 53.8
-  },
-  {
-   "patient": "B093",
-   "baseline": 22.0,
-   "val_log_rmse": 1.2,
-   "val_mae": 21.643,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 50.1,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 48.0
+   "agent_on": 47.9,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B094",
    "baseline": 10.7,
-   "val_log_rmse": 6.897,
-   "val_mae": 76.005,
-   "cont_med": 110.0,
-   "std_med": 112.0,
-   "std_p10": 106.0,
-   "std_on": 72.5,
-   "agent_med": 112.0,
-   "agent_p10": 106.0,
-   "agent_on": 71.5
+   "val_log_rmse": 6.825,
+   "val_mae": 73.208,
+   "cont_med": 113.0,
+   "std_med": 116.0,
+   "std_p10": 112.0,
+   "std_on": 73.2,
+   "agent_med": 117.0,
+   "agent_p10": 112.0,
+   "agent_on": 71.9,
+   "sel_tier": "low"
   },
   {
    "patient": "B095",
    "baseline": 90.0,
-   "val_log_rmse": 6.167,
-   "val_mae": 52.136,
+   "val_log_rmse": 6.042,
+   "val_mae": 47.606,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 11.9,
+   "std_on": 22.0,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 1.8
+   "agent_on": 0.8,
+   "sel_tier": "low"
   },
   {
    "patient": "B096",
    "baseline": 6.4,
-   "val_log_rmse": 1.479,
-   "val_mae": 0.775,
+   "val_log_rmse": 1.586,
+   "val_mae": 0.842,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 29.3,
+   "std_on": 28.8,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 28.7
+   "agent_on": 28.0,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B097",
    "baseline": 8.9,
-   "val_log_rmse": 2.94,
-   "val_mae": 15.669,
-   "cont_med": 176.0,
-   "std_med": 182.0,
-   "std_p10": 146.9,
-   "std_on": 66.9,
-   "agent_med": 182.0,
-   "agent_p10": 146.9,
-   "agent_on": 66.9
+   "val_log_rmse": 2.193,
+   "val_mae": 12.198,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 34.9,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 34.9,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B099",
    "baseline": 40.8,
-   "val_log_rmse": 1.509,
-   "val_mae": 7.75,
-   "cont_med": 185.0,
-   "std_med": 218.0,
-   "std_p10": 188.0,
-   "std_on": 48.5,
-   "agent_med": 229.0,
-   "agent_p10": 195.0,
-   "agent_on": 42.3
+   "val_log_rmse": 1.188,
+   "val_mae": 10.529,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 252.0,
+   "std_on": 32.8,
+   "agent_med": 260.0,
+   "agent_p10": 255.0,
+   "agent_on": 28.8,
+   "sel_tier": "strong"
   },
   {
    "patient": "B100",
    "baseline": 22.4,
    "val_log_rmse": Infinity,
-   "val_mae": 14.978,
+   "val_mae": 1.982,
    "cont_med": 260.0,
    "std_med": 260.0,
    "std_p10": 260.0,
-   "std_on": 51.2,
+   "std_on": 46.7,
    "agent_med": 260.0,
    "agent_p10": 260.0,
-   "agent_on": 51.2
+   "agent_on": 46.7,
+   "sel_tier": "strong"
   },
   {
    "patient": "B101",
    "baseline": 13.2,
-   "val_log_rmse": 1.056,
-   "val_mae": 6.837,
-   "cont_med": 259.0,
+   "val_log_rmse": 1.371,
+   "val_mae": 7.512,
+   "cont_med": 245.0,
    "std_med": 260.0,
-   "std_p10": 255.0,
-   "std_on": 48.3,
+   "std_p10": 188.0,
+   "std_on": 45.2,
    "agent_med": 260.0,
-   "agent_p10": 255.0,
-   "agent_on": 48.3
+   "agent_p10": 188.0,
+   "agent_on": 45.2,
+   "sel_tier": "low"
   },
   {
    "patient": "B102",
    "baseline": 6.8,
-   "val_log_rmse": 2.057,
-   "val_mae": 10.278,
-   "cont_med": 118.0,
-   "std_med": 119.0,
-   "std_p10": 103.9,
-   "std_on": 78.1,
-   "agent_med": 119.5,
-   "agent_p10": 104.0,
-   "agent_on": 76.2
+   "val_log_rmse": 1.651,
+   "val_mae": 5.062,
+   "cont_med": 140.0,
+   "std_med": 144.5,
+   "std_p10": 131.0,
+   "std_on": 57.3,
+   "agent_med": 145.5,
+   "agent_p10": 131.9,
+   "agent_on": 55.4,
+   "sel_tier": "low"
   },
   {
    "patient": "B104",
    "baseline": 15.1,
-   "val_log_rmse": 0.715,
-   "val_mae": 2.927,
-   "cont_med": 260.0,
-   "std_med": 260.0,
-   "std_p10": 260.0,
-   "std_on": 35.5,
-   "agent_med": 260.0,
-   "agent_p10": 260.0,
-   "agent_on": 33.8
+   "val_log_rmse": 1.977,
+   "val_mae": 22.641,
+   "cont_med": 159.5,
+   "std_med": 166.5,
+   "std_p10": 141.9,
+   "std_on": 64.5,
+   "agent_med": 169.0,
+   "agent_p10": 144.9,
+   "agent_on": 61.9,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B105",
    "baseline": 15.4,
-   "val_log_rmse": 0.765,
-   "val_mae": 4.264,
+   "val_log_rmse": 0.737,
+   "val_mae": 3.194,
    "cont_med": 260.0,
    "std_med": 260.0,
-   "std_p10": 253.9,
-   "std_on": 24.3,
+   "std_p10": 260.0,
+   "std_on": 52.6,
    "agent_med": 260.0,
-   "agent_p10": 258.0,
-   "agent_on": 18.5
+   "agent_p10": 260.0,
+   "agent_on": 49.7,
+   "sel_tier": "moderate"
   },
   {
    "patient": "B106",
    "baseline": 15.0,
-   "val_log_rmse": 3.803,
-   "val_mae": 55.415,
-   "cont_med": 110.0,
-   "std_med": 112.0,
-   "std_p10": 105.0,
-   "std_on": 72.5,
-   "agent_med": 112.0,
-   "agent_p10": 105.0,
-   "agent_on": 71.0
+   "val_log_rmse": 3.529,
+   "val_mae": 43.052,
+   "cont_med": 118.0,
+   "std_med": 121.0,
+   "std_p10": 112.0,
+   "std_on": 63.5,
+   "agent_med": 122.0,
+   "agent_p10": 112.0,
+   "agent_on": 61.5,
+   "sel_tier": "low"
   },
   {
    "patient": "B108",
    "baseline": 12.0,
-   "val_log_rmse": 4.513,
-   "val_mae": 47.338,
-   "cont_med": 127.0,
-   "std_med": 129.5,
-   "std_p10": 122.0,
-   "std_on": 66.1,
-   "agent_med": 130.0,
-   "agent_p10": 122.0,
-   "agent_on": 64.8
+   "val_log_rmse": 4.681,
+   "val_mae": 58.323,
+   "cont_med": 118.0,
+   "std_med": 123.0,
+   "std_p10": 116.0,
+   "std_on": 63.6,
+   "agent_med": 123.0,
+   "agent_p10": 117.0,
+   "agent_on": 62.8,
+   "sel_tier": "low"
   },
   {
    "patient": "B109",
    "baseline": 12.0,
-   "val_log_rmse": 3.357,
-   "val_mae": 55.392,
-   "cont_med": 90.0,
-   "std_med": 94.5,
-   "std_p10": 88.0,
-   "std_on": 83.8,
-   "agent_med": 94.5,
-   "agent_p10": 88.0,
-   "agent_on": 83.8
+   "val_log_rmse": 1.332,
+   "val_mae": 9.364,
+   "cont_med": 260.0,
+   "std_med": 260.0,
+   "std_p10": 260.0,
+   "std_on": 49.1,
+   "agent_med": 260.0,
+   "agent_p10": 260.0,
+   "agent_on": 49.1,
+   "sel_tier": "moderate"
   }
  ]
 }

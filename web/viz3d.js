@@ -68,6 +68,7 @@ function v3seeded(n) {
 }
 function buildV3() {
   const el = $("stage3d");
+  if (!el) return null; // microscope slide removed from the deck
   if (typeof THREE === "undefined") {
     el.innerHTML = '<div class="dish-fallback">3D views need the local Three.js file.</div>';
     return null;
@@ -713,6 +714,7 @@ const V3_BUILDERS = { shell: v3shell, voxel: v3voxel, towers: v3towers,
 
 /* ------------------------------------------------------------ driver ---- */
 function renderV3Panel() {
+  if (!$("stage3d")) return; // microscope slide removed from the deck
   const P = PATIENTS[PID];
   if (!P) return;
   let st = V3.st;

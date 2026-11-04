@@ -16,9 +16,7 @@
       <span id="slCount">1 / 1</span>
       <button id="nextSl" aria-label="Next slide">›</button>
     </span>
-    <label class="patpick">Patient
-      <select id="patient"></select>
-    </label>
+    <button id="tryBtn">Try the tool</button>
   </span>
 </nav>
 
@@ -30,9 +28,6 @@
     <p>The hormone drug can shrink prostate cancer. But if the drug never stops, some
       cancer cells learn to live with it. Those hard-to-kill cells then grow.
       Then cancer becomes non-responsive to treatment. A break from the drug can help.</p>
-    <p class="why"><strong>Why it matters:</strong> a break at the wrong time does not help.
-      A break at the right time gives the patient time off the drug, and the cancer
-      still stays under control.</p>
   </section>
 
   <!-- COVER: adaptive cancer therapy, in one paragraph + one animated picture -->
@@ -76,119 +71,54 @@
   <!-- HOW WE PREDICT -->
   <section class="slide">
     <p class="act">3 · Can we trust our guesses?</p>
-    <h2>How the agent makes the guess, step by step.</h2>
-    <p class="hint">We only ever see one number — the blood test, which is green cells plus
-      red cells added together. An agent turns that into a prediction: it proposes an
-      explanation, runs it, scores it, keeps or rejects it — and tries again, 80 rounds over.</p>
+    <h2>How the agent makes the guess.</h2>
+    <p class="hint">The agent's real job: guess <strong>whether this patient would
+      benefit from adaptive therapy</strong>. To do that, it first guesses the hidden
+      green/red split, again and again, until its guesses match the early tests.</p>
     <div class="calwrap">
-      <svg viewBox="0 0 1080 445" role="img" aria-label="Four steps: what we know (blood tests and drug on or off), the agent proposes a hidden green and red split by setting six things and scoring it on the early readings, it keeps or rejects each try over 80 rounds until 200 explanations are kept, then runs them forward with the real drug calendar to get a guess and a plausible range. Below, the loop: propose, simulate week by week, score on the early readings only, keep or reject, try again, with every try logged.">
-        <!-- stage headers -->
+      <svg viewBox="0 0 1080 330" role="img" aria-label="Three steps: what we see (blood tests and when the drug was on or off), the Meta Muse Agent guesses the hidden green and red split, then it keeps 200 good guesses and runs them forward to make a prediction with a plausible range.">
         <g font-family="inherit">
-          <text x="0" y="22" font-size="14" font-weight="700" fill="#f4f4f2">1 · WHAT WE KNOW</text>
-          <text x="280" y="22" font-size="14" font-weight="700" fill="#f4f4f2">2 · THE AGENT GUESSES THE SPLIT</text>
-          <text x="560" y="22" font-size="14" font-weight="700" fill="#f4f4f2">3 · KEEP OR REJECT, 80 ROUNDS</text>
-          <text x="840" y="22" font-size="14" font-weight="700" fill="#f4f4f2">4 · RUN THEM FORWARD</text>
+          <text x="0" y="24" font-size="15" font-weight="700" fill="#f4f4f2">1 · WHAT WE SEE</text>
+          <polyline points="8,70 48,130 88,150 128,95 168,65 208,120 248,140 288,90" fill="none" stroke="#34d3bd" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="8" y="176" width="86" height="13" fill="#e8a33d"/>
+          <rect x="94" y="176" width="104" height="13" fill="#2c4a78"/>
+          <rect x="198" y="176" width="86" height="13" fill="#e8a33d"/>
+          <text x="0" y="226" font-size="14" fill="#d9deda">Blood tests over time, and when</text>
+          <text x="0" y="248" font-size="14" fill="#d9deda">the drug was on (amber) or off (blue).</text>
 
-          <!-- arrows between stages -->
-          <g stroke="#9aa39f" stroke-width="2" fill="none">
-            <path d="M248 190 L268 190 M260 182 L269 190 L260 198"/>
-            <path d="M528 190 L548 190 M540 182 L549 190 L540 198"/>
-            <path d="M808 190 L828 190 M820 182 L829 190 L820 198"/>
-          </g>
+          <path d="M330 130 L356 130 M348 122 L358 130 L348 138" stroke="#9aa39f" stroke-width="2.5" fill="none"/>
 
-          <!-- 1: readings + drug strip -->
-          <g>
-            <polyline points="8,70 38,150 68,168 98,120 128,82 158,140 188,166 218,110 236,84"
-              fill="none" stroke="#34d3bd" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-            <g>
-              <circle cx="8" cy="70" r="4.5" fill="#e8a33d"/><circle cx="38" cy="150" r="4.5" fill="#e8a33d"/>
-              <circle cx="68" cy="168" r="4.5" fill="#0a0a0a" stroke="#5b9cf5" stroke-width="2"/>
-              <circle cx="98" cy="120" r="4.5" fill="#0a0a0a" stroke="#5b9cf5" stroke-width="2"/>
-              <circle cx="128" cy="82" r="4.5" fill="#e8a33d"/><circle cx="158" cy="140" r="4.5" fill="#e8a33d"/>
-              <circle cx="188" cy="166" r="4.5" fill="#0a0a0a" stroke="#5b9cf5" stroke-width="2"/>
-              <circle cx="218" cy="110" r="4.5" fill="#e8a33d"/>
-            </g>
-            <g>
-              <rect x="8" y="196" width="52" height="12" fill="#e8a33d"/>
-              <rect x="60" y="196" width="64" height="12" fill="#2c4a78"/>
-              <rect x="124" y="196" width="52" height="12" fill="#e8a33d"/>
-              <rect x="176" y="196" width="60" height="12" fill="#2c4a78"/>
-            </g>
-            <text x="0" y="238" font-size="12.5" fill="#d9deda">Blood tests over time, and</text>
-            <text x="0" y="256" font-size="12.5" fill="#d9deda">when the drug was on (amber)</text>
-            <text x="0" y="274" font-size="12.5" fill="#d9deda">or off (blue). That is all</text>
-            <text x="0" y="292" font-size="12.5" fill="#d9deda">we ever get to see. We learn</text>
-            <text x="0" y="310" font-size="12.5" fill="#d9deda">from the first 6 of every 10.</text>
-          </g>
+          <text x="380" y="24" font-size="15" font-weight="700" fill="#f4f4f2">2 · META MUSE AGENT GUESSES</text>
+          <rect x="380" y="62" width="240" height="34" fill="#2e9e5b"/>
+          <rect x="620" y="62" width="52" height="34" fill="#d64545"/>
+          <text x="392" y="84" font-size="13" font-weight="700" fill="#06130a">green cells</text>
+          <text x="646" y="84" font-size="11" font-weight="700" fill="#1a0606" text-anchor="middle">red</text>
+          <text x="380" y="128" font-size="14" fill="#ff9a9a">The red part is hidden. The agent</text>
+          <text x="380" y="150" font-size="14" fill="#ff9a9a">guesses it, and how the cells grow</text>
+          <text x="380" y="176" font-size="14" fill="#d9deda">Each guess is run week by week and</text>
+          <text x="380" y="198" font-size="14" fill="#d9deda">scored against the early tests.</text>
 
-          <!-- 2: hidden split + six knobs -->
-          <g>
-            <rect x="280" y="58" width="196" height="26" fill="#2e9e5b"/>
-            <rect x="476" y="58" width="34" height="26" fill="#d64545"/>
-            <text x="291" y="76" font-size="12" font-weight="700" fill="#06130a">green cells</text>
-            <text x="493" y="76" font-size="10" font-weight="700" fill="#1a0606" text-anchor="middle">red</text>
-            <text x="280" y="106" font-size="12.5" fill="#d9deda">First reading, split in two.</text>
-            <text x="280" y="124" font-size="12.5" fill="#ff9a9a">The red share is hidden —</text>
-            <text x="280" y="142" font-size="12.5" fill="#ff9a9a">we have to guess it.</text>
-            <text x="280" y="172" font-size="12.5" font-weight="700" fill="#f4f4f2">Each try, it sets 6 things:</text>
-            <g font-size="12" fill="#9aa39f">
-              <text x="280" y="193">· how fast green cells grow</text>
-              <text x="280" y="212">· how fast red cells grow (slower)</text>
-              <text x="280" y="231">· how hard the drug kills green</text>
-              <text x="280" y="250">· how much red cells crowd green</text>
-              <text x="280" y="269">· how much green cells crowd red</text>
-              <text x="280" y="288">· the hidden red share at the start</text>
-            </g>
-            <text x="280" y="318" font-size="12" fill="#34d3bd">It runs that cancer week by week</text>
-            <text x="280" y="336" font-size="12" fill="#34d3bd">and scores how well it fits.</text>
-            <text x="280" y="360" font-size="11" fill="#ff9a9a">One hard rule: red must grow</text>
-            <text x="280" y="376" font-size="11" fill="#ff9a9a">slower than green, or the try</text>
-            <text x="280" y="392" font-size="11" fill="#ff9a9a">is thrown out at once.</text>
-          </g>
+          <path d="M696 130 L722 130 M714 122 L724 130 L714 138" stroke="#9aa39f" stroke-width="2.5" fill="none"/>
 
-          <!-- 3: fan of 200 -->
-          <g stroke="#34d3bd" fill="none" opacity="0.4">
-            <path d="M566 190 C 640 186, 720 120, 796 62"/>
-            <path d="M566 190 C 640 188, 720 150, 796 96"/>
-            <path d="M566 190 C 640 190, 720 176, 796 138"/>
-            <path d="M566 190 C 640 192, 720 192, 796 178"/>
-            <path d="M566 190 C 640 194, 720 208, 796 214"/>
-            <path d="M566 190 C 640 198, 720 238, 796 258"/>
-            <path d="M566 190 C 640 202, 720 268, 796 296"/>
-          </g>
-          <circle cx="566" cy="190" r="5" fill="#34d3bd"/>
-          <g font-size="12.5" fill="#d9deda">
-            <text x="560" y="322">8 tries a round: sharpen the best,</text>
-            <text x="560" y="340">mix two kept, vary one, explore.</text>
-            <text x="560" y="358">Kept only if nearly as good as</text>
-            <text x="560" y="376">the best — until 200 are kept.</text>
-          </g>
+          <text x="746" y="24" font-size="15" font-weight="700" fill="#f4f4f2">3 · KEEP 200, GUESS THE BENEFIT</text>
+          <path d="M754 76 C 840 60, 950 66, 1064 96 L 1064 170 C 950 142, 840 140, 754 128 Z" fill="rgba(52,211,189,0.18)"/>
+          <path d="M754 102 C 850 88, 960 96, 1064 132" fill="none" stroke="#34d3bd" stroke-width="3.5"/>
+          <text x="746" y="204" font-size="14" fill="#d9deda">It runs the 200 guesses forward, then</text>
+          <text x="746" y="226" font-size="14" fill="#d9deda">answers: would breaks help this patient,</text>
+          <text x="746" y="248" font-size="14" fill="#d9deda">and how many weeks off drug?</text>
 
-          <!-- 4: band + median -->
-          <g>
-            <path d="M846 84 C 900 74, 960 96, 1072 130 L 1072 218 C 960 196, 900 190, 846 176 Z"
-              fill="rgba(52,211,189,0.18)"/>
-            <path d="M846 130 C 900 122, 960 140, 1072 176" fill="none" stroke="#34d3bd" stroke-width="3.5"/>
-            <text x="846" y="252" font-size="12.5" fill="#34d3bd" font-weight="700">teal line = our guess</text>
-            <text x="846" y="272" font-size="12.5" fill="#d9deda">(the middle of the 200 runs,</text>
-            <text x="846" y="290" font-size="12.5" fill="#d9deda">run with the real drug calendar)</text>
-            <text x="846" y="316" font-size="12.5" fill="#d9deda">Shaded band = where 90 of</text>
-            <text x="846" y="334" font-size="12.5" fill="#d9deda">the 100 runs fall. Wide band</text>
-            <text x="846" y="352" font-size="12.5" fill="#d9deda">= we are unsure.</text>
-          </g>
-
-          <!-- the loop, in one strip -->
-          <rect x="0" y="404" width="1080" height="32" rx="8" fill="#0c0e0d" stroke="#262b29"/>
-          <text x="540" y="425" font-size="12.5" fill="#d9deda" text-anchor="middle">THE LOOP — propose → simulate week by week → score on the early readings only → keep or reject → try again · every try is logged with its reason</text>
+          <rect x="0" y="282" width="1080" height="34" rx="8" fill="#0c0e0d" stroke="#262b29"/>
+          <text x="540" y="304" font-size="13.5" fill="#d9deda" text-anchor="middle">TRY &#8594; RUN &#8594; SCORE &#8594; KEEP OR THROW AWAY &#8594; TRY AGAIN</text>
         </g>
       </svg>
     </div>
-    <p class="lesson"><strong>The key point:</strong> the agent never sees the red cells, and
-      it is only ever scored on the early readings. That is why it keeps 200 explanations
-      instead of one — the spread between them is our honesty about what we do not know.
-      With a Meta API key, Muse Spark proposes each try; without one, a local proposer
-      runs the same loop (this deck's run used the local proposer).
-      Next slide: two drug plans race on the same cancer.</p>
+    <p class="lesson"><strong>The key point:</strong> the agent never sees the red cells —
+      so it keeps 200 good guesses, not one. From them it makes its real guess:
+      <strong>would this patient benefit from adaptive therapy, and by how much?</strong>
+      That answer comes later, as big, middle, or small saver.
+      The agent is <strong>Meta Muse</strong> (Muse Spark proposes each try with a Meta
+      API key; this deck's run used a local proposer on all 105 patients, so every
+      number can be re-made without a key).</p>
   </section>
 
   <!-- SLIDE 2: sim -->
@@ -247,17 +177,13 @@
     <h2>Half the drug, same control — but for who?</h2>
     <p class="hint" id="selectionIntro">Loading the results…</p>
     <dl class="stats" id="selectionStats"></dl>
-  </section>
-
-  <!-- SLIDE 3c: who should pause, the patients -->
-  <section class="slide">
-    <p class="act">5 · Who saves the most? — the patients</p>
-    <h2>Patients we think will save the most drug time.</h2>
-    <table id="selectionTable"></table>
-    <p class="hint" id="selectionMethod"></p>
-    <p class="lesson"><strong>Bottom line:</strong> do not give every patient a fancy new plan.
-      Give a break first to the big savers — they get far less drug with the same
-      control. This is still a computer model, not proof in real patients.</p>
+    <p class="lesson"><strong>What we found this time:</strong> the agent now ran on
+      every patient — all 105 (Bruchovsky 72, Shaw 16, Zhang 17), not just one study.
+      On average a break plan spends <strong>56 of every 100 weeks off the drug</strong>,
+      and the patients we pick spend <strong>71 of 100 weeks off</strong>, still with
+      the same control as never stopping (+0.3 weeks). Big savers (70+ weeks off) are
+      45% of our picks, against 22% of all patients. Saving still varies a lot by
+      patient — from 6 to 99 weeks off in 100.</p>
   </section>
 
   <!-- CORE 6: real life -->
@@ -275,25 +201,33 @@
       because of it. A real study must prove it first.</p>
   </section>
 
-  <!-- APPENDIX DIVIDER -->
-  <section class="slide story">
-    <p class="act">Appendix · Proof</p>
-    <h2>That is the story. The rest is proof.</h2>
-    <p>Next come the things judges and doctors may ask for: the full table for
-      all patients.</p>
-    <p class="why">You do not need the appendix to get the main point:
-      <strong>who you are matters more than the exact break rule.</strong></p>
-  </section>
-
-  <!-- SLIDE 4: summary -->
+  <!-- TRY IT: upload your own patient -->
   <section class="slide">
-    <p class="act">Appendix A · All patients</p>
-    <h2>All patients: break plan vs drug always on.</h2>
-    <p class="hint">For each patient: how many weeks the cancer stays under control,
-      and how much of the time is spent on the drug. The longest time we show is
-      260 weeks (5 years).</p>
-    <table id="summaryTable"></table>
-    <p class="hint" id="overallLine"></p>
+    <p class="act">Try it · Your own patient</p>
+    <h2>Your patient. Our guess.</h2>
+    <p class="hint">Upload a CSV with columns <code>patient_id, date, psa_ng_ml, on_treatment</code>
+      (at least 5 readings on the drug and 5 off, per patient). Every patient in the file is
+      fitted and scored in your browser, then ranked by who would benefit most from a break.
+      No file handy? Use the example patient.</p>
+    <div class="simcontrols">
+      <label>Muse API key (needed for a guess)
+        <input type="password" id="upKey" placeholder="Paste key" autocomplete="off" spellcheck="false" size="28">
+      </label>
+      <span class="hint">Only Muse guesses how likely each patient is to benefit.
+        Without a key we fit and score, but make no guess. The key stays in this tab —
+        it is only sent to Meta's API, never stored.</span>
+    </div>
+    <div class="simcontrols">
+      <label>Your CSV <input type="file" id="upFile" accept=".csv,text/csv"></label>
+      <button id="upExample">Use example patient</button>
+      <button id="upSend" disabled>Send</button>
+      <a href="example_patient.csv" download>Download example CSV</a>
+    </div>
+    <p class="hint" id="upStatus">Pick a file (or the example), then press Send.</p>
+    <div id="upOut"></div>
+    <div class="chartwrap"><canvas id="upChart" width="1200" height="300"></canvas></div>
+    <p class="hint">Quick in-browser fit (about 40 model versions), not the offline
+      200-version run. A guess from a computer model — not medical advice.</p>
   </section>
 
 </main>
@@ -374,6 +308,7 @@
 <script src="viz.js?v=17"></script>
 <script src="viz3d.js?v=27"></script>
 <script src="tissue-shader.js?v=1"></script>
+<script src="upload.js?v=1"></script>
 <script>
 // Slide deck: horizontal paging with prev/next, dots, keys, and edge-aware wheel.
 (function () {
@@ -424,6 +359,10 @@
     });
   }, { passive: true });
 
+  document.getElementById("tryBtn").addEventListener("click", function () {
+    var i = slides.findIndex(function (s) { return s.querySelector("#upFile"); });
+    go(i >= 0 ? i : slides.length - 2);
+  });
   document.getElementById("prevSl").addEventListener("click", function () { go(cur - 1); });
   document.getElementById("nextSl").addEventListener("click", function () { go(cur + 1); });
 

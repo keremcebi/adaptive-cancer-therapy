@@ -50,12 +50,13 @@ def _meta_propose_params(prompt, timeout_s=60):
         return None
     url = os.environ.get(
         "META_MODEL_API_URL", "https://api.meta.ai/v1/chat/completions")
-    model = os.environ.get("META_MODEL", "muse-spark")
+    model = os.environ.get("META_MODEL", "muse-spark-1.3")
     body = json.dumps({
         "model": model,
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 300,
+        "max_tokens": 600,
         "temperature": 0.8,
+        "reasoning_effort": "minimal",
     }).encode()
     req = urllib.request.Request(
         url, data=body,
@@ -64,7 +65,13 @@ def _meta_propose_params(prompt, timeout_s=60):
     try:
         with urllib.request.urlopen(req, timeout=timeout_s) as resp:
             data = json.loads(resp.read().decode())
-        text = data["choices"][0]["message"]["content"]
+        content = data["choices"][0]["message"]["content"]
+        if isinstance(content, list):
+            text = "".join(
+                p.get("text", "") if isinstance(p, dict) else str(p)
+                for p in content)
+        else:
+            text = content or ""
     except Exception:
         return None
     m = re.search(r"\{.*?\}", text, re.S)
